@@ -15,11 +15,13 @@ class Customteaxtfield extends StatelessWidget {
   final String? Function(String?)? validator;
   List<TextInputFormatter>? inputFormatters;
   Function(String?)? onSaved;
+  AutovalidateMode? autovalidateMode;
   int maxLines;
   Customteaxtfield({
     super.key,
     this.inputFormatters,
     required this.labelText,
+    this.autovalidateMode,
     this.prefixIcon,
     this.suffixIcon,
     required this.obscureText,
@@ -34,13 +36,14 @@ class Customteaxtfield extends StatelessWidget {
   Widget build(BuildContext context) {
     OutlineInputBorder initBorder = OutlineInputBorder(
       borderSide: BorderSide(color: Color(0xffBABABA)),
-      borderRadius: BorderRadius.circular(18),
+      borderRadius: BorderRadius.circular(15),
     );
     OutlineInputBorder activeBorder = OutlineInputBorder(
       borderSide: BorderSide(color: kMainColor),
-      borderRadius: BorderRadius.circular(18),
+      borderRadius: BorderRadius.circular(15),
     );
     return TextFormField(
+      autovalidateMode: autovalidateMode,
       onSaved: onSaved,
       inputFormatters: inputFormatters,
       controller: controller,
