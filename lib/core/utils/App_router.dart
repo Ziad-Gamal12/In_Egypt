@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, camel_case_types
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_egypt/Features/Auth/presentation/Views/SignInView.dart';
+import 'package:in_egypt/Features/Auth/presentation/Views/SignUpView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
 
@@ -17,6 +19,18 @@ class App_router {
         path: OnBoardingView.routeName,
         builder: (BuildContext context, GoRouterState state) {
           return const OnBoardingView();
+        },
+      ),
+      GoRoute(
+        path: SignInView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return const SignInView();
+        },
+      ),
+      GoRoute(
+        path: SignUpView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return const SignUpView();
         },
       ),
     ],

@@ -8,21 +8,25 @@ abstract class shared_preferences_Services {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static Future<void> boolSetter(
-      {required String key, required bool value}) async {
+  static Future<void> boolSetter({
+    required String key,
+    required bool value,
+  }) async {
     await sharedPreferences.setBool(key, value);
   }
 
-  static boolgetter({required String key}) {
+  static bool boolgetter({required String key}) {
     return sharedPreferences.getBool(key) ?? false;
   }
 
-  static Future<void> stringSetter(
-      {required String key, required String value}) async {
+  static Future<void> stringSetter({
+    required String key,
+    required String value,
+  }) async {
     await sharedPreferences.setString(key, value);
   }
 
-  static stringGetter({required String key}) {
+  static String stringGetter({required String key}) {
     return sharedPreferences.getString(key) ?? " ";
   }
 }
