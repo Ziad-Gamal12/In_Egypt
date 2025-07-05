@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:in_egypt/core/utils/textStyles.dart';
 
 ShowSnackBar({
   required BuildContext context,
@@ -18,15 +18,56 @@ ShowSnackBar({
   );
 }
 
-ShowErrorSnackBar({required BuildContext context, required String errMessage}) {
+void showErrorSnackBar({
+  required BuildContext context,
+  required String message,
+}) {
   ScaffoldMessenger.of(context).showSnackBar(
-    ShowSnackBar(
-      context: context,
-      child: Text(
-        errMessage,
-        style: AppTextStyles(context).regular14.copyWith(color: Colors.white),
+    SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: "خطأ",
+        message: message,
+        contentType: ContentType.failure,
       ),
-      backgroundColor: Colors.red,
+    ),
+  );
+}
+
+void showWarningSnackBar({
+  required BuildContext context,
+  required String message,
+}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: "تحذير",
+        message: message,
+        contentType: ContentType.warning,
+      ),
+    ),
+  );
+}
+
+void showSuccessSnackBar({
+  required BuildContext context,
+  required String message,
+}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: "نجاح",
+        message: message,
+        contentType: ContentType.success,
+      ),
     ),
   );
 }

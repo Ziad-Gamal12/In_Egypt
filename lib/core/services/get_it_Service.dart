@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
 import 'package:get_it/get_it.dart';
+import 'package:in_egypt/Features/Auth/data/Repos/AuthRepoImpl.dart';
+import 'package:in_egypt/Features/Auth/domain/Repos/AuthRepo.dart';
 import 'package:in_egypt/core/services/DataBaseService.dart';
 import 'package:in_egypt/core/services/FirebaseAuth_Service.dart';
 import 'package:in_egypt/core/services/Firebase_FirestoreService.dart';
@@ -18,4 +20,10 @@ void setup_Getit() {
   getIt.registerSingleton<StorageService>(getIt<firebasestorageservice>());
   getIt.registerSingleton<Databaseservice>(FirebaseFirestoreservice());
   getIt.registerSingleton<Pickerassetsservice>(Pickerassetsservice());
+  getIt.registerSingleton<AuthRepo>(
+    AuthRepoImpl(
+      authService: getIt<firebaseAuthService>(),
+      databaseservice: getIt<Databaseservice>(),
+    ),
+  );
 }

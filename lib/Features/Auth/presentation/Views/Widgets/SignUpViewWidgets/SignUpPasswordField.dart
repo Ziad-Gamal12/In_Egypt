@@ -5,11 +5,12 @@ import 'package:in_egypt/core/widgets/CustomTeaxtField.dart';
 class SignUpPasswordField extends StatelessWidget {
   final bool isVisible;
   final Function(bool) onVisibilityChanged;
-
+  final TextEditingController passwordController;
   const SignUpPasswordField({
     super.key,
     required this.isVisible,
     required this.onVisibilityChanged,
+    required this.passwordController,
   });
 
   @override
@@ -17,6 +18,7 @@ class SignUpPasswordField extends StatelessWidget {
     return Customteaxtfield(
       labelText: "كلمة المرور",
       obscureText: !isVisible,
+      controller: passwordController,
       textInputType: TextInputType.visiblePassword,
       suffixIcon: Custompasswordvisibleicon(
         visibilityChanged: onVisibilityChanged,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/core/widgets/CustomTeaxtField.dart';
 
 class SignUpNameFields extends StatelessWidget {
@@ -6,6 +8,7 @@ class SignUpNameFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserEntity userEntity = context.read<UserEntity>();
     return Column(
       children: [
         Customteaxtfield(
@@ -13,7 +16,9 @@ class SignUpNameFields extends StatelessWidget {
           obscureText: false,
           textInputType: TextInputType.name,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-
+          onSaved: (val) {
+            userEntity.firstName = val ?? '';
+          },
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'الرجاء إدخال الاسم الأول';
@@ -27,7 +32,9 @@ class SignUpNameFields extends StatelessWidget {
           obscureText: false,
           textInputType: TextInputType.name,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-
+          onSaved: (val) {
+            userEntity.lastName = val ?? '';
+          },
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'الرجاء إدخال الاسم الأخير';

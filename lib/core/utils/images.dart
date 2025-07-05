@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-
+  
   /// Assets for assetsIconsAppIcon
   /// assets/icons/AppIcon.png
   static const String assetsIconsAppIcon = "assets/icons/AppIcon.png";
@@ -12,8 +12,7 @@ class Assets {
 
   /// Assets for assetsIconsArrowLeftBack
   /// assets/icons/arrowLeftBack.svg
-  static const String assetsIconsArrowLeftBack =
-      "assets/icons/arrowLeftBack.svg";
+  static const String assetsIconsArrowLeftBack = "assets/icons/arrowLeftBack.svg";
 
   /// Assets for assetsIconsArrowleft
   /// assets/icons/Arrowleft.svg
@@ -29,8 +28,7 @@ class Assets {
 
   /// Assets for assetsIconsFavouriteIcon
   /// assets/icons/favourite_Icon.svg
-  static const String assetsIconsFavouriteIcon =
-      "assets/icons/favourite_Icon.svg";
+  static const String assetsIconsFavouriteIcon = "assets/icons/favourite_Icon.svg";
 
   /// Assets for assetsIconsGoogleIcon
   /// assets/icons/GoogleIcon.svg
@@ -46,16 +44,18 @@ class Assets {
 
   /// Assets for assetsImagesOnboardingBeach
   /// assets/images/onboardingBeach.jpg
-  static const String assetsImagesOnboardingBeach =
-      "assets/images/onboardingBeach.jpg";
+  static const String assetsImagesOnboardingBeach = "assets/images/onboardingBeach.jpg";
 
   /// Assets for assetsImagesOnboardingDessert
   /// assets/images/onboardingDessert.jpg
-  static const String assetsImagesOnboardingDessert =
-      "assets/images/onboardingDessert.jpg";
+  static const String assetsImagesOnboardingDessert = "assets/images/onboardingDessert.jpg";
 
   /// Assets for assetsImagesOnboardingHistoric
   /// assets/images/onboardingHistoric.jpg
-  static const String assetsImagesOnboardingHistoric =
-      "assets/images/onboardingHistoric.jpg";
+  static const String assetsImagesOnboardingHistoric = "assets/images/onboardingHistoric.jpg";
+
+  /// Assets for assetsLottieCamelWalk
+  /// assets/lottie/camelWalk.json
+  static const String assetsLottieCamelWalk = "assets/lottie/camelWalk.json";
 }
+

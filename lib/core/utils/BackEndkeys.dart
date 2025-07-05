@@ -2,4 +2,6 @@
 
 class Backendkeys {
   static const isOnboardingSeen = "isOnboardingSeen";
+  static const usersCollection = "Users";
+  static const storeUserLocaly = "UserData";
 }
