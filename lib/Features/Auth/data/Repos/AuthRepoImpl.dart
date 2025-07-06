@@ -55,13 +55,7 @@ class AuthRepoImpl implements AuthRepo {
       userEntity.uid = user.uid;
       final userModel = UserModel.fromEntity(userEntity);
       await Future.wait([
-        databaseservice.setData(
-          requirements: FireStoreRequirmentsEntity(
-            collection: Backendkeys.usersCollection,
-            docId: userEntity.uid,
-          ),
-          data: userModel.toJson(),
-        ),
+        storeUserDataInFireStore(userjson: userModel.toJson(), uid: user.uid),
         user.sendEmailVerification(),
         authService.signout(),
       ]);
@@ -107,6 +101,118 @@ class AuthRepoImpl implements AuthRepo {
       } else {
         return Left(ServerFailure(message: "لم يتم العثور على المستخدم"));
       }
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: "حدث خطأ ما"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> signInWithFacebook() async {
+    bool isExists = false;
+    User? user;
+    try {
+      user = await authService.signinWithFacebook();
+      isExists = await databaseservice.isDataExists(
+        key: Backendkeys.usersCollection,
+        docId: user.uid,
+      );
+      if (isExists) {
+        return await fetchUserAndStoreLocally(user.uid);
+      } else {
+        return await storeUserDataInFireStore(
+          userjson: UserModel.fromEntity(
+            UserEntity(
+              uid: user.uid,
+              phoneNumber: user.phoneNumber ?? "",
+              firstName: user.displayName ?? "",
+              createdAt: DateTime.now(),
+              photoUrl: user.photoURL ?? "",
+              role: "User",
+              lastName: "",
+              email: user.email ?? "",
+            ),
+          ).toJson(),
+          uid: user.uid,
+        );
+      }
+    } on CustomException catch (e) {
+      if (isExists == false) {
+        deleteUser(user);
+      } else {
+        await authService.signout();
+      }
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      if (isExists == false) {
+        deleteUser(user);
+      } else {
+        await authService.signout();
+      }
+      return Left(ServerFailure(message: "حدث خطأ ما"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> signInWithGoogle() async {
+    bool isExists = false;
+    User? user;
+    try {
+      user = await authService.signinWithGoogle();
+      isExists = await databaseservice.isDataExists(
+        key: Backendkeys.usersCollection,
+        docId: user.uid,
+      );
+      if (isExists) {
+        return await fetchUserAndStoreLocally(user.uid);
+      } else {
+        return await storeUserDataInFireStore(
+          userjson: UserModel.fromEntity(
+            UserEntity(
+              uid: user.uid,
+              phoneNumber: user.phoneNumber ?? "",
+              firstName: user.displayName ?? "",
+              createdAt: DateTime.now(),
+              photoUrl: user.photoURL ?? "",
+              role: "User",
+              lastName: "",
+              email: user.email ?? "",
+            ),
+          ).toJson(),
+          uid: user.uid,
+        );
+      }
+    } on CustomException catch (e) {
+      if (isExists == false) {
+        deleteUser(user);
+      } else {
+        await authService.signout();
+      }
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      if (isExists == false) {
+        deleteUser(user);
+      } else {
+        await authService.signout();
+      }
+      return Left(ServerFailure(message: "حدث خطأ ما"));
+    }
+  }
+
+  Future<Either<Failure, void>> storeUserDataInFireStore({
+    required Map<String, dynamic> userjson,
+    required String uid,
+  }) async {
+    try {
+      await databaseservice.setData(
+        requirements: FireStoreRequirmentsEntity(
+          collection: Backendkeys.usersCollection,
+          docId: uid,
+        ),
+        data: userjson,
+      );
+      return Right(null);
     } on CustomException catch (e) {
       return Left(ServerFailure(message: e.message));
     } catch (e) {

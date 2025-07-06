@@ -61,47 +61,49 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 horizontal: kHorizentalPadding,
                 vertical: kVerticalPadding,
               ),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    const SignUpNameFields(),
-                    const SizedBox(height: 20),
-                    const SignUpEmailField(),
-                    const SizedBox(height: 20),
-                    const SignUpPhoneField(),
-                    const SizedBox(height: 20),
-                    SignUpPasswordField(
-                      passwordController: passwordController,
-                      isVisible: isPasswordVisible,
-                      onVisibilityChanged: (val) {
-                        setState(() => isPasswordVisible = val);
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    SignUpConfirmPasswordField(
-                      confirmPasswordController: confirmPasswordController,
-                      isVisible: isConfirmPasswordVisible,
-                      onVisibilityChanged: (val) {
-                        setState(() => isConfirmPasswordVisible = val);
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    SignUpAgreementRow(
-                      onChanged: (value) {
-                        setState(() {
-                          isTermsAccepted = value ?? false;
-                        });
-                      },
-                    ),
-                    const Spacer(),
-                    SignUpButtonSection(
-                      isTermsAccepted: isTermsAccepted,
-                      passwordController: passwordController,
-                      confirmPasswordController: confirmPasswordController,
-                      formKey: formKey,
-                    ),
-                  ],
+              child: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      const SignUpNameFields(),
+                      const SizedBox(height: 20),
+                      const SignUpEmailField(),
+                      const SizedBox(height: 20),
+                      const SignUpPhoneField(),
+                      const SizedBox(height: 20),
+                      SignUpPasswordField(
+                        passwordController: passwordController,
+                        isVisible: isPasswordVisible,
+                        onVisibilityChanged: (val) {
+                          setState(() => isPasswordVisible = val);
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      SignUpConfirmPasswordField(
+                        confirmPasswordController: confirmPasswordController,
+                        isVisible: isConfirmPasswordVisible,
+                        onVisibilityChanged: (val) {
+                          setState(() => isConfirmPasswordVisible = val);
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      SignUpAgreementRow(
+                        onChanged: (value) {
+                          setState(() {
+                            isTermsAccepted = value ?? false;
+                          });
+                        },
+                      ),
+                      const Spacer(),
+                      SignUpButtonSection(
+                        isTermsAccepted: isTermsAccepted,
+                        passwordController: passwordController,
+                        confirmPasswordController: confirmPasswordController,
+                        formKey: formKey,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

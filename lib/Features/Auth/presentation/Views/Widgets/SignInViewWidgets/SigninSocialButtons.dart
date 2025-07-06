@@ -1,7 +1,9 @@
 // ignore_for_file: file_names, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CustomSocialButton.dart';
+import 'package:in_egypt/Features/Auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:in_egypt/core/utils/images.dart';
 
 class SigninSocialButtons extends StatelessWidget {
@@ -13,13 +15,17 @@ class SigninSocialButtons extends StatelessWidget {
       children: [
         CustomSocialButton(
           text: "تسجيل بواسطة جوجل",
-          onPressed: () {},
+          onPressed: () {
+            context.read<SignInCubit>().signInWithGoogle();
+          },
           iconpath: Assets.assetsIconsGoogleIcon,
         ),
         const SizedBox(height: 16),
         CustomSocialButton(
           text: "تسجيل بواسطة فيسبوك",
-          onPressed: () {},
+          onPressed: () {
+            context.read<SignInCubit>().signInWithFacebook();
+          },
           iconpath: Assets.assetsIconsFacebookIcon,
         ),
       ],

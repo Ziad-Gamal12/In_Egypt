@@ -109,34 +109,46 @@ class firebaseAuthService {
   }
 
   Future<User> signinWithGoogle() async {
-    final googleSignIn = GoogleSignIn.instance;
-
     try {
-      await googleSignIn.initialize();
+      final GoogleSignIn signIn = GoogleSignIn.instance;
 
-      if (googleSignIn.supportsAuthenticate()) {
-        final googleUser = await googleSignIn.authenticate();
+      await signIn.initialize();
 
-        final authClient = googleUser.authorizationClient;
-
-        final auth = await authClient.authorizationForScopes([
-          'email',
-          'openid',
-          'https://www.googleapis.com/auth/userinfo.email',
-        ]);
-
-        final credential = GoogleAuthProvider.credential(
-          accessToken: auth!.accessToken,
-          idToken: googleUser.authentication.idToken,
-        );
-
-        final userCredential = await FirebaseAuth.instance.signInWithCredential(
-          credential,
-        );
-        return userCredential.user!;
-      } else {
-        throw CustomException(message: "تسجيل الدخول غير مدعوم على هذا النظام");
+      if (!signIn.supportsAuthenticate()) {
+        throw CustomException(message: "لا يمكن تسجيل الدخول");
       }
+
+      final GoogleSignInAccount user = await signIn.authenticate();
+
+      final GoogleSignInClientAuthorization? auth = await user
+          .authorizationClient
+          .authorizationForScopes([
+            'email',
+            'openid',
+            'https://www.googleapis.com/auth/userinfo.email',
+          ]);
+
+      if (auth == null) {
+        throw CustomException(message: "حدث خطاء في تسجيل الدخول");
+      }
+
+      final String? idToken = user.authentication.idToken;
+
+      if (idToken == null) {
+        throw CustomException(message: "حدث خطاء في تسجيل الدخول");
+      }
+
+      final String accessToken = auth.accessToken;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithCredential(credential);
+
+      return userCredential.user!;
     } on FirebaseAuthException catch (e) {
       if (e.code == "network-request-failed") {
         throw CustomException(message: "لا يوجد اتصال بالانترنت");
@@ -170,16 +182,23 @@ class firebaseAuthService {
 
   Future<User> signinWithFacebook() async {
     try {
-      final LoginResult loginResult = await FacebookAuth.instance.login();
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
-      final UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential);
-      return userCredential.user!;
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final OAuthCredential credential = FacebookAuthProvider.credential(
+          result.accessToken!.tokenString,
+        );
+        final userCredential = await FirebaseAuth.instance.signInWithCredential(
+          credential,
+        );
+        if (userCredential.user != null) {
+          return userCredential.user!;
+        } else {
+          throw CustomException(message: "المستخدم غير موجود");
+        }
+      } else {
+        throw CustomException(message: "حدث خطاء في تسجيل الدخول");
+      }
     } on FirebaseAuthException catch (e) {
-      log(
-        "Exception from FirebaseAuthService.signinWithFacebook in catch With Firebase Exception: ${e.toString()} and the Firebase Code is ${e.code}",
-      );
       if (e.code == "network-request-failed") {
         throw CustomException(message: "لا يوجد اتصال بالانترنت");
       } else if (e.code == "operation-not-allowed") {
@@ -206,9 +225,7 @@ class firebaseAuthService {
         throw CustomException(message: "حدث خطأ ما");
       }
     } catch (e) {
-      log(
-        "Exception from FirebaseAuthService.signinWithFacebook: ${e.toString()}",
-      );
+      log(e.toString());
       throw CustomException(message: "حدث خطأ ما");
     }
   }

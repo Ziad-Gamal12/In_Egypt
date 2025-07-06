@@ -40,8 +40,11 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+    
 }
-
+dependencies {
+       implementation("com.facebook.android:facebook-login:latest.release")
+}
 flutter {
     source = "../.."
 }
