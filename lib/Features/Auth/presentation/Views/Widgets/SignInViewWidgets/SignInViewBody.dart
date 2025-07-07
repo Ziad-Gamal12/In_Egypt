@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CustomRemmberMeWidget.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CustomSeperatedWidget.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CustomSignInActionButton.dart';
@@ -8,6 +9,7 @@ import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidg
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/SignInTextFields.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/SigninSocialButtons.dart';
 import 'package:in_egypt/Features/Auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
 import 'package:in_egypt/core/widgets/CustomAppLogoWidget.dart';
@@ -29,6 +31,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
+          GoRouter.of(context).go(HomeView.routeName);
         } else if (state is SignInFailure) {
           showErrorSnackBar(context: context, message: state.errorMessage);
         }

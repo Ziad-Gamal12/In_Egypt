@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignInView.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignUpView.dart';
+import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
 
@@ -31,6 +32,12 @@ class App_router {
         path: SignUpView.routeName,
         builder: (BuildContext context, GoRouterState state) {
           return const SignUpView();
+        },
+      ),
+      GoRoute(
+        path: HomeView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return const HomeView();
         },
       ),
     ],

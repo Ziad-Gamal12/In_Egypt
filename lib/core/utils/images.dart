@@ -18,6 +18,22 @@ class Assets {
   /// assets/icons/Arrowleft.svg
   static const String assetsIconsArrowleft = "assets/icons/Arrowleft.svg";
 
+  /// Assets for assetsIconsBottomNavBarInActiveFavouriteIcon
+  /// assets/icons/BottomNavBarInActiveFavouriteIcon.svg
+  static const String assetsIconsBottomNavBarInActiveFavouriteIcon = "assets/icons/BottomNavBarInActiveFavouriteIcon.svg";
+
+  /// Assets for assetsIconsBottomNavBarInActiveHomeIcon
+  /// assets/icons/BottomNavBarInActiveHomeIcon.svg
+  static const String assetsIconsBottomNavBarInActiveHomeIcon = "assets/icons/BottomNavBarInActiveHomeIcon.svg";
+
+  /// Assets for assetsIconsBottomNavBarInActiveProfileIcon
+  /// assets/icons/BottomNavBarInActiveProfileIcon.svg
+  static const String assetsIconsBottomNavBarInActiveProfileIcon = "assets/icons/BottomNavBarInActiveProfileIcon.svg";
+
+  /// Assets for assetsIconsBottomNavBarInActiveTripsIcon
+  /// assets/icons/BottomNavBarInActiveTripsIcon.svg
+  static const String assetsIconsBottomNavBarInActiveTripsIcon = "assets/icons/BottomNavBarInActiveTripsIcon.svg";
+
   /// Assets for assetsIconsCheckedIcon
   /// assets/icons/Checked_icon.svg
   static const String assetsIconsCheckedIcon = "assets/icons/Checked_icon.svg";
@@ -34,9 +50,21 @@ class Assets {
   /// assets/icons/GoogleIcon.svg
   static const String assetsIconsGoogleIcon = "assets/icons/GoogleIcon.svg";
 
+  /// Assets for assetsIconsLocationIcon
+  /// assets/icons/locationIcon.svg
+  static const String assetsIconsLocationIcon = "assets/icons/locationIcon.svg";
+
+  /// Assets for assetsIconsNotificationIcon
+  /// assets/icons/notificationIcon.svg
+  static const String assetsIconsNotificationIcon = "assets/icons/notificationIcon.svg";
+
   /// Assets for assetsIconsSearchIcon
   /// assets/icons/Search_icon.svg
   static const String assetsIconsSearchIcon = "assets/icons/Search_icon.svg";
+
+  /// Assets for assetsIconsUserIcon
+  /// assets/icons/userIcon.png
+  static const String assetsIconsUserIcon = "assets/icons/userIcon.png";
 
   /// Assets for assetsImagesAppLogo
   /// assets/images/AppLogo.svg
@@ -53,6 +81,10 @@ class Assets {
   /// Assets for assetsImagesOnboardingHistoric
   /// assets/images/onboardingHistoric.jpg
   static const String assetsImagesOnboardingHistoric = "assets/images/onboardingHistoric.jpg";
+
+  /// Assets for assetsImagesTestFavouritePlaceItemBackGround
+  /// assets/images/Test_FavouritePlaceItemBackGround.png
+  static const String assetsImagesTestFavouritePlaceItemBackGround = "assets/images/Test_FavouritePlaceItemBackGround.png";
 
   /// Assets for assetsLottieCamelWalk
   /// assets/lottie/camelWalk.json
