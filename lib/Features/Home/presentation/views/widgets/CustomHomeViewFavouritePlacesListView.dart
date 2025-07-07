@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_egypt/core/widgets/CustomFavourtiePlaceItem.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceItem.dart';
 
 class CustomHomeViewFavouritePlacesListView extends StatelessWidget {
   const CustomHomeViewFavouritePlacesListView({super.key});
@@ -12,7 +12,8 @@ class CustomHomeViewFavouritePlacesListView extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsetsGeometry.only(left: 10),
-            child: CustomFavouritePlaceItem(),
+            child:
+                AspectRatio(aspectRatio: 186 / 250, child: CustomPlaceItem()),
           );
         });
   }

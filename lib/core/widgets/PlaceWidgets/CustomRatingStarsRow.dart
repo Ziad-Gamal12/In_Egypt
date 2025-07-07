@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_egypt/core/widgets/CustomRatingStarItem.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomRatingStarItem.dart';
 
 class CustomRatingStarsRow extends StatelessWidget {
   const CustomRatingStarsRow({super.key});

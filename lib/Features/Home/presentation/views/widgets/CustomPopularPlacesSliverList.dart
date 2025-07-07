@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_egypt/core/widgets/CustomPopularPlaceItem.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPopularPlaceItem.dart';
 
 class CusCustomPopularPlacesSliverList extends StatelessWidget {
   const CusCustomPopularPlacesSliverList({super.key});

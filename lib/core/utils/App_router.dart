@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignInView.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignUpView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
+import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
 
@@ -38,6 +39,12 @@ class App_router {
         path: HomeView.routeName,
         builder: (BuildContext context, GoRouterState state) {
           return const HomeView();
+        },
+      ),
+      GoRoute(
+        path: PlaceDetailsView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return const PlaceDetailsView();
         },
       ),
     ],

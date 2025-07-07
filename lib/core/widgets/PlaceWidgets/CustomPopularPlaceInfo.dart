@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
-import 'package:in_egypt/core/widgets/CustomAddFavouritePlaceWidget.dart';
-import 'package:in_egypt/core/widgets/CustomRatingStarsRow.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomAddFavouritePlaceWidget.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomRatingStarsRow.dart';
 
 class CusCustomPopularPlaceInfo extends StatelessWidget {
   const CusCustomPopularPlaceInfo({super.key});
@@ -55,10 +55,16 @@ class CusCustomPopularPlaceInfo extends StatelessWidget {
         SizedBox(
           height: 5,
         ),
-        Text(
-          " الأهرامات المصرية هي هياكل حجرية قديمة تقع في مصر. تم بناء معظمها كمقابر لـ الفراعنة وزوجاتهم خلال قديم و المملكة الوسطى فترات.[1][2][3] تم التعرف على ما لا يقل عن 138 الأهرامات تم اكتشافها في مصر.[4][5] تقريبًا 80 هرمًا تم بناؤها داخل مملكة كوش، تقع الآن في دولة حديثة السودان.",
-          style: AppTextStyles(context).regular13.copyWith(color: Colors.grey),
-          overflow: TextOverflow.ellipsis,
+        Expanded(
+          child: SizedBox(
+            child: Text(
+              "الأهرامات المصرية هي هياكل حجرية قديمة تقع في مصر. تم بناء معظمها كمقابر لـ الفراعنة وزوجاتهم خلال قديم و المملكة الوسطى فترات.[1][2][3] تم التعرف على ما لا يقل عن 138 الأهرامات تم اكتشافها في مصر.[4][5] تقريبًا 80 هرمًا تم بناؤها داخل مملكة كوش، تقع الآن في دولة حديثة السودان.",
+              style:
+                  AppTextStyles(context).regular13.copyWith(color: Colors.grey),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
       ],
     );
