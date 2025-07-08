@@ -38,12 +38,10 @@ class CustomPlaceItem extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomRight,
                 child: CustomPlaceItemInfo().asGlass(
-                    blurX: 12,
-                    blurY: 12,
-                    clipBorderRadius: BorderRadius.only(
+                  clipBorderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    )))
+                      bottomRight: Radius.circular(20)),
+                )),
           ],
         ),
       ),

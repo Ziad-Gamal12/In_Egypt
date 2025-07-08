@@ -38,6 +38,10 @@ class Assets {
   /// assets/icons/Checked_icon.svg
   static const String assetsIconsCheckedIcon = "assets/icons/Checked_icon.svg";
 
+  /// Assets for assetsIconsCridteCard
+  /// assets/icons/cridteCard.png
+  static const String assetsIconsCridteCard = "assets/icons/cridteCard.png";
+
   /// Assets for assetsIconsFacebookIcon
   /// assets/icons/FacebookIcon.svg
   static const String assetsIconsFacebookIcon = "assets/icons/FacebookIcon.svg";
@@ -58,6 +62,10 @@ class Assets {
   /// assets/icons/notificationIcon.svg
   static const String assetsIconsNotificationIcon = "assets/icons/notificationIcon.svg";
 
+  /// Assets for assetsIconsPaypal
+  /// assets/icons/paypal.png
+  static const String assetsIconsPaypal = "assets/icons/paypal.png";
+
   /// Assets for assetsIconsSearchIcon
   /// assets/icons/Search_icon.svg
   static const String assetsIconsSearchIcon = "assets/icons/Search_icon.svg";
@@ -65,6 +73,10 @@ class Assets {
   /// Assets for assetsIconsUserIcon
   /// assets/icons/userIcon.png
   static const String assetsIconsUserIcon = "assets/icons/userIcon.png";
+
+  /// Assets for assetsIconsVodafone
+  /// assets/icons/vodafone.png
+  static const String assetsIconsVodafone = "assets/icons/vodafone.png";
 
   /// Assets for assetsImagesAppLogo
   /// assets/images/AppLogo.svg

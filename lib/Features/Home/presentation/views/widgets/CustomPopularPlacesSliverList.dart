@@ -8,7 +8,10 @@ class CusCustomPopularPlacesSliverList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList.builder(
         itemBuilder: (context, index) {
-          return CustomPopularPlaceItem();
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 10, left: 16),
+            child: CustomPopularPlaceItem(),
+          );
         },
         itemCount: 5);
   }

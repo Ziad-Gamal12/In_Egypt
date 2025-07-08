@@ -14,7 +14,7 @@ class CustomHomeViewFavouritePlacesSection extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-            height: MediaQuery.of(context).size.height * 0.29,
+            height: MediaQuery.of(context).size.height * 0.26,
             child: CustomHomeViewFavouritePlacesListView())
       ],
     );

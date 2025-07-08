@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignInView.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignUpView.dart';
+import 'package:in_egypt/Features/Book/presentation/views/BookView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
@@ -45,6 +46,12 @@ class App_router {
         path: PlaceDetailsView.routeName,
         builder: (BuildContext context, GoRouterState state) {
           return const PlaceDetailsView();
+        },
+      ),
+      GoRoute(
+        path: BookPlaceView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return const BookPlaceView();
         },
       ),
     ],

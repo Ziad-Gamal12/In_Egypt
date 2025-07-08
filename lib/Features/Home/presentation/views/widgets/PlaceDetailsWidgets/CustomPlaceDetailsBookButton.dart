@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:in_egypt/Features/Book/presentation/views/BookView.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 import 'package:in_egypt/core/widgets/CustomButton.dart';
@@ -26,7 +28,9 @@ class CustomPlaceDetailsBookButton extends StatelessWidget {
                   text: "حجز",
                   color: kMainColor,
                   textColor: Colors.white,
-                  onPressed: () {})),
+                  onPressed: () {
+                    GoRouter.of(context).push(BookPlaceView.routeName);
+                  })),
           SizedBox(
             width: 30,
           ),
