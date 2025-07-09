@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:in_egypt/Features/Book/domain/entities/CustomBookingStepsEntity.dart';
+import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
+import 'package:provider/provider.dart';
 
-class CustomBookingStepsRow extends StatelessWidget {
+class CustomBookingStepsRow extends StatefulWidget {
   const CustomBookingStepsRow({
     super.key,
-    required this.steps,
     required this.currentIndex,
-    required this.indexChanged,
   });
-
-  final List<CustomBookingStepsEntity> steps;
   final int currentIndex;
-  final ValueChanged<int> indexChanged;
+
+  @override
+  State<CustomBookingStepsRow> createState() => _CustomBookingStepsRowState();
+}
+
+class _CustomBookingStepsRowState extends State<CustomBookingStepsRow> {
+  List<CustomBookingStepsEntity> steps = [
+    CustomBookingStepsEntity(
+      title: "تفاصيل الحجز",
+    ),
+    CustomBookingStepsEntity(
+      title: "الدفع",
+    ),
+    CustomBookingStepsEntity(
+      title: "مراجعة الحجز",
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,9 +46,8 @@ class CustomBookingStepsRow extends StatelessWidget {
                       padding: EdgeInsets.only(left: e.key == 2 ? 0 : 20),
                       child: GestureDetector(
                         onTap: () {
-                          if (e.key < currentIndex) {
-                            indexChanged(e.key);
-                          }
+                          context.read<StepsCubit>().changeStep(e.key,
+                              currentIndex: widget.currentIndex);
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -42,7 +55,7 @@ class CustomBookingStepsRow extends StatelessWidget {
                               horizontal: 16, vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: currentIndex == e.key
+                            color: widget.currentIndex == e.key
                                 ? kMainColor
                                 : Colors.grey.shade100,
                           ),

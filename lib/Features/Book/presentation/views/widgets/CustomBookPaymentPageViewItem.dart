@@ -34,8 +34,8 @@ class _CustomBookPaymentPageViewItemState
                     method: e.value,
                     isSelected: currentIndex == e.key,
                   ).animate().fadeIn(
-                      duration: 500.ms,
-                      delay: Duration(milliseconds: e.key * 100)),
+                      duration: 600.ms,
+                      delay: Duration(milliseconds: e.key * 200)),
                 ))
             .toList(),
       ),

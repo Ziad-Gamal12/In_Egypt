@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookDeatilsPageViewItem.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookPaymentPageViewItem.dart';
 
 class CustomBookingStepsPageView extends StatefulWidget {
-  const CustomBookingStepsPageView(
-      {super.key, required this.currentIndex, required this.rangeChanged});
-
+  const CustomBookingStepsPageView({
+    super.key,
+    required this.currentIndex,
+  });
   final int currentIndex;
-  final ValueChanged<DateTimeRange<DateTime>?> rangeChanged;
 
   @override
   State<CustomBookingStepsPageView> createState() =>
@@ -18,17 +20,14 @@ class _CustomBookingStepsPageViewState
     extends State<CustomBookingStepsPageView> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> stepsWidget = [
-      CustomBookDeatilsPageViewItem(
-        rangeChanged: widget.rangeChanged,
-      ),
-      CustomBookPaymentPageViewItem(),
-      SizedBox(),
-    ];
-    return PageView.builder(
+    return PageView(
+      controller: context.read<StepsCubit>().pageController,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: stepsWidget.length,
-      itemBuilder: (context, index) => stepsWidget[widget.currentIndex],
+      children: [
+        CustomBookDeatilsPageViewItem(),
+        CustomBookPaymentPageViewItem(),
+        SizedBox(),
+      ],
     );
   }
 }

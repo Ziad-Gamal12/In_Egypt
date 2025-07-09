@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/BookViewBody.dart';
 import 'package:in_egypt/core/widgets/CustomAppBar.dart';
 
@@ -11,17 +13,13 @@ class BookPlaceView extends StatefulWidget {
 }
 
 class _BookPlaceViewState extends State<BookPlaceView> {
-  String title = "تفاصيل الحجز";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(appBartitle: title),
-      body: BookViewBody(
-        titleChanged: (value) {
-          setState(() {
-            title = value;
-          });
-        },
+    return BlocProvider(
+      create: (context) => StepsCubit(),
+      child: Scaffold(
+        appBar: CustomAppBar(appBartitle: "الحجز"),
+        body: BookViewBody(),
       ),
     );
   }

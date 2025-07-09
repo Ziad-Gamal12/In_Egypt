@@ -6,9 +6,7 @@ import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookText
 class CustomBookDeatilsPageViewItem extends StatelessWidget {
   const CustomBookDeatilsPageViewItem({
     super.key,
-    required this.rangeChanged,
   });
-  final ValueChanged<DateTimeRange<DateTime>?> rangeChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +21,7 @@ class CustomBookDeatilsPageViewItem extends StatelessWidget {
             Icon(FontAwesomeIcons.solidCalendarDays, color: Colors.grey),
             SizedBox(width: 10),
             Expanded(
-              child: CustomBookDateSelector(
-                rangeChanged: rangeChanged,
-              ),
+              child: CustomBookDateSelector(),
             ),
           ],
         ),

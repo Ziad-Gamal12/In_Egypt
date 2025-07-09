@@ -1,101 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:in_egypt/Features/Book/domain/entities/CustomBookingStepsEntity.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingButton.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingStepsPageView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingStepsRow.dart';
 import 'package:in_egypt/constant.dart';
-import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
 
 class BookViewBody extends StatefulWidget {
-  const BookViewBody({super.key, required this.titleChanged});
-  final ValueChanged<String> titleChanged;
+  const BookViewBody({
+    super.key,
+  });
   @override
   State<BookViewBody> createState() => _BookViewBodyState();
 }
 
 class _BookViewBodyState extends State<BookViewBody> {
-  List<CustomBookingStepsEntity> steps = [
-    CustomBookingStepsEntity(
-      title: "تفاصيل الحجز",
-    ),
-    CustomBookingStepsEntity(
-      title: "الدفع",
-    ),
-    CustomBookingStepsEntity(
-      title: "مراجعة الحجز",
-    ),
-  ];
   DateTimeRange<DateTime>? range;
-  ValueNotifier<int> currentIndex = ValueNotifier(0);
+  int currentIndex = 0;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsGeometry.symmetric(
-          vertical: kVerticalPadding, horizontal: kHorizentalPadding),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+    return BlocConsumer<StepsCubit, StepsState>(
+      listener: (context, state) {
+        if (state is StepsChanged) {
+          currentIndex = state.index;
+        } else if (state is StepsDateRangeSelected) {
+          range = state.range;
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsetsGeometry.symmetric(
+              vertical: kVerticalPadding, horizontal: kHorizentalPadding),
+          child: Stack(
             children: [
-              CustomBookingStepsRow(
-                  indexChanged: (value) {
-                    currentIndex.value = value;
-                    setState(() {});
-                  },
-                  steps: steps,
-                  currentIndex: currentIndex.value),
-              const SizedBox(
-                height: 20,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomBookingStepsRow(currentIndex: currentIndex),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: Form(
+                      key: formKey,
+                      child: CustomBookingStepsPageView(
+                          currentIndex: currentIndex),
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: Form(
-                  key: formKey,
-                  child: CustomBookingStepsPageView(
-                      rangeChanged: (value) {
-                        range = value;
-                        setState(() {});
-                      },
-                      currentIndex: currentIndex.value),
-                ),
-              ),
+              Positioned(
+                  left: 16,
+                  right: 16,
+                  bottom: 20,
+                  child: CustomBookingButton(
+                      range: range,
+                      currentIndex: currentIndex,
+                      formKey: formKey))
             ],
           ),
-          Positioned(
-              left: 16,
-              right: 16,
-              bottom: 20,
-              child: CustomBookingButton(
-                  onPressed: () {
-                    if (currentIndex.value == 0) {
-                      if (formKey.currentState!.validate()) {
-                        if (range != null) {
-                          nextStep();
-                        } else {
-                          showErrorSnackBar(
-                              context: context,
-                              message: "يرجى تحديد مده الرحلة");
-                        }
-                      }
-                    } else if (currentIndex.value == 1) {
-                      nextStep();
-                    } else {
-                      widget.titleChanged(steps[currentIndex.value].title);
-                    }
-                  },
-                  currentIndex: currentIndex,
-                  formKey: formKey))
-        ],
-      ),
+        );
+      },
     );
-  }
-
-  void nextStep() {
-    formKey.currentState!.save();
-    currentIndex.value += 1;
-    widget.titleChanged(steps[currentIndex.value].title);
-    setState(() {});
   }
 }
