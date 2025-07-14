@@ -2,11 +2,15 @@ import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 
 class UserModel {
   final String uid, firstName, lastName, email, phoneNumber, photoUrl, role;
-  final DateTime createdAt;
+  final String createdAt;
+  final bool isVerified;
+  final bool isBlocked;
 
   UserModel({
     required this.uid,
     required this.firstName,
+    required this.isBlocked,
+    required this.isVerified,
     required this.lastName,
     required this.email,
     required this.phoneNumber,
@@ -19,12 +23,14 @@ class UserModel {
     return UserModel(
       uid: json['uid'] ?? '',
       firstName: json['firstName'] ?? '',
+      isVerified: json['isVerified'] ?? false,
       lastName: json['lastName'] ?? '',
+      isBlocked: json['isBlocked'] ?? false,
       email: json['email'] ?? '',
       phoneNumber: json['phoneNumber'] ?? '',
       photoUrl: json['photoUrl'] ?? '',
       role: json['role'] ?? '',
-      createdAt: DateTime.parse(json['createdAt']),
+      createdAt: json['createdAt'],
     );
   }
   factory UserModel.fromEntity(UserEntity entity) {
@@ -32,6 +38,8 @@ class UserModel {
       uid: entity.uid,
       firstName: entity.firstName,
       lastName: entity.lastName,
+      isVerified: entity.isVerified,
+      isBlocked: entity.isBlocked,
       email: entity.email,
       phoneNumber: entity.phoneNumber,
       photoUrl: entity.photoUrl,
@@ -44,6 +52,8 @@ class UserModel {
       uid: uid,
       firstName: firstName,
       lastName: lastName,
+      isBlocked: isBlocked,
+      isVerified: isVerified,
       email: email,
       phoneNumber: phoneNumber,
       photoUrl: photoUrl,
@@ -57,11 +67,13 @@ class UserModel {
       'uid': uid,
       'firstName': firstName,
       'lastName': lastName,
+      'isBlocked': isBlocked,
       'email': email,
       'phoneNumber': phoneNumber,
+      'isVerified': isVerified,
       'photoUrl': photoUrl,
       'role': role,
-      'createdAt': createdAt.toIso8601String(),
+      'createdAt': createdAt,
     };
   }
 }

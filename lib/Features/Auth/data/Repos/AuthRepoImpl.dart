@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:in_egypt/Features/Auth/data/Entities/UserModel.dart';
+import 'package:in_egypt/Features/Auth/data/models/UserModel.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/Features/Auth/domain/Repos/AuthRepo.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
@@ -127,8 +127,10 @@ class AuthRepoImpl implements AuthRepo {
               uid: user.uid,
               phoneNumber: user.phoneNumber ?? "",
               firstName: user.displayName ?? "",
-              createdAt: DateTime.now(),
+              createdAt: DateTime.now().toIso8601String(),
+              isBlocked: false,
               photoUrl: user.photoURL ?? "",
+              isVerified: true,
               role: "User",
               lastName: "",
               email: user.email ?? "",
@@ -173,9 +175,11 @@ class AuthRepoImpl implements AuthRepo {
               uid: user.uid,
               phoneNumber: user.phoneNumber ?? "",
               firstName: user.displayName ?? "",
-              createdAt: DateTime.now(),
+              createdAt: DateTime.now().toIso8601String(),
+              isBlocked: false,
               photoUrl: user.photoURL ?? "",
               role: "User",
+              isVerified: true,
               lastName: "",
               email: user.email ?? "",
             ),

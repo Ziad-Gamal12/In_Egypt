@@ -29,11 +29,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   UserEntity userEntity = UserEntity(
+    isBlocked: false,
+    isVerified: true,
     firstName: '',
     lastName: '',
     email: '',
     phoneNumber: '',
-    createdAt: DateTime.now(),
+    createdAt: DateTime.now().toIso8601String(),
     uid: '',
     photoUrl: '',
     role: 'User',
@@ -87,7 +89,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           });
                         },
                       ),
-                      const Spacer(),
+                      SizedBox(height: MediaQuery.sizeOf(context).height * 0.1),
                       SignUpButtonSection(
                         isTermsAccepted: isTermsAccepted,
                         passwordController: passwordController,
