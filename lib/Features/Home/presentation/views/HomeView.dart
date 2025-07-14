@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/Custom_BottomNavigationBar.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/HomeViewBody.dart';
+import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/views/WishlistView.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,8 +15,8 @@ class _HomeViewState extends State<HomeView> {
   int currentIndex = 0;
   List<Widget> bottomNavViews = [
     HomeViewBody(),
-    SizedBox(),
-    SizedBox(),
+    MyTripsView(),
+    WishListView(),
     SizedBox(),
   ];
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:in_egypt/core/widgets/CustomTeaxtField.dart';
+import 'package:in_egypt/core/widgets/CustomTextFields/CustomEmailTextField.dart';
+import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 
 class CustomBookTextFieldsSection extends StatelessWidget {
   const CustomBookTextFieldsSection({
@@ -25,21 +26,7 @@ class CustomBookTextFieldsSection extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        Customteaxtfield(
-            labelText: "البريد الإلكتروني",
-            prefixIcon: FontAwesomeIcons.envelope,
-            obscureText: false,
-            textInputType: TextInputType.emailAddress,
-            validator: (val) {
-              if (val == null || val.isEmpty) {
-                return 'الرجاء إدخال البريد الإلكتروني';
-              } else if (!RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                  .hasMatch(val)) {
-                return 'الرجاء إدخال بريد إلكتروني صالح';
-              }
-              return null;
-            }),
+        CustomEmailTextField(),
         SizedBox(
           height: 20,
         ),

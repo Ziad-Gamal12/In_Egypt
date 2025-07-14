@@ -8,6 +8,7 @@ import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
+import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
 
 class App_router {
   static GoRouter router = GoRouter(
@@ -52,6 +53,12 @@ class App_router {
         path: BookPlaceView.routeName,
         builder: (BuildContext context, GoRouterState state) {
           return const BookPlaceView();
+        },
+      ),
+      GoRoute(
+        path: MyTripsView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return const MyTripsView();
         },
       ),
     ],

@@ -20,29 +20,32 @@ class CustomBookingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Custombutton(
-        text: currentIndex != 2 ? "التالي" : "تأكيد الحجز",
+        text: currentIndex != 1 ? "التالي" : "دفع الان",
         color: kMainColor,
         textColor: Colors.white,
         onPressed: () {
-          if (currentIndex == 0) {
-            if (formKey.currentState!.validate()) {
-              if (range != null) {
-                formKey.currentState!.save();
-                context.read<StepsCubit>().changeStep(
-                      null,
-                      currentIndex: currentIndex,
-                    );
-              } else {
-                showErrorSnackBar(
-                    context: context, message: "يرجى تحديد مده الرحلة");
-              }
-            }
-          } else if (currentIndex == 1) {
-            context.read<StepsCubit>().changeStep(
-                  null,
-                  currentIndex: currentIndex,
-                );
-          } else {}
+          onTap(context);
         });
+  }
+
+  void onTap(BuildContext context) {
+    if (currentIndex == 0) {
+      if (formKey.currentState!.validate()) {
+        if (range != null) {
+          formKey.currentState!.save();
+          context.read<StepsCubit>().changeStep(
+                null,
+                currentIndex: currentIndex,
+              );
+        } else {
+          showErrorSnackBar(context: context, message: "يرجى تحديد مده الرحلة");
+        }
+      }
+    } else {
+      context.read<StepsCubit>().changeStep(
+            null,
+            currentIndex: currentIndex,
+          );
+    }
   }
 }

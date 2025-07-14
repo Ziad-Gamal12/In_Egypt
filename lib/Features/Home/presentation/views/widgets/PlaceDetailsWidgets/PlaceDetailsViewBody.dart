@@ -5,7 +5,7 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWi
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceImagesSection.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceReviewsInfoAndAddReviewSection.dart';
 import 'package:in_egypt/constant.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceItem.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceVerticalDesignItem.dart';
 
 class PlaceDetailsViewBody extends StatelessWidget {
   const PlaceDetailsViewBody({super.key});
@@ -22,7 +22,9 @@ class PlaceDetailsViewBody extends StatelessWidget {
               SliverToBoxAdapter(
                 child: AspectRatio(
                   aspectRatio: 4.5 / 3,
-                  child: CustomPlaceItem(),
+                  child: CustomPlaceVerticalDesignItem(
+                    isFavourite: true,
+                  ),
                 ),
               ),
               SliverToBoxAdapter(

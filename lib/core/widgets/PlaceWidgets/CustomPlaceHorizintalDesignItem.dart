@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignInfo.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceImage.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPopularPlaceInfo.dart';
 
-class CustomPopularPlaceItem extends StatelessWidget {
-  const CustomPopularPlaceItem({super.key});
-
+class CustomPlaceHorizintalDesignItem extends StatelessWidget {
+  const CustomPlaceHorizintalDesignItem({super.key, required this.isFavourite});
+  final bool isFavourite;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -30,7 +30,11 @@ class CustomPopularPlaceItem extends StatelessWidget {
               SizedBox(
                 width: 14,
               ),
-              Expanded(flex: 179, child: CusCustomPopularPlaceInfo())
+              Expanded(
+                  flex: 179,
+                  child: CustomPlaceHorizintalDesignInfo(
+                    isFavorite: isFavourite,
+                  ))
             ],
           ),
         ),

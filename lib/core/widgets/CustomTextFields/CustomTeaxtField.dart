@@ -9,6 +9,7 @@ class Customteaxtfield extends StatelessWidget {
   final String labelText;
   IconData? prefixIcon;
   Widget? suffixIcon;
+  Color? filledColor;
   final bool obscureText;
   TextEditingController? controller;
   final TextInputType textInputType;
@@ -21,6 +22,7 @@ class Customteaxtfield extends StatelessWidget {
     super.key,
     this.inputFormatters,
     required this.labelText,
+    this.filledColor,
     this.autovalidateMode,
     this.prefixIcon,
     this.suffixIcon,
@@ -63,7 +65,7 @@ class Customteaxtfield extends StatelessWidget {
         enabledBorder: initBorder,
         filled: true,
         focusColor: Colors.white,
-        fillColor: Colors.white,
+        fillColor: filledColor ?? Colors.white,
       ),
     );
   }

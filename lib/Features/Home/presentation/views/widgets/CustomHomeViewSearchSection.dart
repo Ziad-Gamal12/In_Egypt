@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:in_egypt/core/widgets/CustomTeaxtField.dart';
+import 'package:in_egypt/core/widgets/CustomTextFields/CustomSearchTextField.dart';
 
 class CustomHomeViewSearchSection extends StatelessWidget {
   const CustomHomeViewSearchSection({super.key});
@@ -10,17 +9,8 @@ class CustomHomeViewSearchSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Customteaxtfield(
-          labelText: "أبحث عن ...",
-          obscureText: false,
-          textInputType: TextInputType.text,
-          validator: (val) {
-            return null;
-          },
-          suffixIcon: Icon(
-            FontAwesomeIcons.magnifyingGlass,
-            color: Colors.grey,
-          ),
+        CustomSearchTextField(
+          controller: TextEditingController(),
         )
       ]),
     );

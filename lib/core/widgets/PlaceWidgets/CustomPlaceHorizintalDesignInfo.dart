@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomAddFavouritePlaceWidget.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomFavouritePlaceWidget.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomRatingStarsRow.dart';
 
-class CusCustomPopularPlaceInfo extends StatelessWidget {
-  const CusCustomPopularPlaceInfo({super.key});
-
+class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
+  const CustomPlaceHorizintalDesignInfo({super.key, required this.isFavorite});
+  final bool isFavorite;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +23,9 @@ class CusCustomPopularPlaceInfo extends StatelessWidget {
                   .copyWith(color: Colors.black),
             ),
             Spacer(),
-            CustomAddFavouritePlaceWidget(),
+            CustomFavouritePlaceWidget(
+              isFavourite: isFavorite,
+            ),
           ],
         ),
         SizedBox(

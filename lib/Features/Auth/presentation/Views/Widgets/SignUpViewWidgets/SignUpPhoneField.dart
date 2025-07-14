@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
-import 'package:in_egypt/core/widgets/CustomTeaxtField.dart';
+import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPhoneField extends StatelessWidget {

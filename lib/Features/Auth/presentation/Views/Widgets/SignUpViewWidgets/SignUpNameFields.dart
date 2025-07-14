@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
-import 'package:in_egypt/core/widgets/CustomTeaxtField.dart';
+import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 
 class SignUpNameFields extends StatelessWidget {
   const SignUpNameFields({super.key});

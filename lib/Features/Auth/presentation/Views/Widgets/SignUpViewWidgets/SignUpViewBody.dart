@@ -74,18 +74,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                       const SizedBox(height: 20),
                       SignUpPasswordField(
                         passwordController: passwordController,
-                        isVisible: isPasswordVisible,
-                        onVisibilityChanged: (val) {
-                          setState(() => isPasswordVisible = val);
-                        },
                       ),
                       const SizedBox(height: 20),
                       SignUpConfirmPasswordField(
                         confirmPasswordController: confirmPasswordController,
-                        isVisible: isConfirmPasswordVisible,
-                        onVisibilityChanged: (val) {
-                          setState(() => isConfirmPasswordVisible = val);
-                        },
                       ),
                       const SizedBox(height: 20),
                       SignUpAgreementRow(

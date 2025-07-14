@@ -3,12 +3,12 @@ import 'package:glass/glass.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/core/utils/images.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomAddFavouritePlaceWidget.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomFavouritePlaceWidget.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceItemInfo.dart';
 
-class CustomPlaceItem extends StatelessWidget {
-  const CustomPlaceItem({super.key});
-
+class CustomPlaceVerticalDesignItem extends StatelessWidget {
+  const CustomPlaceVerticalDesignItem({super.key, required this.isFavourite});
+  final bool isFavourite;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,7 +32,9 @@ class CustomPlaceItem extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
-                  child: CustomAddFavouritePlaceWidget(),
+                  child: CustomFavouritePlaceWidget(
+                    isFavourite: isFavourite,
+                  ),
                 )),
             Spacer(),
             Align(

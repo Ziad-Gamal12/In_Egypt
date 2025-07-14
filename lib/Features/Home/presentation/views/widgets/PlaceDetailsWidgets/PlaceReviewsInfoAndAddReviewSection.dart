@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/CustomPlaceReviewsSectionHeader.dart';
-import 'package:in_egypt/core/widgets/CustomTeaxtField.dart';
+import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 
 class PlaceReviewsInfoAndAddReviewSection extends StatelessWidget {
   const PlaceReviewsInfoAndAddReviewSection({super.key});

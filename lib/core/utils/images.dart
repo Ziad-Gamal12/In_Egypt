@@ -47,8 +47,8 @@ class Assets {
   static const String assetsIconsFacebookIcon = "assets/icons/FacebookIcon.svg";
 
   /// Assets for assetsIconsFavouriteIcon
-  /// assets/icons/favourite_Icon.svg
-  static const String assetsIconsFavouriteIcon = "assets/icons/favourite_Icon.svg";
+  /// assets/icons/favouriteIcon.svg
+  static const String assetsIconsFavouriteIcon = "assets/icons/favouriteIcon.svg";
 
   /// Assets for assetsIconsGoogleIcon
   /// assets/icons/GoogleIcon.svg
@@ -70,6 +70,10 @@ class Assets {
   /// assets/icons/Search_icon.svg
   static const String assetsIconsSearchIcon = "assets/icons/Search_icon.svg";
 
+  /// Assets for assetsIconsSolidfavouriteIcon
+  /// assets/icons/Solidfavourite_Icon.svg
+  static const String assetsIconsSolidfavouriteIcon = "assets/icons/Solidfavourite_Icon.svg";
+
   /// Assets for assetsIconsUserIcon
   /// assets/icons/userIcon.png
   static const String assetsIconsUserIcon = "assets/icons/userIcon.png";
@@ -81,6 +85,10 @@ class Assets {
   /// Assets for assetsImagesAppLogo
   /// assets/images/AppLogo.svg
   static const String assetsImagesAppLogo = "assets/images/AppLogo.svg";
+
+  /// Assets for assetsImagesMyTripBackGround
+  /// assets/images/MyTripBackGround.svg
+  static const String assetsImagesMyTripBackGround = "assets/images/MyTripBackGround.svg";
 
   /// Assets for assetsImagesOnboardingBeach
   /// assets/images/onboardingBeach.jpg
