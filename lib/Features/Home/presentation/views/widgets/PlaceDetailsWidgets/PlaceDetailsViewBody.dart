@@ -5,6 +5,7 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWi
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceImagesSection.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceReviewsInfoAndAddReviewSection.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/widgets/CustomFlutterMap.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceVerticalDesignItem.dart';
 
 class PlaceDetailsViewBody extends StatelessWidget {
@@ -42,6 +43,26 @@ class PlaceDetailsViewBody extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: PlaceImagesSection(),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: kMainColor, width: 1),
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 2 / 1,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: CustomFlutterMap()),
+                  ),
+                ),
               ),
               //Adisplay google map of the place here
               SliverToBoxAdapter(
