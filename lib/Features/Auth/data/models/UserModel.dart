@@ -1,7 +1,14 @@
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 
 class UserModel {
-  final String uid, firstName, lastName, email, phoneNumber, photoUrl, role;
+  final String fullName,
+      uid,
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      photoUrl,
+      role;
   final String createdAt;
   final bool isVerified;
   final bool isBlocked;
@@ -11,6 +18,7 @@ class UserModel {
     required this.firstName,
     required this.isBlocked,
     required this.isVerified,
+    required this.fullName,
     required this.lastName,
     required this.email,
     required this.phoneNumber,
@@ -23,6 +31,7 @@ class UserModel {
     return UserModel(
       uid: json['uid'] ?? '',
       firstName: json['firstName'] ?? '',
+      fullName: json['fullName'] ?? '',
       isVerified: json['isVerified'] ?? false,
       lastName: json['lastName'] ?? '',
       isBlocked: json['isBlocked'] ?? false,
@@ -39,6 +48,7 @@ class UserModel {
       firstName: entity.firstName,
       lastName: entity.lastName,
       isVerified: entity.isVerified,
+      fullName: entity.fullName,
       isBlocked: entity.isBlocked,
       email: entity.email,
       phoneNumber: entity.phoneNumber,
@@ -55,6 +65,7 @@ class UserModel {
       isBlocked: isBlocked,
       isVerified: isVerified,
       email: email,
+      fullName: fullName,
       phoneNumber: phoneNumber,
       photoUrl: photoUrl,
       role: role,
@@ -68,6 +79,7 @@ class UserModel {
       'firstName': firstName,
       'lastName': lastName,
       'isBlocked': isBlocked,
+      'fullName': fullName,
       'email': email,
       'phoneNumber': phoneNumber,
       'isVerified': isVerified,

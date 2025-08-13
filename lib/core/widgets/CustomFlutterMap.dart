@@ -5,12 +5,14 @@ import 'package:in_egypt/constant.dart';
 import 'package:latlong2/latlong.dart';
 
 class CustomFlutterMap extends StatelessWidget {
-  const CustomFlutterMap({super.key});
+  const CustomFlutterMap(
+      {super.key, required this.longitude, required this.latitude});
+  final double longitude, latitude;
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
-        initialCenter: LatLng(29.9792, 31.1342),
+        initialCenter: LatLng(latitude, longitude),
         initialZoom: 9.2,
       ),
       children: [
@@ -23,7 +25,7 @@ class CustomFlutterMap extends StatelessWidget {
             Marker(
               width: 40,
               height: 40,
-              point: LatLng(29.9792, 31.1342),
+              point: LatLng(latitude, longitude),
               child: Icon(FontAwesomeIcons.locationDot,
                   color: kMainColor, size: 40),
             ),

@@ -26,7 +26,9 @@ class CustomBookTextFieldsSection extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        CustomEmailTextField(),
+        CustomEmailTextField(
+          controller: TextEditingController(),
+        ),
         SizedBox(
           height: 20,
         ),

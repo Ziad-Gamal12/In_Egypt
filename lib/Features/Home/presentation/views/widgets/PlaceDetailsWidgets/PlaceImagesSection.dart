@@ -3,8 +3,8 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWi
 import 'package:in_egypt/core/utils/textStyles.dart';
 
 class PlaceImagesSection extends StatelessWidget {
-  const PlaceImagesSection({super.key});
-
+  const PlaceImagesSection({super.key, required this.images});
+  final List<String> images;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,7 +21,9 @@ class PlaceImagesSection extends StatelessWidget {
         ),
         SizedBox(
           height: MediaQuery.sizeOf(context).height * .1,
-          child: PlaceImagesListView(),
+          child: PlaceImagesListView(
+            imagesUrls: images,
+          ),
         )
       ],
     );

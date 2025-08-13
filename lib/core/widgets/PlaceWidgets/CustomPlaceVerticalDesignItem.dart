@@ -1,52 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:glass/glass.dart';
-import 'package:go_router/go_router.dart';
-import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
-import 'package:in_egypt/core/utils/images.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomFavouritePlaceWidget.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceItemInfo.dart';
+import 'package:in_egypt/core/Entities/PlaceEntity.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceVerticalDesignItemContent.dart';
 
-class CustomPlaceVerticalDesignItem extends StatelessWidget {
-  const CustomPlaceVerticalDesignItem({super.key, required this.isFavourite});
-  final bool isFavourite;
+class CustomPlaceVerticalDesignItem extends StatefulWidget {
+  const CustomPlaceVerticalDesignItem({super.key, required this.place});
+  final PlaceEntity place;
+  @override
+  State<CustomPlaceVerticalDesignItem> createState() =>
+      _CustomPlaceVerticalDesignItemState();
+}
+
+class _CustomPlaceVerticalDesignItemState
+    extends State<CustomPlaceVerticalDesignItem> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        GoRouter.of(context).push(PlaceDetailsView.routeName);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.transparent,
-            image: DecorationImage(
-                image: AssetImage(
-                  Assets.assetsImagesTestFavouritePlaceItemBackGround,
-                ),
-                fit: BoxFit.cover)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: CustomFavouritePlaceWidget(
-                    isFavourite: isFavourite,
-                  ),
-                )),
-            Spacer(),
-            Align(
-                alignment: Alignment.bottomRight,
-                child: CustomPlaceItemInfo().asGlass(
-                  clipBorderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20)),
-                )),
-          ],
-        ),
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      alignment: Alignment.bottomCenter,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        border: Border.all(color: Colors.grey.shade100),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade100,
+            blurRadius: 50,
+            spreadRadius: 10,
+            offset: const Offset(5, 40),
+          ),
+        ],
       ),
+      child: CustomPlaceVerticalDesignItemContent(place: widget.place),
     );
   }
 }

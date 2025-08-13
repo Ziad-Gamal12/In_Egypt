@@ -35,9 +35,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     lastName: '',
     email: '',
     phoneNumber: '',
-    createdAt: DateTime.now().toIso8601String(),
+    fullName: '',
+    createdAt: DateTime.now().toString(),
     uid: '',
-    photoUrl: '',
+    photoUrl: 'https://cdn-icons-png.flaticon.com/128/16683/16683419.png',
     role: 'User',
   );
   @override

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:in_egypt/core/Entities/FireStorePaginateResponse.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
 
 abstract class Databaseservice {
@@ -7,7 +8,8 @@ abstract class Databaseservice {
     required Map<String, dynamic> data,
     required FireStoreRequirmentsEntity requirements,
   });
-  Future getData({
+
+  Future<FireStoreResponse> getData({
     required FireStoreRequirmentsEntity requirements,
     Map<String, dynamic>? query,
   });
@@ -23,7 +25,7 @@ abstract class Databaseservice {
     required String feildValue,
   });
 
-  Future<void> updateDate({
+  Future<void> updateData({
     required String collectionKey,
     required doc,
     required dynamic data,
@@ -31,10 +33,11 @@ abstract class Databaseservice {
     String? subCollectionKey,
     String? subDocId,
   });
-  Future<void> deleteDoc({
+  Future<void> deleteDocs({
     required String collectionKey,
     required String docId,
+    String? where,
+    String? whereValue,
     String? subCollectionKey,
-    String? subDocId,
   });
 }

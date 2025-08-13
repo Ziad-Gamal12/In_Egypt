@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 
 class CustomEmailTextField extends StatelessWidget {
-  CustomEmailTextField({super.key, this.controller, this.onSaved});
-  TextEditingController? controller;
+  CustomEmailTextField({super.key, required this.controller, this.onSaved});
+  final TextEditingController controller;
   ValueChanged<String?>? onSaved;
   @override
   Widget build(BuildContext context) {

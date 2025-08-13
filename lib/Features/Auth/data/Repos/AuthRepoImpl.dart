@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,15 +28,11 @@ class AuthRepoImpl implements AuthRepo {
   }) async {
     try {
       User user = await authService.signInWithEmailAndPassword(email, password);
-      if (user.emailVerified) {
-        return await fetchUserAndStoreLocally(user.uid);
-      } else {
-        await user.sendEmailVerification();
-        return Left(ServerFailure(message: "يرجى التحقق من البريد الإلكتروني"));
-      }
+
+      return await fetchUserAndStoreLocally(user.uid);
     } on CustomException catch (e) {
       return Left(ServerFailure(message: e.message));
-    } catch (e) {
+    } catch (e, s) {
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
@@ -54,12 +51,8 @@ class AuthRepoImpl implements AuthRepo {
       );
       userEntity.uid = user.uid;
       final userModel = UserModel.fromEntity(userEntity);
-      await Future.wait([
-        storeUserDataInFireStore(userjson: userModel.toJson(), uid: user.uid),
-        user.sendEmailVerification(),
-        authService.signout(),
-      ]);
-      return Right(null);
+      return await storeUserDataInFireStore(
+          user: user, userjson: userModel.toJson(), uid: user.uid);
     } on CustomException catch (e) {
       deleteUser(user);
       return Left(ServerFailure(message: e.message));
@@ -74,7 +67,9 @@ class AuthRepoImpl implements AuthRepo {
       if (user != null) {
         await user.delete();
       }
-    } catch (e) {
+    } catch (e, s) {
+      log("$e\n$s");
+
       throw CustomException(message: "حدث خطأ أثناء حذف المستخدم");
     }
   }
@@ -95,15 +90,28 @@ class AuthRepoImpl implements AuthRepo {
           docId: uid,
         ),
       );
-      if (json != null) {
-        await storeUserLocally(json);
+      if (json.docData != null) {
+        Map<String, dynamic> userJson = json.docData!;
+        UserEntity userEntity = UserModel.fromJson(userJson).toEntity();
+
+        if (userEntity.isBlocked == false) {
+          if (userEntity.isVerified == true) {
+            await storeUserLocally(userJson);
+          } else {
+            return Left(ServerFailure(message: "لم يتم التفعيل بعد"));
+          }
+        } else {
+          return Left(ServerFailure(message: "لقد تم حظرك من التطبيق"));
+        }
         return Right(null);
       } else {
         return Left(ServerFailure(message: "لم يتم العثور على المستخدم"));
       }
     } on CustomException catch (e) {
+      authService.signout();
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      authService.signout();
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
@@ -122,11 +130,13 @@ class AuthRepoImpl implements AuthRepo {
         return await fetchUserAndStoreLocally(user.uid);
       } else {
         return await storeUserDataInFireStore(
+          user: user,
           userjson: UserModel.fromEntity(
             UserEntity(
               uid: user.uid,
               phoneNumber: user.phoneNumber ?? "",
               firstName: user.displayName ?? "",
+              fullName: user.displayName ?? "",
               createdAt: DateTime.now().toIso8601String(),
               isBlocked: false,
               photoUrl: user.photoURL ?? "",
@@ -170,11 +180,13 @@ class AuthRepoImpl implements AuthRepo {
         return await fetchUserAndStoreLocally(user.uid);
       } else {
         return await storeUserDataInFireStore(
+          user: user,
           userjson: UserModel.fromEntity(
             UserEntity(
               uid: user.uid,
               phoneNumber: user.phoneNumber ?? "",
               firstName: user.displayName ?? "",
+              fullName: user.displayName ?? "",
               createdAt: DateTime.now().toIso8601String(),
               isBlocked: false,
               photoUrl: user.photoURL ?? "",
@@ -206,6 +218,7 @@ class AuthRepoImpl implements AuthRepo {
 
   Future<Either<Failure, void>> storeUserDataInFireStore({
     required Map<String, dynamic> userjson,
+    required User user,
     required String uid,
   }) async {
     try {
@@ -216,10 +229,14 @@ class AuthRepoImpl implements AuthRepo {
         ),
         data: userjson,
       );
+      await user.sendEmailVerification();
+      await authService.signout();
       return Right(null);
-    } on CustomException catch (e) {
+    } on CustomException catch (e, s) {
+      log("$e\n$s");
       return Left(ServerFailure(message: e.message));
-    } catch (e) {
+    } catch (e, s) {
+      log("$e\n$s");
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }

@@ -3,225 +3,228 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:in_egypt/core/Entities/FireStorePaginateResponse.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
 import 'package:in_egypt/core/errors/Exceptioons.dart';
 import 'package:in_egypt/core/services/DataBaseService.dart';
 
 class FirebaseFirestoreservice implements Databaseservice {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  CollectionReference<Map<String, dynamic>> _collectionRef(String collection) =>
+      firestore.collection(collection);
+
+  Query<Map<String, dynamic>> _applyQueryOptions(
+    Query<Map<String, dynamic>> base,
+    Map<String, dynamic>? options,
+  ) {
+    Query<Map<String, dynamic>> query = base;
+
+    if (options == null) return query;
+
+    if (options["filters"] is List<Map<String, dynamic>>) {
+      for (final Map<String, dynamic> f in options["filters"]) {
+        final field = f["field"];
+        final value = f["value"];
+        final operator = f["operator"];
+        if (field == null || value == null) continue;
+
+        if (operator == null || operator == "==") {
+          query = query.where(field, isEqualTo: value);
+        } else if (operator == ">=") {
+          query = query.where(field, isGreaterThanOrEqualTo: value);
+        } else if (operator == "<=") {
+          query = query.where(field, isLessThanOrEqualTo: value);
+        } else if (operator == "<") {
+          query = query.where(field, isLessThan: value);
+        } else if (operator == ">") {
+          query = query.where(field, isGreaterThan: value);
+        } else if (operator == "!=") {
+          query = query.where(field, isNotEqualTo: value);
+        }
+      }
+    }
+    if (options["searchField"] is String && options["searchValue"] != null) {
+      query = query.where(
+        options["searchField"],
+        isGreaterThanOrEqualTo: options["searchValue"],
+        isLessThan: "${options["searchValue"]}\uf8ff",
+      );
+    }
+
+    if (options["orderBy"] != null) {
+      query = query.orderBy(
+        options["orderBy"],
+        descending: options["descending"] ?? true,
+      );
+      if (options["startAt"] != null) query = query.startAt(options["startAt"]);
+      if (options["endAt"] != null) query = query.endAt(options["endAt"]);
+    }
+
+    if (options["limit"] != null) query = query.limit(options["limit"]);
+    if (options["startAfter"] != null) {
+      query = query.startAfterDocument(options["startAfter"]);
+    }
+
+    return query;
+  }
+
+  Exception _getFireStoreCustomException({required FirebaseException e}) {
+    switch (e.code) {
+      case 'permission-denied':
+        throw CustomException(
+          message:
+              "🚨 ليس لديك الإذن اللازم للوصول إلى البيانات. يرجى مراجعة صلاحياتك.",
+        );
+      case 'unavailable':
+        throw CustomException(
+          message: "🚨 الخادم غير متوفر حاليا. حاول مرة أخرى لاحقا.",
+        );
+      case 'invalid-argument':
+        throw CustomException(
+          message:
+              "❌ تم تمرير بيانات غير صحيحة. تأكد من المدخلات وحاول مجددًا.",
+        );
+      case 'deadline-exceeded':
+        throw CustomException(
+          message: "⏳ انتهت المهلة الزمنية للطلب. حاول مرة أخرى.",
+        );
+      case 'resource-exhausted':
+        throw CustomException(
+          message: "🚨 تم استهلاك الموارد المتاحة. يرجى المحاولة لاحقًا.",
+        );
+      default:
+        throw CustomException(message: "❌ حدث خطأ غير متوقع.");
+    }
+  }
+
   @override
   Future<void> setData({
     required Map<String, dynamic> data,
     required FireStoreRequirmentsEntity requirements,
   }) async {
     try {
-      if (requirements.collection != null) {
-        var query = firestore.collection(requirements.collection!);
-        if (requirements.docId != null) {
-          if (requirements.subCollection != null) {
-            var query1 = query
-                .doc(requirements.docId)
-                .collection(requirements.subCollection!);
-            if (requirements.subDocId != null) {
-              if (requirements.subCollection2 != null) {
-                var query2 = query1
-                    .doc(requirements.subDocId)
-                    .collection(requirements.subCollection2!);
-                if (requirements.sub2DocId != null) {
-                  if (requirements.subCollection3 != null) {
-                    var query3 = query2
-                        .doc(requirements.sub2DocId)
-                        .collection(requirements.subCollection3!);
-                    if (requirements.sub3DocId != null) {
-                      await query3.doc(requirements.sub3DocId).set(data);
-                    } else {
-                      await query3.add(data);
-                    }
-                  } else {
-                    await query2.doc(requirements.sub2DocId).set(data);
-                  }
-                } else {
-                  await query2.add(data);
-                }
-              } else {
-                await query1.doc(requirements.subDocId).set(data);
-              }
-            } else {
-              await query1.add(data);
-            }
-          } else {
-            await query.doc(requirements.docId).set(data);
-          }
-        } else {
-          await query.add(data);
-        }
+      if (requirements.collection == null) return;
+
+      CollectionReference<Map<String, dynamic>> query =
+          _collectionRef(requirements.collection!);
+
+      if (requirements.docId == null) {
+        await query.add(data);
+        return;
+      }
+      if (requirements.subCollection == null) {
+        await _collectionRef(
+          requirements.collection!,
+        ).doc(requirements.docId!).set(data);
+        return;
+      }
+
+      var q1 = _collectionRef(
+        requirements.collection!,
+      ).doc(requirements.docId!).collection(requirements.subCollection!);
+
+      if (requirements.subDocId == null) {
+        await q1.add(data);
+        return;
+      }
+
+      if (requirements.subCollection2 == null) {
+        await q1.doc(requirements.subDocId!).set(data);
+        return;
+      }
+
+      var q2 = q1
+          .doc(requirements.subDocId!)
+          .collection(requirements.subCollection2!);
+
+      // sub2DocId
+      if (requirements.sub2DocId == null) {
+        await q2.add(data);
+        return;
+      }
+
+      // subCollection3
+      if (requirements.subCollection3 == null) {
+        await q2.doc(requirements.sub2DocId!).set(data);
+        return;
+      }
+
+      var q3 = q2
+          .doc(requirements.sub2DocId!)
+          .collection(requirements.subCollection3!);
+
+      // sub3DocId
+      if (requirements.sub3DocId == null) {
+        await q3.add(data);
+      } else {
+        await q3.doc(requirements.sub3DocId!).set(data);
       }
     } on FirebaseException catch (e) {
-      if (e.code == 'permission-denied') {
-        throw CustomException(
-          message:
-              "🚨 ليس لديك الإذن اللازم لإضافة البيانات. يرجى مراجعة صلاحياتك أو تعديل قواعد الأمان في Firestore.",
-        );
-      } else if (e.code == "unavailable") {
-        throw CustomException(
-          message: "🚨 الخادم غير متوفر حاليا. يرجى المحاولة لاحقا.",
-        );
-      } else if (e.code == "invalid-argument") {
-        throw CustomException(
-          message:
-              "❌ تم تمرير بيانات غير صحيحة. يرجى التحقق من المدخلات وإعادة المحاولة.",
-        );
-      } else if (e.code == "deadline-exceeded") {
-        throw CustomException(
-          message:
-              "⏳ انتهت المهلة الزمنية للطلب. يرجى المحاولة مرة أخرى لاحقًا.",
-        );
-      } else if (e.code == "resource-exhausted") {
-        throw CustomException(
-          message: "🚨 استهلاك الحافزات المتاحة. يرجى المحاولة لاحقًا.",
-        );
-      }
+      throw _getFireStoreCustomException(e: e);
     }
   }
 
   @override
-  Future getData({
+  Future<FireStoreResponse> getData({
     required FireStoreRequirmentsEntity requirements,
     Map<String, dynamic>? query,
   }) async {
     try {
-      CollectionReference<Map<String, dynamic>> currentCollection = firestore
-          .collection(requirements.collection!);
+      final collectionName = requirements.collection;
+      if (collectionName == null) {
+        return FireStoreResponse();
+      }
+
+      CollectionReference<Map<String, dynamic>> currentCollection =
+          _collectionRef(collectionName);
+
+      // If a top-level docId is provided
       if (requirements.docId != null) {
-        DocumentReference<Map<String, dynamic>> docRef = currentCollection.doc(
-          requirements.docId!,
-        );
+        final docRef = currentCollection.doc(requirements.docId!);
+
+        // If subCollection provided -> navigate to it
         if (requirements.subCollection != null) {
           currentCollection = docRef.collection(requirements.subCollection!);
+
+          // If subDocId provided -> return that doc
           if (requirements.subDocId != null) {
-            DocumentReference<Map<String, dynamic>> subDocRef =
-                currentCollection.doc(requirements.subDocId!);
-
-            if (requirements.subCollection2 != null) {
-              currentCollection = subDocRef.collection(
-                requirements.subCollection2!,
-              );
-
-              if (requirements.sub2DocId != null) {
-                DocumentReference<Map<String, dynamic>> sub2DocRef =
-                    currentCollection.doc(requirements.sub2DocId!);
-
-                if (requirements.subCollection3 != null) {
-                  currentCollection = sub2DocRef.collection(
-                    requirements.subCollection3!,
-                  );
-
-                  if (requirements.sub3DocId != null) {
-                    DocumentReference<Map<String, dynamic>> sub3DocRef =
-                        currentCollection.doc(requirements.sub3DocId!);
-
-                    if (requirements.subCollection4 != null) {
-                      currentCollection = sub3DocRef.collection(
-                        requirements.subCollection4!,
-                      );
-
-                      if (requirements.sub4DocId != null) {
-                        final sub4DocRef = currentCollection.doc(
-                          requirements.sub4DocId!,
-                        );
-                        final sub4DocSnapshot = await sub4DocRef.get();
-                        return sub4DocSnapshot.data();
-                      } else {
-                        final sub4Snapshot = await currentCollection.get();
-                        return sub4Snapshot.docs.map((e) => e.data()).toList();
-                      }
-                    } else {
-                      final sub3DocSnapshot = await sub3DocRef.get();
-                      return sub3DocSnapshot.data();
-                    }
-                  } else {
-                    final sub3Snapshot = await currentCollection.get();
-                    return sub3Snapshot.docs.map((e) => e.data()).toList();
-                  }
-                } else {
-                  final sub2DocSnapshot = await sub2DocRef.get();
-                  return sub2DocSnapshot.data();
-                }
-              } else {
-                final sub2Snapshot = await currentCollection.get();
-                return sub2Snapshot.docs.map((e) => e.data()).toList();
-              }
-            } else {
-              final subDocSnapshot = await subDocRef.get();
-              return subDocSnapshot.data();
-            }
-          } else {
-            final subSnapshot = await currentCollection.get();
-            return subSnapshot.docs.map((e) => e.data()).toList();
+            final subDocSnapshot =
+                await currentCollection.doc(requirements.subDocId!).get();
+            return FireStoreResponse(docData: subDocSnapshot.data());
           }
+
+          // else return the subCollection docs
+          final subSnapshot = await currentCollection.get();
+          return FireStoreResponse(
+            listData: subSnapshot.docs.map((e) => e.data()).toList(),
+          );
         } else {
+          // No subCollection -> return the top-level doc
           final docSnapshot = await docRef.get();
-          return docSnapshot.data();
+          return FireStoreResponse(docData: docSnapshot.data());
         }
-      } else {
-        Query queryData = currentCollection;
-        if (query != null) {
-          if (query["isFree"] != null) {
-            queryData = queryData.where("price", isEqualTo: 0);
-          }
-          if (query["state"] != null) {
-            queryData = queryData.where("state", isEqualTo: query["state"]);
-          }
-          if (query["id"] != null) {
-            queryData = queryData.where("id", isEqualTo: query["id"]);
-          }
-          if (query["title"] != null) {
-            queryData = queryData.where("title", isEqualTo: query["title"]);
-          }
-          if (query["language"] != null) {
-            queryData = queryData.where(
-              "language",
-              isEqualTo: query["language"],
-            );
-          }
-          if (query["limit"] != null) {
-            queryData = queryData.limit(query["limit"]);
-          }
-          if (query["orderBy"] != null) {
-            queryData = queryData.orderBy(query["orderBy"], descending: true);
-          }
-        }
+      }
 
-        final querySnapshot = await queryData.get();
-        return querySnapshot.docs.map((e) => e.data()).toList();
-      }
-    } on FirebaseException catch (e) {
-      switch (e.code) {
-        case 'permission-denied':
-          throw CustomException(
-            message:
-                "🚨 ليس لديك الإذن اللازم للوصول إلى البيانات. يرجى مراجعة صلاحياتك.",
-          );
-        case 'unavailable':
-          throw CustomException(
-            message: "🚨 الخادم غير متوفر حاليا. حاول مرة أخرى لاحقا.",
-          );
-        case 'invalid-argument':
-          throw CustomException(
-            message:
-                "❌ تم تمرير بيانات غير صحيحة. تأكد من المدخلات وحاول مجددًا.",
-          );
-        case 'deadline-exceeded':
-          throw CustomException(
-            message: "⏳ انتهت المهلة الزمنية للطلب. حاول مرة أخرى.",
-          );
-        case 'resource-exhausted':
-          throw CustomException(
-            message: "🚨 تم استهلاك الموارد المتاحة. يرجى المحاولة لاحقًا.",
-          );
-        default:
-          throw CustomException(message: "❌ حدث خطأ غير متوقع.");
-      }
+      Query<Map<String, dynamic>> queryData = currentCollection;
+      queryData = _applyQueryOptions(queryData, query);
+
+      final querySnapshot = await queryData.get();
+
+      return FireStoreResponse(
+        hasMore: querySnapshot.docs.length == query?["limit"],
+        lastDocumentSnapshot:
+            querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null,
+        listData: querySnapshot.docs.map((e) => e.data()).toList(),
+      );
+    } on FirebaseException catch (e, s) {
+      log("error in get data ${e.toString()} and StackTrace ${s.toString()}");
+      throw _getFireStoreCustomException(e: e);
+    } catch (e, s) {
+      log(
+        "error in catch get data ${e.toString()} and StackTrace ${s.toString()}",
+      );
+      throw CustomException(message: "❌ حدث خطاء غير متوقع.");
     }
   }
 
@@ -233,16 +236,17 @@ class FirebaseFirestoreservice implements Databaseservice {
     String? subDocId,
   }) async {
     if (subCollectionKey != null) {
-      var isExists = await firestore
+      final snapshot = await firestore
           .collection(key)
           .doc(docId)
           .collection(subCollectionKey)
           .doc(subDocId)
           .get();
-      return isExists.exists;
+      return snapshot.exists;
     }
-    var isExists = await firestore.collection(key).doc(docId).get();
-    return isExists.exists;
+
+    final snapshot = await firestore.collection(key).doc(docId).get();
+    return snapshot.exists;
   }
 
   @override
@@ -251,85 +255,90 @@ class FirebaseFirestoreservice implements Databaseservice {
     required String feild,
     required String feildValue,
   }) async {
-    QuerySnapshot<Map<String, dynamic>> fileds = await firestore
+    final fileds = await firestore
         .collection(key)
         .where(feild, isEqualTo: feildValue)
         .get();
-    return fileds.docs.isEmpty ? false : true;
+    return fileds.docs.isNotEmpty;
   }
 
   @override
-  Future<void> updateDate({
+  Future<void> updateData({
     required String collectionKey,
     required doc,
     required dynamic data,
-    required String field,
+    String? field,
     String? subCollectionKey,
     String? subDocId,
   }) async {
     try {
       if (subCollectionKey != null) {
-        await firestore
+        final target = firestore
             .collection(collectionKey)
             .doc(doc)
             .collection(subCollectionKey)
-            .doc(subDocId)
-            .update({field: data});
+            .doc(subDocId);
+
+        if (field == null) {
+          await target.update(data);
+        } else {
+          await target.update({field: data});
+        }
       } else {
-        await firestore.collection(collectionKey).doc(doc).update({
-          field: data,
-        });
+        final target = firestore.collection(collectionKey).doc(doc);
+        if (field == null) {
+          await target.update(data);
+        } else {
+          await target.update({field: data});
+        }
       }
     } on FirebaseException catch (e) {
-      if (e.code == 'permission-denied') {
-        throw CustomException(
-          message:
-              "🚨 ليس لديك الإذن اللازم لإضافة البيانات. يرجى مراجعة صلاحياتك أو تعديل قواعد الأمان في Firestore.",
-        );
-      } else if (e.code == "unavailable") {
-        throw CustomException(
-          message: "🚨 الخادم غير متوفر حاليا. يرجى المحاولة لاحقا.",
-        );
-      } else if (e.code == "invalid-argument") {
-        throw CustomException(
-          message:
-              "❌ تم تمرير بيانات غير صحيحة. يرجى التحقق من المدخلات وإعادة المحاولة.",
-        );
-      } else if (e.code == "deadline-exceeded") {
-        throw CustomException(
-          message:
-              "⏳ انتهت المهلة الزمنية للطلب. يرجى المحاولة مرة أخرى لاحقًا.",
-        );
-      } else if (e.code == "resource-exhausted") {
-        throw CustomException(
-          message: "🚨 استهلاك الحافزات المتاحة. يرجى المحاولة لاحقًا.",
-        );
-      } else {
-        throw CustomException(message: "حدث خطأ ما");
-      }
+      throw _getFireStoreCustomException(e: e);
     } catch (e) {
-      log(
-        "Exception from Firebase_FirestoreService.updateDate in catch With Firebase Exception: ${e.toString()}",
-      );
       throw CustomException(message: "حدث خطأ ما");
     }
   }
 
   @override
-  Future<void> deleteDoc({
+  Future<void> deleteDocs({
     required String collectionKey,
     required String docId,
+    String? where,
+    String? whereValue,
     String? subCollectionKey,
-    String? subDocId,
   }) async {
+    final batch = firestore.batch();
+    bool hasDeletes = false;
+
+    Future<void> collectDeletes(Query<Map<String, dynamic>> query) async {
+      final snapshot = await query.get();
+      for (final doc in snapshot.docs) {
+        batch.delete(doc.reference);
+        hasDeletes = true;
+      }
+    }
+
     if (subCollectionKey != null) {
-      await firestore
+      Query<Map<String, dynamic>> subQuery = firestore
           .collection(collectionKey)
           .doc(docId)
-          .collection(subCollectionKey)
-          .doc(subDocId)
-          .delete();
+          .collection(subCollectionKey);
+      if (where != null && whereValue != null) {
+        subQuery = subQuery.where(where, isEqualTo: whereValue);
+      }
+      await collectDeletes(subQuery);
     }
-    await firestore.collection(collectionKey).doc(docId).delete();
+
+    if (where != null && whereValue != null) {
+      Query<Map<String, dynamic>> mainQuery = firestore
+          .collection(collectionKey)
+          .where(where, isEqualTo: whereValue);
+      await collectDeletes(mainQuery);
+    } else {
+      batch.delete(firestore.collection(collectionKey).doc(docId));
+      hasDeletes = true;
+    }
+
+    if (hasDeletes) await batch.commit();
   }
 }

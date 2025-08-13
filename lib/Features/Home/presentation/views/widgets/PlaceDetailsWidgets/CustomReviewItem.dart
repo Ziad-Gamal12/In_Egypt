@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:in_egypt/core/helpers/getUserData.dart';
+import 'package:in_egypt/core/Entities/PlaceReviewEntity.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 import 'package:in_egypt/core/widgets/CustomCachedNetworkImage.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomRatingStarsRow.dart';
 
 class CustomReviewItem extends StatelessWidget {
-  const CustomReviewItem({super.key});
-
+  const CustomReviewItem({super.key, required this.placeReviewEntity});
+  final PlaceReviewEntity placeReviewEntity;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -17,7 +17,8 @@ class CustomReviewItem extends StatelessWidget {
           radius: 25,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: CustomCachedNetworkImage(imageUrl: getUserData().photoUrl),
+            child: CustomCachedNetworkImage(
+                imageUrl: placeReviewEntity.user.photoUrl),
           ),
         ),
         SizedBox(
@@ -33,14 +34,14 @@ class CustomReviewItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${getUserData().firstName} ${getUserData().lastName}",
+                        "${placeReviewEntity.user.firstName} ${placeReviewEntity.user.lastName}",
                         style: AppTextStyles(context)
                             .semiBold14
                             .copyWith(color: Colors.black),
                       ),
                       const Spacer(),
                       Text(
-                        "14/11/2022",
+                        "${placeReviewEntity.createdAt.day}/${placeReviewEntity.createdAt.month}/${placeReviewEntity.createdAt.year}",
                         style: AppTextStyles(context)
                             .regular14
                             .copyWith(color: Colors.grey),
@@ -49,14 +50,16 @@ class CustomReviewItem extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                CustomRatingStarsRow(),
+                CustomRatingStarsRow(
+                  rating: placeReviewEntity.rating,
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    "هذا المكان من افضل الامكان التى قمت بزيارتها فى الوقت الحالى",
+                    placeReviewEntity.review,
                     style: AppTextStyles(context)
                         .regular14
                         .copyWith(color: Colors.grey),

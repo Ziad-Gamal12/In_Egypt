@@ -33,10 +33,12 @@ class SignUpButtonSection extends StatelessWidget {
               if (passwordController.text == confirmPasswordController.text) {
                 if (isTermsAccepted) {
                   formKey.currentState!.save();
+                  userEntity.fullName =
+                     ("${userEntity.firstName} ${userEntity.lastName}").toLowerCase();
                   context.read<SignUpCubit>().signUpWithEmailAndPassword(
-                    userEntity: userEntity,
-                    password: passwordController.text,
-                  );
+                        userEntity: userEntity,
+                        password: passwordController.text,
+                      );
                 } else {
                   showWarningSnackBar(
                     context: context,

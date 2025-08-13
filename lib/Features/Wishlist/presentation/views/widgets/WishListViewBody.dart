@@ -28,7 +28,9 @@ class WishListViewBody extends StatelessWidget {
                 ],
               ),
             ),
-            MyWishListSliverList()
+            MyWishListSliverList(
+              places: [],
+            )
           ],
         ));
   }

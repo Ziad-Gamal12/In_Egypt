@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/AboutPlaceSection.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/CustomPlaceDetailsBookButton.dart';
+import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/CustomPlaceDetailsItemImage.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/CustomPlaceReviewsSliverList.dart';
+import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/CustomPlaceTitleAndRatingAndLocation.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceImagesSection.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceReviewsInfoAndAddReviewSection.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/widgets/CustomFlutterMap.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceVerticalDesignItem.dart';
 
 class PlaceDetailsViewBody extends StatelessWidget {
-  const PlaceDetailsViewBody({super.key});
-
+  const PlaceDetailsViewBody({super.key, required this.place});
+  final PlaceEntity place;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -21,11 +23,17 @@ class PlaceDetailsViewBody extends StatelessWidget {
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: AspectRatio(
-                  aspectRatio: 4.5 / 3,
-                  child: CustomPlaceVerticalDesignItem(
-                    isFavourite: true,
-                  ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: CustomPlaceDetailsItemImage(
+                        imageUrl: place.images[0],
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    CustomPlaceTitleAndRatingAndLocation(place: place),
+                  ],
                 ),
               ),
               SliverToBoxAdapter(
@@ -34,7 +42,9 @@ class PlaceDetailsViewBody extends StatelessWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: AboutPlaceSection(),
+                child: AboutPlaceSection(
+                  description: place.description,
+                ),
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -42,7 +52,9 @@ class PlaceDetailsViewBody extends StatelessWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: PlaceImagesSection(),
+                child: PlaceImagesSection(
+                  images: place.images,
+                ),
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -60,7 +72,10 @@ class PlaceDetailsViewBody extends StatelessWidget {
                     aspectRatio: 2 / 1,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: CustomFlutterMap()),
+                        child: CustomFlutterMap(
+                          latitude: place.latitude,
+                          longitude: place.longitude,
+                        )),
                   ),
                 ),
               ),
@@ -76,7 +91,9 @@ class PlaceDetailsViewBody extends StatelessWidget {
                   height: 20,
                 ),
               ),
-              CustomPlaceReviewsSliverList()
+              CustomPlaceReviewsSliverList(
+                reviews: place.placeReviewsEntity ?? [],
+              )
             ],
           ),
         ),

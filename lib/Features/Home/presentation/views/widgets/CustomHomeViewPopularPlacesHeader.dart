@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 
-class CustomHomeViewFavouritePlacesHeader extends StatelessWidget {
-  const CustomHomeViewFavouritePlacesHeader({super.key});
+class CustomHomeViewPopularPlacesHeader extends StatelessWidget {
+  const CustomHomeViewPopularPlacesHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(children: [
       Text(
-        "الأماكن المفضلة",
+        "الأكثر تقييما",
         style: AppTextStyles(context).semiBold20.copyWith(color: Colors.black),
       ),
       const Spacer(),

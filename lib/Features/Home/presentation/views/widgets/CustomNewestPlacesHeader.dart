@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 
-class CustomPopularPlacesHeader extends StatelessWidget {
-  const CustomPopularPlacesHeader({super.key});
+class CustomNewestPlacesHeader extends StatelessWidget {
+  const CustomNewestPlacesHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class CustomPopularPlacesHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          "اشهر الأماكن",
+          "أحدث الأماكن",
           style:
               AppTextStyles(context).semiBold20.copyWith(color: Colors.black),
         ),

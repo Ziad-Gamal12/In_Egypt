@@ -9,6 +9,7 @@ import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart'
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
+import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 
 class App_router {
   static GoRouter router = GoRouter(
@@ -46,7 +47,9 @@ class App_router {
       GoRoute(
         path: PlaceDetailsView.routeName,
         builder: (BuildContext context, GoRouterState state) {
-          return const PlaceDetailsView();
+          return PlaceDetailsView(
+            placeEntity: state.extra as PlaceEntity,
+          );
         },
       ),
       GoRoute(

@@ -42,6 +42,14 @@ class Assets {
   /// assets/icons/cridteCard.png
   static const String assetsIconsCridteCard = "assets/icons/cridteCard.png";
 
+  /// Assets for assetsIconsEmptyIcon
+  /// assets/icons/EmptyIcon.png
+  static const String assetsIconsEmptyIcon = "assets/icons/EmptyIcon.png";
+
+  /// Assets for assetsIconsError
+  /// assets/icons/error.png
+  static const String assetsIconsError = "assets/icons/error.png";
+
   /// Assets for assetsIconsFacebookIcon
   /// assets/icons/FacebookIcon.svg
   static const String assetsIconsFacebookIcon = "assets/icons/FacebookIcon.svg";

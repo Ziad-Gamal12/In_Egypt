@@ -10,8 +10,10 @@ class SignUpEmailField extends StatelessWidget {
   Widget build(BuildContext context) {
     UserEntity userEntity = context.read<UserEntity>();
 
-    return CustomEmailTextField(onSaved: (val) {
-      userEntity.email = val ?? '';
-    });
+    return CustomEmailTextField(
+        controller: TextEditingController(),
+        onSaved: (val) {
+          userEntity.email = val ?? '';
+        });
   }
 }

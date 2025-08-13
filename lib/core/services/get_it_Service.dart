@@ -3,6 +3,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:in_egypt/Features/Auth/data/Repos/AuthRepoImpl.dart';
 import 'package:in_egypt/Features/Auth/domain/Repos/AuthRepo.dart';
+import 'package:in_egypt/Features/Home/data/Repos/PlacesRepoImpl.dart';
+import 'package:in_egypt/Features/Home/domain/Repos/PlacesRepo.dart';
 import 'package:in_egypt/core/services/DataBaseService.dart';
 import 'package:in_egypt/core/services/FirebaseAuth_Service.dart';
 import 'package:in_egypt/core/services/Firebase_FirestoreService.dart';
@@ -26,4 +28,6 @@ void setup_Getit() {
       databaseservice: getIt<Databaseservice>(),
     ),
   );
+  getIt.registerSingleton<PlacesRepo>(
+      PlacesRepoImpl(databaseservice: getIt<Databaseservice>()));
 }

@@ -23,9 +23,9 @@ class CustomSignInActionButton extends StatelessWidget {
       onPressed: () {
         if (formKey.currentState!.validate()) {
           context.read<SignInCubit>().signInWithEmailAndPassword(
-            email: emailController.text,
-            password: passwordController.text,
-          );
+                email: emailController.text,
+                password: passwordController.text,
+              );
         }
       },
     );
