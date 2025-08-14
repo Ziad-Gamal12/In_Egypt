@@ -4,8 +4,9 @@ import 'package:in_egypt/core/utils/textStyles.dart';
 class CustomPlaceReviewsSectionHeader extends StatelessWidget {
   const CustomPlaceReviewsSectionHeader({
     super.key,
+    required this.rating,
   });
-
+  final double rating;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -26,7 +27,7 @@ class CustomPlaceReviewsSectionHeader extends StatelessWidget {
               width: 5,
             ),
             Text(
-              "4.5",
+              rating.toString(),
               style: AppTextStyles(context)
                   .semiBold20
                   .copyWith(color: Colors.black),

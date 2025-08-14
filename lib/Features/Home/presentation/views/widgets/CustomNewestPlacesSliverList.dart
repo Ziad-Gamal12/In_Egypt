@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_egypt/Features/Home/presentation/manager/cubit/places_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
@@ -16,11 +16,7 @@ class CustomNewestPlacesSliverList extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlacesCubit, PlacesState>(
-      buildWhen: (previous, current) =>
-          current is PlacesGetNewestPlacesLoading ||
-          current is PlacesGetNewestPlacesSuccess ||
-          current is PlacesGetNewestPlacesFailure,
+    return BlocBuilder<NewestPlacesCubit, NewestPlacesState>(
       builder: (context, state) {
         if (state is PlacesGetNewestPlacesFailure) {
           return SliverToBoxAdapter(
@@ -32,10 +28,21 @@ class CustomNewestPlacesSliverList extends StatelessWidget {
           );
         } else if (state is PlacesGetNewestPlacesLoading) {
           return SliverToBoxAdapter(
-            child: Center(
-              child: CircularProgressIndicator(
-                color: kMainColor,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                Center(
+                  child: CircularProgressIndicator(
+                    color: kMainColor,
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+              ],
             ),
           );
         }

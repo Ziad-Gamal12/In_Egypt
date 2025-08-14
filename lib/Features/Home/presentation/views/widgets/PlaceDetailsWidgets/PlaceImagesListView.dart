@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_egypt/Features/Home/presentation/manager/cubit/places_cubit.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceImage.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/place_details-cubit/place_details-cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceImagesListViewItem.dart';
 
 class PlaceImagesListView extends StatelessWidget {
   const PlaceImagesListView({super.key, required this.imagesUrls});
@@ -17,11 +17,11 @@ class PlaceImagesListView extends StatelessWidget {
             aspectRatio: 1,
             child: InkWell(
               onTap: () {
-                context.read<PlacesCubit>().selectPlaceMainImage(
+                context.read<PlaceDetailsCubit>().selectPlaceMainImage(
                       url: imagesUrls[index],
                     );
               },
-              child: CustomPlaceImage(imageUrl: imagesUrls[index]),
+              child: PlaceImagesListViewItem(imageUrl: imagesUrls[index]),
             ),
           ),
         );

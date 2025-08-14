@@ -66,6 +66,10 @@ class Assets {
   /// assets/icons/locationIcon.svg
   static const String assetsIconsLocationIcon = "assets/icons/locationIcon.svg";
 
+  /// Assets for assetsIconsNoReviews
+  /// assets/icons/NoReviews.png
+  static const String assetsIconsNoReviews = "assets/icons/NoReviews.png";
+
   /// Assets for assetsIconsNotificationIcon
   /// assets/icons/notificationIcon.svg
   static const String assetsIconsNotificationIcon = "assets/icons/notificationIcon.svg";

@@ -22,7 +22,7 @@ class CustomPlaceVerticalDesignItemContent extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: CustomCachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: place.images[0],
+                imageUrl: place.images.isNotEmpty ? place.images[0] : '',
               ),
             ),
           ),

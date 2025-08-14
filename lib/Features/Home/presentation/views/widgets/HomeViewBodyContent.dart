@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_egypt/Features/Home/presentation/manager/cubit/places_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/popular_places_cubit/popular_places_cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomHomeViewAppBar.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomHomeViewPopularPlacesSection.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomHomeViewSearchSection.dart';
@@ -19,8 +20,8 @@ class HomeViewBodyContent extends StatefulWidget {
 class _HomeViewBodyContentState extends State<HomeViewBodyContent> {
   @override
   void initState() {
-    context.read<PlacesCubit>().getPopularPlaces(isPaginated: false);
-    context.read<PlacesCubit>().getNewestPlaces(isPaginated: false);
+    context.read<PopularPlacesCubit>().getPopularPlaces(isPaginated: false);
+    context.read<NewestPlacesCubit>().getNewestPlaces(isPaginated: false);
     super.initState();
   }
 

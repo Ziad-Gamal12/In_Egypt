@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/CustomReviewItem.dart';
 import 'package:in_egypt/core/Entities/PlaceReviewEntity.dart';
-import 'package:in_egypt/core/widgets/EmptyWidget.dart';
+import 'package:in_egypt/core/widgets/CustomNoReviewsWidget.dart';
 
 class CustomPlaceReviewsSliverList extends StatelessWidget {
   const CustomPlaceReviewsSliverList({super.key, required this.reviews});
   final List<PlaceReviewEntity> reviews;
   @override
   Widget build(BuildContext context) {
-    if (reviews.isEmpty)
+    if (reviews.isEmpty) {
       return SliverToBoxAdapter(
-          child: EmptyWidget(
-        message: "لا يوجد تقييمات",
-      ));
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 90),
+          child: SizedBox(
+              height: MediaQuery.sizeOf(context).height * .2,
+              child: CustomNoReviewsWidget()),
+        ),
+      );
+    }
     return SliverList.builder(
       itemCount: reviews.length,
       itemBuilder: (context, index) => Padding(

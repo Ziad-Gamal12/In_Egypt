@@ -85,7 +85,10 @@ class PlaceDetailsViewBody extends StatelessWidget {
                   height: 20,
                 ),
               ),
-              SliverToBoxAdapter(child: PlaceReviewsInfoAndAddReviewSection()),
+              SliverToBoxAdapter(
+                  child: PlaceReviewsInfoAndAddReviewSection(
+                rating: place.rating,
+              )),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 20,

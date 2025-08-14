@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_egypt/Features/Home/domain/Repos/PlacesRepo.dart';
-import 'package:in_egypt/Features/Home/presentation/manager/cubit/places_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/place_details-cubit/place_details-cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWidgets/PlaceDetailsViewBody.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
-import 'package:in_egypt/core/services/get_it_Service.dart';
 import 'package:in_egypt/core/widgets/CustomAppBar.dart';
 
 class PlaceDetailsView extends StatelessWidget {
@@ -14,12 +12,10 @@ class PlaceDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PlacesCubit(
-        placesRepo: getIt<PlacesRepo>(),
-      ),
+      create: (context) => PlaceDetailsCubit(),
       child: Scaffold(
         appBar: CustomAppBar(
-          appBartitle: "أهرامات الجيزة",
+          appBartitle: placeEntity.name,
         ),
         body: PlaceDetailsViewBody(
           place: placeEntity,

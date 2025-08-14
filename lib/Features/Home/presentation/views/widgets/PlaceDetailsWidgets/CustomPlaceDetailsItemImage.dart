@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_egypt/Features/Home/presentation/manager/cubit/places_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/place_details-cubit/place_details-cubit.dart';
 import 'package:in_egypt/core/widgets/CustomCachedNetworkImage.dart';
 
 class CustomPlaceDetailsItemImage extends StatefulWidget {
@@ -16,13 +16,15 @@ class _CustomPlaceDetailsItemImageState
     extends State<CustomPlaceDetailsItemImage> {
   @override
   void initState() {
-    context.read<PlacesCubit>().selectPlaceMainImage(url: widget.imageUrl);
+    context
+        .read<PlaceDetailsCubit>()
+        .selectPlaceMainImage(url: widget.imageUrl);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<PlacesCubit, PlacesState, String>(
+    return BlocSelector<PlaceDetailsCubit, PlaceDetailsState, String>(
       selector: (state) {
         if (state is PlacesSelectPlaceMainImageSuccess) {
           return state.imageUrl;

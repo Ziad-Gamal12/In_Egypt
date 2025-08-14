@@ -23,7 +23,7 @@ class CustomPlaceHorizintalDesignItem extends StatelessWidget {
                 child: AspectRatio(
                     aspectRatio: 86 / 116,
                     child: CustomPlaceImage(
-                      imageUrl: place.images[0],
+                      imageUrl: place.images.isNotEmpty ? place.images[0] : '',
                     ))),
             SizedBox(
               width: 14,

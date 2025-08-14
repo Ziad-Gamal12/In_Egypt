@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:in_egypt/Features/Auth/data/models/UserModel.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/Features/Auth/domain/Repos/AuthRepo.dart';
+import 'package:in_egypt/core/Entities/FireStorePaginateResponse.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
 import 'package:in_egypt/core/errors/Exceptioons.dart';
 import 'package:in_egypt/core/errors/Failures.dart';
@@ -28,11 +29,17 @@ class AuthRepoImpl implements AuthRepo {
   }) async {
     try {
       User user = await authService.signInWithEmailAndPassword(email, password);
-
-      return await fetchUserAndStoreLocally(user.uid);
+      final result = await fetchUserAndStoreLocally(user.uid);
+      if (result.isLeft()) {
+        authService.signout();
+        return result;
+      } else {
+        return Right(null);
+      }
     } on CustomException catch (e) {
       return Left(ServerFailure(message: e.message));
     } catch (e, s) {
+      log("$e\n$s");
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
@@ -84,7 +91,7 @@ class AuthRepoImpl implements AuthRepo {
 
   Future<Either<Failure, void>> fetchUserAndStoreLocally(String uid) async {
     try {
-      final json = await databaseservice.getData(
+      FireStoreResponse json = await databaseservice.getData(
         requirements: FireStoreRequirmentsEntity(
           collection: Backendkeys.usersCollection,
           docId: uid,
@@ -93,7 +100,6 @@ class AuthRepoImpl implements AuthRepo {
       if (json.docData != null) {
         Map<String, dynamic> userJson = json.docData!;
         UserEntity userEntity = UserModel.fromJson(userJson).toEntity();
-
         if (userEntity.isBlocked == false) {
           if (userEntity.isVerified == true) {
             await storeUserLocally(userJson);

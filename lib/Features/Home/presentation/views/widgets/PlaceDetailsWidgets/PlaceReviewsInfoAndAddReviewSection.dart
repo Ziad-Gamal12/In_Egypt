@@ -4,14 +4,16 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWi
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 
 class PlaceReviewsInfoAndAddReviewSection extends StatelessWidget {
-  const PlaceReviewsInfoAndAddReviewSection({super.key});
-
+  const PlaceReviewsInfoAndAddReviewSection({super.key, required this.rating});
+  final double rating;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomPlaceReviewsSectionHeader(),
+        CustomPlaceReviewsSectionHeader(
+          rating: rating,
+        ),
         const SizedBox(
           height: 10,
         ),
