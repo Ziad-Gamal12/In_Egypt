@@ -1,3 +1,4 @@
+import '../../Entities/PaymentMethodsEntities/PaymentMethodEntity.dart';
 import 'datum.dart';
 
 class PaymentMethodModel {
@@ -12,6 +13,18 @@ class PaymentMethodModel {
       data: (json['data'] as List<dynamic>?)
           ?.map((e) => Datum.fromJson(e as Map<String, dynamic>))
           .toList(),
+    );
+  }
+  factory PaymentMethodModel.fromEntity(PaymentMethodEntity entity) {
+    return PaymentMethodModel(
+      status: entity.status,
+      data: entity.data?.map((e) => Datum.fromEntity(e)).toList(),
+    );
+  }
+  PaymentMethodEntity toEntity() {
+    return PaymentMethodEntity(
+      status: status,
+      data: data?.map((e) => e.toEntity()).toList(),
     );
   }
 

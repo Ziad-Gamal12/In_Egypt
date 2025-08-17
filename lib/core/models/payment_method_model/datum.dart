@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
+
 class Datum {
   int? paymentId;
   String? nameEn;
@@ -20,7 +22,20 @@ class Datum {
         redirect: json['redirect'] as String?,
         logo: json['logo'] as String?,
       );
-
+  factory Datum.fromEntity(DatumEntity entity) => Datum(
+        paymentId: entity.paymentId,
+        nameEn: entity.nameEn,
+        nameAr: entity.nameAr,
+        redirect: entity.redirect,
+        logo: entity.logo,
+      );
+  DatumEntity toEntity() => DatumEntity(
+        paymentId: paymentId,
+        nameEn: nameEn,
+        nameAr: nameAr,
+        redirect: redirect,
+        logo: logo,
+      );
   Map<String, dynamic> toJson() => {
         'paymentId': paymentId,
         'name_en': nameEn,

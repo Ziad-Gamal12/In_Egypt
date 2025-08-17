@@ -5,6 +5,7 @@ import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingB
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingStepsPageView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingStepsRow.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 
 class BookViewBody extends StatefulWidget {
   const BookViewBody({
@@ -18,6 +19,7 @@ class _BookViewBodyState extends State<BookViewBody> {
   DateTimeRange<DateTime>? range;
   int currentIndex = 0;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  DatumEntity? selectedMethod;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,10 @@ class _BookViewBodyState extends State<BookViewBody> {
                     child: Form(
                       key: formKey,
                       child: CustomBookingStepsPageView(
+                          onSelected: (value) {
+                            selectedMethod = value;
+                            setState(() {});
+                          },
                           currentIndex: currentIndex),
                     ),
                   ),
@@ -58,6 +64,7 @@ class _BookViewBodyState extends State<BookViewBody> {
                   bottom: 20,
                   child: CustomBookingButton(
                       range: range,
+                      selectedMethod: selectedMethod,
                       currentIndex: currentIndex,
                       formKey: formKey))
             ],

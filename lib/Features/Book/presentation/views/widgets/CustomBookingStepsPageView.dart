@@ -3,13 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookDeatilsPageViewItem.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookPaymentPageViewItem.dart';
+import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 
 class CustomBookingStepsPageView extends StatefulWidget {
   const CustomBookingStepsPageView({
     super.key,
     required this.currentIndex,
+    required this.onSelected,
   });
   final int currentIndex;
+  final ValueChanged<DatumEntity> onSelected;
 
   @override
   State<CustomBookingStepsPageView> createState() =>
@@ -25,7 +28,9 @@ class _CustomBookingStepsPageViewState
       physics: const NeverScrollableScrollPhysics(),
       children: [
         CustomBookDeatilsPageViewItem(),
-        CustomBookPaymentPageViewItem(),
+        CustomBookPaymentPageViewItem(
+          onSelected: widget.onSelected,
+        ),
         SizedBox(),
       ],
     );

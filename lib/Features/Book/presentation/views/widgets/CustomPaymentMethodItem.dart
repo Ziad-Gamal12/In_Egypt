@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:in_egypt/Features/Book/domain/entities/PaymentMethodEntity.dart';
+import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
+import 'package:in_egypt/core/widgets/CustomCachedNetworkImage.dart';
 
 class CustomPaymentMethodItem extends StatelessWidget {
   const CustomPaymentMethodItem(
       {super.key, required this.isSelected, required this.method});
   final bool isSelected;
-  final PaymentMethodEntity method;
+  final DatumEntity method;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.only(bottom: 30),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -29,14 +29,19 @@ class CustomPaymentMethodItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(children: [
-          Image.asset(method.icon),
+          CustomCachedNetworkImage(imageUrl: method.logo ?? ""),
           const SizedBox(
             width: 16,
           ),
-          Text(
-            method.name,
-            style:
-                AppTextStyles(context).semiBold16.copyWith(color: Colors.black),
+          Expanded(
+            child: Text(
+              method.nameAr ?? "",
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles(context)
+                  .semiBold16
+                  .copyWith(color: Colors.black),
+            ),
           ),
           Spacer(),
           Visibility(

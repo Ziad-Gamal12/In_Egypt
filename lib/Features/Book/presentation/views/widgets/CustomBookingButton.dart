@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
 import 'package:in_egypt/core/widgets/CustomButton.dart';
 
@@ -12,7 +13,9 @@ class CustomBookingButton extends StatelessWidget {
     required this.currentIndex,
     required this.formKey,
     required this.range,
+    required this.selectedMethod,
   });
+  final DatumEntity? selectedMethod;
 
   final int currentIndex;
   final GlobalKey<FormState> formKey;
