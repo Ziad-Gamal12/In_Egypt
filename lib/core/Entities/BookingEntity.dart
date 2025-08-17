@@ -2,17 +2,17 @@ import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 
 class BookingEntity {
-  final UserEntity user;
-  final PlaceEntity place;
-  final DateTime startAt;
-  final DateTime endAt;
-  final DateTime createdAt;
-  final double daysDuration;
-  final int numberOfGuests;
-  String status;
-  final String id;
-  final double totalPrice;
-  final String paymentMethod;
+  UserEntity user;
+  PlaceEntity? place;
+  DateTime? startAt;
+  DateTime? endAt;
+  DateTime? createdAt;
+  int? daysDuration;
+  int? numberOfGuests;
+  String? status;
+  String? id;
+  double? totalPrice;
+  String? paymentMethod;
 
   BookingEntity({
     required this.user,

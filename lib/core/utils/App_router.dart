@@ -57,7 +57,9 @@ class App_router {
       GoRoute(
         path: BookPlaceView.routeName,
         builder: (BuildContext context, GoRouterState state) {
-          return const BookPlaceView();
+          return BookPlaceView(
+            place: state.extra as PlaceEntity,
+          );
         },
       ),
       GoRoute(

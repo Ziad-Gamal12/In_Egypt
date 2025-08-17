@@ -120,13 +120,12 @@ class firebaseAuthService {
 
       final GoogleSignInAccount user = await signIn.authenticate();
 
-      final GoogleSignInClientAuthorization? auth = await user
-          .authorizationClient
-          .authorizationForScopes([
-            'email',
-            'openid',
-            'https://www.googleapis.com/auth/userinfo.email',
-          ]);
+      final GoogleSignInClientAuthorization? auth =
+          await user.authorizationClient.authorizationForScopes([
+        'email',
+        'openid',
+        'https://www.googleapis.com/auth/userinfo.email',
+      ]);
 
       if (auth == null) {
         throw CustomException(message: "حدث خطاء في تسجيل الدخول");
@@ -145,8 +144,8 @@ class firebaseAuthService {
         accessToken: accessToken,
       );
 
-      final UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithCredential(credential);
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
       return userCredential.user!;
     } on FirebaseAuthException catch (e) {
@@ -271,8 +270,8 @@ class firebaseAuthService {
 
     // Sign in the user with Firebase. If the nonce we generated earlier does
     // not match the nonce in `appleCredential.identityToken`, sign in will fail.
-    final UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithCredential(oauthCredential);
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(oauthCredential);
     return userCredential.user!;
   }
 

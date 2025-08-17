@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:in_egypt/Features/Book/presentation/manager/booking_cubit/booking_cubit.dart';
+import 'package:in_egypt/core/Entities/BookingEntity.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomEmailTextField.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 
-class CustomBookTextFieldsSection extends StatelessWidget {
+class CustomBookTextFieldsSection extends StatefulWidget {
   const CustomBookTextFieldsSection({
     super.key,
   });
 
   @override
+  State<CustomBookTextFieldsSection> createState() =>
+      _CustomBookTextFieldsSectionState();
+}
+
+class _CustomBookTextFieldsSectionState
+    extends State<CustomBookTextFieldsSection> {
+  TextEditingController textEditingController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
+    BookingEntity bookingEntity = context.read<BookingCubit>().bookingEntity;
     return Column(
       children: [
         Customteaxtfield(
@@ -17,6 +29,9 @@ class CustomBookTextFieldsSection extends StatelessWidget {
             prefixIcon: FontAwesomeIcons.user,
             obscureText: false,
             textInputType: TextInputType.name,
+            onSaved: (val) {
+              bookingEntity.user.fullName = val ?? '';
+            },
             validator: (val) {
               if (val == null || val.isEmpty) {
                 return 'الرجاء إدخال اسم المسؤول';
@@ -27,7 +42,10 @@ class CustomBookTextFieldsSection extends StatelessWidget {
           height: 20,
         ),
         CustomEmailTextField(
-          controller: TextEditingController(),
+          onSaved: (value) {
+            bookingEntity.user.email = value ?? '';
+          },
+          controller: textEditingController,
         ),
         SizedBox(
           height: 20,
@@ -37,6 +55,9 @@ class CustomBookTextFieldsSection extends StatelessWidget {
             obscureText: false,
             textInputType: TextInputType.phone,
             prefixIcon: FontAwesomeIcons.phone,
+            onSaved: (val) {
+              bookingEntity.user.phoneNumber = val ?? '';
+            },
             validator: (val) {
               if (val == null || val.isEmpty) {
                 return 'الرجاء إدخال رقم الهاتف';
@@ -53,6 +74,9 @@ class CustomBookTextFieldsSection extends StatelessWidget {
             prefixIcon: FontAwesomeIcons.users,
             obscureText: false,
             textInputType: TextInputType.number,
+            onSaved: (val) {
+              bookingEntity.numberOfGuests = int.parse(val ?? '0');
+            },
             validator: (val) {
               if (val == null || val.isEmpty) {
                 return 'الرجاء إدخال عدد الافراد';

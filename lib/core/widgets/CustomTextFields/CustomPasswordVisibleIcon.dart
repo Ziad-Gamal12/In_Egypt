@@ -15,7 +15,6 @@ class _CustompasswordvisibleiconState extends State<Custompasswordvisibleicon> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
-
       child: IconButton(
         icon: Icon(
           isPasswordVisible == false ? Icons.visibility_off : Icons.visibility,

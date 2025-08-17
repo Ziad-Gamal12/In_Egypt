@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Book/presentation/views/BookView.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 import 'package:in_egypt/core/widgets/CustomButton.dart';
 
 class CustomPlaceDetailsBookButton extends StatelessWidget {
-  const CustomPlaceDetailsBookButton({super.key});
-
+  const CustomPlaceDetailsBookButton({super.key, required this.place});
+  final PlaceEntity place;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +30,8 @@ class CustomPlaceDetailsBookButton extends StatelessWidget {
                   color: kMainColor,
                   textColor: Colors.white,
                   onPressed: () {
-                    GoRouter.of(context).push(BookPlaceView.routeName);
+                    GoRouter.of(context)
+                        .push(BookPlaceView.routeName, extra: place);
                   })),
           SizedBox(
             width: 30,
@@ -37,7 +39,7 @@ class CustomPlaceDetailsBookButton extends StatelessWidget {
           Expanded(
             child: Text.rich(TextSpan(children: [
               TextSpan(
-                text: "\$245 ",
+                text: "${place.ticketPrice.toString()} جنيه",
                 style: AppTextStyles(context)
                     .semiBold20
                     .copyWith(color: Colors.red),

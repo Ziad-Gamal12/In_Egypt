@@ -31,27 +31,25 @@ class _CustomOnBoardingSkipTextState extends State<CustomOnBoardingSkipText> {
             GoRouter.of(context).go(SignInView.routeName);
           }
         },
-        child:
-            Container(
-              padding: const EdgeInsets.only(
-                left: 30,
-                top: 10,
-                bottom: 10,
-                right: 30,
-              ),
-
-              child: Text(
-                "تخط",
-                style: AppTextStyles(
-                  context,
-                ).regular16.copyWith(color: Colors.white),
-              ),
-            ).asGlass(
-              clipBorderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
-              ),
-            ),
+        child: Container(
+          padding: const EdgeInsets.only(
+            left: 30,
+            top: 10,
+            bottom: 10,
+            right: 30,
+          ),
+          child: Text(
+            "تخط",
+            style: AppTextStyles(
+              context,
+            ).regular16.copyWith(color: Colors.white),
+          ),
+        ).asGlass(
+          clipBorderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+          ),
+        ),
       ),
     );
   }

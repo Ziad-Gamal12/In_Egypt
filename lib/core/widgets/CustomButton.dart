@@ -29,14 +29,12 @@ class Custombutton extends StatelessWidget {
       minWidth: double.infinity,
       shape: RoundedRectangleBorder(
         side: side ?? BorderSide.none,
-        borderRadius: borderRadius == null
-            ? BorderRadius.circular(16)
-            : borderRadius!,
+        borderRadius:
+            borderRadius == null ? BorderRadius.circular(16) : borderRadius!,
       ),
       onPressed: onPressed,
       color: color,
-      child:
-          child ??
+      child: child ??
           Text(
             text,
             overflow: TextOverflow.ellipsis,

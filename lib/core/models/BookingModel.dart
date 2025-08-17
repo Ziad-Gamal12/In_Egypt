@@ -9,7 +9,7 @@ class BookingModel {
   final DateTime startAt;
   final DateTime endAt;
   final DateTime createdAt;
-  final double daysDuration;
+  final int daysDuration;
   final int numberOfGuests;
   final String status;
   final String id;
@@ -36,7 +36,7 @@ class BookingModel {
       startAt: (json['startAt'] as Timestamp).toDate(),
       endAt: (json['endAt'] as Timestamp).toDate(),
       createdAt: (json['createdAt'] as Timestamp).toDate(),
-      daysDuration: (json['daysDuration'] as num).toDouble(),
+      daysDuration: (json['daysDuration'] as num).toInt(),
       numberOfGuests: (json['numberOfGuests'] as num).toInt(),
       status: json['status'],
       id: json['id'],
@@ -47,16 +47,16 @@ class BookingModel {
   factory BookingModel.fromEntity(BookingEntity entity) {
     return BookingModel(
       user: UserModel.fromEntity(entity.user).toJson(),
-      place: PlaceModel.fromEntity(entity.place).toJson(),
-      startAt: entity.startAt,
-      endAt: entity.endAt,
-      createdAt: entity.createdAt,
-      daysDuration: entity.daysDuration,
-      numberOfGuests: entity.numberOfGuests,
-      status: entity.status,
-      id: entity.id,
-      totalPrice: entity.totalPrice,
-      paymentMethod: entity.paymentMethod,
+      place: PlaceModel.fromEntity(entity.place!).toJson(),
+      startAt: entity.startAt ?? DateTime.now(),
+      endAt: entity.endAt ?? DateTime.now(),
+      createdAt: entity.createdAt ?? DateTime.now(),
+      daysDuration: entity.daysDuration ?? 0,
+      numberOfGuests: entity.numberOfGuests ?? 0,
+      status: entity.status ?? "",
+      id: entity.id ?? "",
+      totalPrice: entity.totalPrice ?? 0.0,
+      paymentMethod: entity.paymentMethod ?? "",
     );
   }
 

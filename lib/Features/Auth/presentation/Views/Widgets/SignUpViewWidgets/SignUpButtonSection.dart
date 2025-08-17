@@ -34,7 +34,8 @@ class SignUpButtonSection extends StatelessWidget {
                 if (isTermsAccepted) {
                   formKey.currentState!.save();
                   userEntity.fullName =
-                     ("${userEntity.firstName} ${userEntity.lastName}").toLowerCase();
+                      ("${userEntity.firstName} ${userEntity.lastName}")
+                          .toLowerCase();
                   context.read<SignUpCubit>().signUpWithEmailAndPassword(
                         userEntity: userEntity,
                         password: passwordController.text,

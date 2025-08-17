@@ -18,9 +18,8 @@ class firebasestorageservice implements StorageService {
     try {
       String filePath = basename(file.path);
       var ref = storage.ref(filePath);
-      String url = await ref
-          .putFile(file)
-          .then((p0) => p0.ref.getDownloadURL());
+      String url =
+          await ref.putFile(file).then((p0) => p0.ref.getDownloadURL());
       return url;
     } catch (e) {
       log(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:in_egypt/Features/Book/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
@@ -31,8 +32,12 @@ class CustomBookingButton extends StatelessWidget {
   void onTap(BuildContext context) {
     if (currentIndex == 0) {
       if (formKey.currentState!.validate()) {
+        formKey.currentState!.save();
         if (range != null) {
-          formKey.currentState!.save();
+          context.read<BookingCubit>().bookingEntity.startAt = range!.start;
+          context.read<BookingCubit>().bookingEntity.endAt = range!.end;
+          context.read<BookingCubit>().bookingEntity.daysDuration =
+              range!.duration.inDays;
           context.read<StepsCubit>().changeStep(
                 null,
                 currentIndex: currentIndex,
