@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/Value/ValueDataEntity.dart';
+
 import 'payment_data.dart';
 
 class Data {
@@ -15,7 +17,10 @@ class Data {
             : PaymentData.fromJson(
                 json['payment_data'] as Map<String, dynamic>),
       );
-
+  ValueDataEntity toValueDataEntity() => ValueDataEntity(
+      invoiceId: invoiceId,
+      invoiceKey: invoiceKey,
+      paymentData: paymentData?.toValuePaymentDataEntity());
   Map<String, dynamic> toJson() => {
         'invoice_id': invoiceId,
         'invoice_key': invoiceKey,

@@ -11,7 +11,9 @@ import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart'
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
+import 'package:in_egypt/core/Entities/CustomWebViewNavigationRequirmentsEntity.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
+import 'package:in_egypt/core/widgets/CustomWebView.dart';
 
 class App_router {
   static GoRouter router = GoRouter(
@@ -78,6 +80,15 @@ class App_router {
         path: MoreNewestPlacesView.routeName,
         builder: (BuildContext context, GoRouterState state) {
           return const MoreNewestPlacesView();
+        },
+      ),
+      GoRoute(
+        path: CustomWebView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return CustomWebView(
+            customWebViewNavigationRequirmentsEntity:
+                state.extra as CustomWebViewNavigationRequirmentsEntity,
+          );
         },
       ),
     ],

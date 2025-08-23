@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/nbe_installment12_months/NbeInstallment12MonthsResponseEntity.dart';
+
 import 'data.dart';
 
 class NbeInstallment12MonthsResponse {
@@ -14,7 +16,9 @@ class NbeInstallment12MonthsResponse {
           : Data.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
-
+  NbeInstallment12MonthsResponseEntity toEntity() =>
+      NbeInstallment12MonthsResponseEntity(
+          status: status, data: data?.toNbeInstallment12MonthsDataEntity());
   Map<String, dynamic> toJson() => {
         'status': status,
         'data': data?.toJson(),

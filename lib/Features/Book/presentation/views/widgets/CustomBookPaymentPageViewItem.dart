@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomPaymentMethodItem.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/Entities/BookingEntity.dart';
+import 'package:in_egypt/core/Entities/CustomWebViewNavigationRequirmentsEntity.dart';
 import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 import 'package:in_egypt/core/Entities/PaymentMethodsEntities/PaymentMethodEntity.dart';
+import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
 import 'package:in_egypt/core/widgets/CustomErrorWidget.dart';
+import 'package:in_egypt/core/widgets/CustomWebView.dart';
 
 class CustomBookPaymentPageViewItem extends StatefulWidget {
   const CustomBookPaymentPageViewItem({super.key, required this.onSelected});
@@ -27,7 +32,19 @@ class _CustomBookPaymentPageViewItemState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PaymentCubit, PaymentState>(
+    return BlocConsumer<PaymentCubit, PaymentState>(
+      listener: (context, state) {
+        if (state is PaymentRequestPaymentMethodSuccess) {
+          CustomWebViewNavigationRequirmentsEntity requirmentsEntity =
+              CustomWebViewNavigationRequirmentsEntity(
+                  url: state.requestPaymentMethodReponse.redirectUrl,
+                  bookingEntity: context.read<BookingEntity>());
+          GoRouter.of(context)
+              .push(CustomWebView.routeName, extra: requirmentsEntity);
+        } else if (state is PaymentRequestPaymentMethodFailure) {
+          showErrorSnackBar(context: context, message: state.errmessage);
+        }
+      },
       builder: (context, state) {
         if (state is PaymentFetchPaymentMethodsLoading) {
           return const Center(

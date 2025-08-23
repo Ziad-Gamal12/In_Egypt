@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:in_egypt/Features/Book/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomEmailTextField.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
@@ -21,7 +20,7 @@ class _CustomBookTextFieldsSectionState
   TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    BookingEntity bookingEntity = context.read<BookingCubit>().bookingEntity;
+    BookingEntity bookingEntity = context.read<BookingEntity>();
     return Column(
       children: [
         Customteaxtfield(

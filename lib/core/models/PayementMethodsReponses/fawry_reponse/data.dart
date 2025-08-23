@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/Fawry/FawryDataEntity.dart';
+
 import 'payment_data.dart';
 
 class Data {
@@ -15,6 +17,12 @@ class Data {
             : PaymentData.fromJson(
                 json['payment_data'] as Map<String, dynamic>),
       );
+  FawryDataEntity toFawryDataEntity() {
+    return FawryDataEntity(
+        invoiceId: invoiceId,
+        invoiceKey: invoiceKey,
+        paymentData: paymentData?.toEntity());
+  }
 
   Map<String, dynamic> toJson() => {
         'invoice_id': invoiceId,

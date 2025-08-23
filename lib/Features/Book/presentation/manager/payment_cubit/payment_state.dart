@@ -16,3 +16,16 @@ final class PaymentFetchPaymentMethodsFailure extends PaymentState {
   final String errmessage;
   PaymentFetchPaymentMethodsFailure(this.errmessage);
 }
+// requestPaymentMethod
+
+final class PaymentRequestPaymentMethodLoading extends PaymentState {}
+
+final class PaymentRequestPaymentMethodSuccess extends PaymentState {
+  final RequestPaymentMethodReponse requestPaymentMethodReponse;
+  PaymentRequestPaymentMethodSuccess(this.requestPaymentMethodReponse);
+}
+
+final class PaymentRequestPaymentMethodFailure extends PaymentState {
+  final String errmessage;
+  PaymentRequestPaymentMethodFailure(this.errmessage);
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/Entities/BookingEntity.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 
 class CustomBookDateSelector extends StatefulWidget {
@@ -18,10 +19,14 @@ class _CustomBookDateSelectorState extends State<CustomBookDateSelector> {
 
   @override
   Widget build(BuildContext context) {
+    BookingEntity bookingEntity = context.read<BookingEntity>();
     return BlocConsumer<StepsCubit, StepsState>(
       listener: (context, state) {
         if (state is StepsDateRangeSelected) {
           range = state.range;
+          bookingEntity.startAt = state.range.start;
+          bookingEntity.endAt = state.range.end;
+          bookingEntity.daysDuration = state.range.duration.inDays;
         }
       },
       builder: (context, state) {

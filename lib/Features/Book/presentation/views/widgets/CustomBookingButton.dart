@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_egypt/Features/Book/presentation/manager/booking_cubit/booking_cubit.dart';
+import 'package:in_egypt/Features/Book/presentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/constant.dart';
+import 'package:in_egypt/core/Entities/BookingEntity.dart';
 import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
+import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
 import 'package:in_egypt/core/widgets/CustomButton.dart';
 
@@ -12,11 +14,12 @@ class CustomBookingButton extends StatelessWidget {
     super.key,
     required this.currentIndex,
     required this.formKey,
+    required this.place,
     required this.range,
     required this.selectedMethod,
   });
   final DatumEntity? selectedMethod;
-
+  final PlaceEntity place;
   final int currentIndex;
   final GlobalKey<FormState> formKey;
   final DateTimeRange<DateTime>? range;
@@ -33,14 +36,11 @@ class CustomBookingButton extends StatelessWidget {
   }
 
   void onTap(BuildContext context) {
+    BookingEntity bookingEntity = context.read<BookingEntity>();
     if (currentIndex == 0) {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
         if (range != null) {
-          context.read<BookingCubit>().bookingEntity.startAt = range!.start;
-          context.read<BookingCubit>().bookingEntity.endAt = range!.end;
-          context.read<BookingCubit>().bookingEntity.daysDuration =
-              range!.duration.inDays;
           context.read<StepsCubit>().changeStep(
                 null,
                 currentIndex: currentIndex,
@@ -50,10 +50,10 @@ class CustomBookingButton extends StatelessWidget {
         }
       }
     } else {
-      context.read<StepsCubit>().changeStep(
-            null,
-            currentIndex: currentIndex,
-          );
+      bookingEntity.paymentMethod = selectedMethod?.nameEn ?? "";
+      bookingEntity.totalPrice = bookingEntity.calculateTotalPrice();
+      context.read<PaymentCubit>().requestPaymentMethod(
+          methodId: selectedMethod!.paymentId!, booking: bookingEntity);
     }
   }
 }

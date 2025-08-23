@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/visa_and_master_card/VisaAndMasterCardDataEntity.dart';
+
 import 'payment_data.dart';
 
 class Data {
@@ -16,6 +18,11 @@ class Data {
                 json['payment_data'] as Map<String, dynamic>),
       );
 
+  VisaAndMasterCardDataEntity toEntity() => VisaAndMasterCardDataEntity(
+        invoiceId: invoiceId,
+        invoiceKey: invoiceKey,
+        paymentData: paymentData?.toEntity(),
+      );
   Map<String, dynamic> toJson() => {
         'invoice_id': invoiceId,
         'invoice_key': invoiceKey,

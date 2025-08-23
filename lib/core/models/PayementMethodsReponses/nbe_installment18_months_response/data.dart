@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/nbe_installment18_months/NbeInstallment18MonthsDataEntity.dart';
+
 import 'payment_data.dart';
 
 class Data {
@@ -15,7 +17,12 @@ class Data {
             : PaymentData.fromJson(
                 json['payment_data'] as Map<String, dynamic>),
       );
-
+  NbeInstallment18MonthsDataEntity toEntity() =>
+      NbeInstallment18MonthsDataEntity(
+        invoiceId: invoiceId,
+        invoiceKey: invoiceKey,
+        paymentData: paymentData?.toEntity(),
+      );
   Map<String, dynamic> toJson() => {
         'invoice_id': invoiceId,
         'invoice_key': invoiceKey,

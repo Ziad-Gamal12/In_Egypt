@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/visa_and_master_card/VisaAndMasterCardResponseEntity.dart';
+
 import 'data.dart';
 
 class VisaAndMasterCardReponse {
@@ -12,6 +14,13 @@ class VisaAndMasterCardReponse {
       data: json['data'] == null
           ? null
           : Data.fromJson(json['data'] as Map<String, dynamic>),
+    );
+  }
+
+  VisaAndMasterCardResponseEntity toEntity() {
+    return VisaAndMasterCardResponseEntity(
+      status: status,
+      data: data?.toEntity(),
     );
   }
 

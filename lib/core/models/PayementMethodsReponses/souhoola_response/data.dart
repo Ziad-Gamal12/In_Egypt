@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/souhoola/SouhoolaDataEntity.dart';
+
 import 'payment_data.dart';
 
 class Data {
@@ -16,6 +18,8 @@ class Data {
                 json['payment_data'] as Map<String, dynamic>),
       );
 
+  SouhoolaDataEntity toSouhoolaDataEntity() =>
+      SouhoolaDataEntity(paymentData: paymentData?.toEntity());
   Map<String, dynamic> toJson() => {
         'invoice_id': invoiceId,
         'invoice_key': invoiceKey,

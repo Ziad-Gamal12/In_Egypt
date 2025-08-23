@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/Value/ValueResponseEntity.dart';
+
 import 'data.dart';
 
 class ValueResponse {
@@ -12,6 +14,12 @@ class ValueResponse {
             ? null
             : Data.fromJson(json['data'] as Map<String, dynamic>),
       );
+  ValueResponseEntity toEntity() {
+    return ValueResponseEntity(
+      status: status,
+      data: data?.toValueDataEntity(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'status': status,

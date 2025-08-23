@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/Basata/BasataResponseEntity.dart';
+
 import 'data.dart';
 
 class BasataResponse {
@@ -14,7 +16,8 @@ class BasataResponse {
           : Data.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
-
+  BasataResponseEntity toEntity() =>
+      BasataResponseEntity(status: status, data: data?.toBasataDataEntity());
   Map<String, dynamic> toJson() => {
         'status': status,
         'data': data?.toJson(),

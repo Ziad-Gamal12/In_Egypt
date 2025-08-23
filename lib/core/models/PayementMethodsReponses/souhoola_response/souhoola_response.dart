@@ -1,3 +1,5 @@
+import 'package:in_egypt/core/Entities/PaymentMethodsResponsesEntities/souhoola/SouhoolaResponseEntity.dart';
+
 import 'data.dart';
 
 class SouhoolaResponse {
@@ -14,7 +16,8 @@ class SouhoolaResponse {
           : Data.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
-
+  SouhoolaResponseEntity toEntity() => SouhoolaResponseEntity(
+      status: status, data: data?.toSouhoolaDataEntity());
   Map<String, dynamic> toJson() => {
         'status': status,
         'data': data?.toJson(),

@@ -6,11 +6,11 @@ class BookingEntity {
   PlaceEntity? place;
   DateTime? startAt;
   DateTime? endAt;
-  DateTime? createdAt;
+  DateTime createdAt;
   int? daysDuration;
   int? numberOfGuests;
-  String? status;
-  String? id;
+  String status;
+  String id;
   double? totalPrice;
   String? paymentMethod;
 
@@ -27,4 +27,11 @@ class BookingEntity {
     required this.totalPrice,
     required this.paymentMethod,
   });
+  double calculateTotalPrice() {
+    if (place != null) {
+      return place!.ticketPrice * numberOfGuests!;
+    } else {
+      return 0.0;
+    }
+  }
 }
