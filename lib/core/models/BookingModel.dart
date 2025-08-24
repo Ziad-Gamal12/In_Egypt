@@ -8,6 +8,7 @@ class BookingModel {
   final Map<String, dynamic> place;
   final DateTime startAt;
   final DateTime endAt;
+  final String qrCodeUrl;
   final DateTime createdAt;
   final int daysDuration;
   final int numberOfGuests;
@@ -25,6 +26,7 @@ class BookingModel {
     required this.daysDuration,
     required this.numberOfGuests,
     required this.status,
+    required this.qrCodeUrl,
     required this.id,
     required this.totalPrice,
     required this.paymentMethod,
@@ -35,6 +37,7 @@ class BookingModel {
       place: json['place'],
       startAt: (json['startAt'] as Timestamp).toDate(),
       endAt: (json['endAt'] as Timestamp).toDate(),
+      qrCodeUrl: json['qrCodeUrl'],
       createdAt: (json['createdAt'] as Timestamp).toDate(),
       daysDuration: (json['daysDuration'] as num).toInt(),
       numberOfGuests: (json['numberOfGuests'] as num).toInt(),
@@ -48,13 +51,14 @@ class BookingModel {
     return BookingModel(
       user: UserModel.fromEntity(entity.user).toJson(),
       place: PlaceModel.fromEntity(entity.place!).toJson(),
+      qrCodeUrl: entity.qrCodeUrl,
       startAt: entity.startAt ?? DateTime.now(),
       endAt: entity.endAt ?? DateTime.now(),
-      createdAt: entity.createdAt ?? DateTime.now(),
+      createdAt: entity.createdAt,
       daysDuration: entity.daysDuration ?? 0,
       numberOfGuests: entity.numberOfGuests ?? 0,
-      status: entity.status ?? "",
-      id: entity.id ?? "",
+      status: entity.status,
+      id: entity.id,
       totalPrice: entity.totalPrice ?? 0.0,
       paymentMethod: entity.paymentMethod ?? "",
     );
@@ -65,6 +69,7 @@ class BookingModel {
       user: UserModel.fromJson(user).toEntity(),
       place: PlaceModel.fromJson(place).toEntity(),
       startAt: startAt,
+      qrCodeUrl: qrCodeUrl,
       endAt: endAt,
       createdAt: createdAt,
       daysDuration: daysDuration,
@@ -85,6 +90,7 @@ class BookingModel {
       'createdAt': createdAt,
       'daysDuration': daysDuration,
       'numberOfGuests': numberOfGuests,
+      'qrCodeUrl': qrCodeUrl,
       'status': status,
       'id': id,
       'totalPrice': totalPrice,

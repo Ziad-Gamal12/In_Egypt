@@ -3,6 +3,7 @@ import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 
 class BookingEntity {
   UserEntity user;
+  String qrCodeUrl;
   PlaceEntity? place;
   DateTime? startAt;
   DateTime? endAt;
@@ -18,6 +19,7 @@ class BookingEntity {
     required this.user,
     required this.place,
     required this.startAt,
+    required this.qrCodeUrl,
     required this.endAt,
     required this.createdAt,
     required this.daysDuration,

@@ -26,6 +26,7 @@ class _BookPlaceViewState extends State<BookPlaceView> {
       user: getUserData(),
       place: null,
       startAt: null,
+      qrCodeUrl: "",
       endAt: null,
       createdAt: DateTime.now(),
       daysDuration: null,

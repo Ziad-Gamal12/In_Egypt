@@ -44,6 +44,7 @@ void setup_Getit() {
     dioService: getIt<DioService>(),
   ));
   getIt.registerSingleton<BookingsRepo>(BookingsRepoImp(
+    storageService: getIt<StorageService>(),
     databaseservice: getIt<Databaseservice>(),
   ));
 }

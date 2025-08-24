@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/booking_bloc/booking_bloc_bloc.dart';
+import 'package:in_egypt/Features/Book/presentation/views/BookedSuccessView.dart';
 import 'package:in_egypt/core/Entities/CustomWebViewNavigationRequirmentsEntity.dart';
+import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
 import 'package:in_egypt/core/widgets/CustomAppBar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -25,13 +28,16 @@ class _CustomWebViewBodyState extends State<CustomWebViewBody> {
   @override
   void initState() {
     super.initState();
+    initController();
+  }
+
+  void initController() {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String url) {
             final uri = Uri.parse(url);
-
             if (uri.host == "modern-payment-succe-fwsh.bolt.host") {
               context.read<BookingBloc>().add(PaymentSuccessEvent(
                     bookingEntity: widget
@@ -58,7 +64,18 @@ class _CustomWebViewBodyState extends State<CustomWebViewBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(appBartitle: "الدفع"),
-      body: WebViewWidget(controller: controller),
+      body: BlocListener<BookingBloc, BookingBlocState>(
+        listener: (context, state) {
+          if (state is BookingAddBookingSuccess) {
+            GoRouter.of(context).go(BookedSuccessView.routeName,
+                extra: widget
+                    .customWebViewNavigationRequirmentsEntity.bookingEntity);
+          } else if (state is BookingAddBookingFailure) {
+            showErrorSnackBar(context: context, message: state.errmessage);
+          }
+        },
+        child: WebViewWidget(controller: controller),
+      ),
     );
   }
 }

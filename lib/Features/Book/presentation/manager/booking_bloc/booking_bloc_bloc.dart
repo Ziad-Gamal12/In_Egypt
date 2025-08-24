@@ -14,10 +14,26 @@ class BookingBloc extends Bloc<BookingBlocEvent, BookingBlocState> {
   BookingBloc({required this.bookingsRepo}) : super(BookingBlocInitial()) {
     on<PaymentSuccessEvent>((event, emit) async {
       emit(BookingAddBookingLoading());
-      final result =
-          await bookingsRepo.addBooking(bookingEntity: event.bookingEntity);
-      result.fold((failure) => emit(BookingAddBookingFailure(failure.message)),
-          (success) => emit(BookingAddBookingSuccess()));
+
+      final qrResult = await bookingsRepo.generateAndUploadQrCode(
+          id: event.bookingEntity.id);
+
+      await qrResult.fold(
+        (failure) async {
+          emit(BookingAddBookingFailure(failure.message));
+        },
+        (downloadUrl) async {
+          event.bookingEntity.qrCodeUrl = downloadUrl;
+
+          final addResult =
+              await bookingsRepo.addBooking(bookingEntity: event.bookingEntity);
+
+          addResult.fold(
+            (failure) => emit(BookingAddBookingFailure(failure.message)),
+            (_) => emit(BookingAddBookingSuccess()),
+          );
+        },
+      );
     });
     on<PaymentFailedEvent>((event, emit) {
       log("PaymentFailedEvent");

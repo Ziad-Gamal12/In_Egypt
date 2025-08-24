@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignInView.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignUpView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/BookView.dart';
+import 'package:in_egypt/Features/Book/presentation/views/BookedSuccessView.dart';
+import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomWebView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/MoreNewestPlacesView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/MorePopularPlacesView.dart';
@@ -11,9 +13,9 @@ import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart'
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
+import 'package:in_egypt/core/Entities/BookingEntity.dart';
 import 'package:in_egypt/core/Entities/CustomWebViewNavigationRequirmentsEntity.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
-import 'package:in_egypt/core/widgets/CustomWebView.dart';
 
 class App_router {
   static GoRouter router = GoRouter(
@@ -88,6 +90,14 @@ class App_router {
           return CustomWebView(
             customWebViewNavigationRequirmentsEntity:
                 state.extra as CustomWebViewNavigationRequirmentsEntity,
+          );
+        },
+      ),
+      GoRoute(
+        path: BookedSuccessView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return BookedSuccessView(
+            bookingEntity: state.extra as BookingEntity,
           );
         },
       ),

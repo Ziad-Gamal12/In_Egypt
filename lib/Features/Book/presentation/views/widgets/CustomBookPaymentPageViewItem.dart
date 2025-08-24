@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomPaymentMethodItem.dart';
+import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomWebView.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';
 import 'package:in_egypt/core/Entities/CustomWebViewNavigationRequirmentsEntity.dart';
@@ -11,7 +12,6 @@ import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 import 'package:in_egypt/core/Entities/PaymentMethodsEntities/PaymentMethodEntity.dart';
 import 'package:in_egypt/core/helpers/ShowSnackBar.dart';
 import 'package:in_egypt/core/widgets/CustomErrorWidget.dart';
-import 'package:in_egypt/core/widgets/CustomWebView.dart';
 
 class CustomBookPaymentPageViewItem extends StatefulWidget {
   const CustomBookPaymentPageViewItem({super.key, required this.onSelected});
