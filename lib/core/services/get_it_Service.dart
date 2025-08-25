@@ -10,6 +10,8 @@ import 'package:in_egypt/Features/Book/domain/repos/BookingsRepo/BookingsRepo.da
 import 'package:in_egypt/Features/Book/domain/repos/PaymentRepo/PaymentRepo.dart';
 import 'package:in_egypt/Features/Home/data/Repos/PlacesRepoImpl.dart';
 import 'package:in_egypt/Features/Home/domain/Repos/PlacesRepo.dart';
+import 'package:in_egypt/Features/Trips/data/Repos/MyTripsRepoimp.dart';
+import 'package:in_egypt/Features/Trips/domain/Repos/MyTripsRepo.dart';
 import 'package:in_egypt/core/services/DataBaseService.dart';
 import 'package:in_egypt/core/services/DioService.dart';
 import 'package:in_egypt/core/services/FirebaseAuth_Service.dart';
@@ -45,6 +47,9 @@ void setup_Getit() {
   ));
   getIt.registerSingleton<BookingsRepo>(BookingsRepoImp(
     storageService: getIt<StorageService>(),
+    databaseservice: getIt<Databaseservice>(),
+  ));
+  getIt.registerSingleton<MyTripsRepo>(MyTripsRepoimp(
     databaseservice: getIt<Databaseservice>(),
   ));
 }

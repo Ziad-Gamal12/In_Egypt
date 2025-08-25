@@ -11,12 +11,8 @@ class CustomQrCode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Spacer(),
-        Expanded(flex: 2, child: CustomCachedNetworkImage(imageUrl: qrCodeUrl)),
-        Spacer(),
-      ],
-    );
+    return SizedBox(
+        width: MediaQuery.sizeOf(context).width * .5,
+        child: CustomCachedNetworkImage(imageUrl: qrCodeUrl));
   }
 }

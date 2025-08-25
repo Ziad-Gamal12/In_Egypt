@@ -8,23 +8,10 @@ class SuccessLottieWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      child: Row(
-        children: [
-          const Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 3,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Lottie.asset(Assets.assetsLottieSuccess, repeat: false),
-            ),
-          ),
-          const Spacer(
-            flex: 2,
-          ),
-        ],
+      width: MediaQuery.of(context).size.width * .4,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Lottie.asset(Assets.assetsLottieSuccess, repeat: false),
       ),
     );
   }

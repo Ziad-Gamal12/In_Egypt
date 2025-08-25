@@ -69,26 +69,24 @@ class _CustomMoreNewestPlacesListViewState
           child: EmptyWidget(),
         );
       }
-      return LayoutBuilder(
-        builder: (context, constraints) => Skeletonizer(
-            enabled: isLoading,
-            child: ListView.builder(
-              controller: scrollController,
-              itemCount: places.length,
-              itemBuilder: (context, index) => InkWell(
-                onTap: () {
-                  GoRouter.of(context)
-                      .push(PlaceDetailsView.routeName, extra: places[index]);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: CustomPlaceHorizintalDesignItem(
-                    place: places[index],
-                  ),
+      return Skeletonizer(
+          enabled: isLoading,
+          child: ListView.builder(
+            controller: scrollController,
+            itemCount: places.length,
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                GoRouter.of(context)
+                    .push(PlaceDetailsView.routeName, extra: places[index]);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: CustomPlaceHorizintalDesignItem(
+                  place: places[index],
                 ),
               ),
-            )),
-      );
+            ),
+          ));
     });
   }
 
