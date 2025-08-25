@@ -30,7 +30,7 @@ class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
                 ),
               ),
               CustomFavouritePlaceWidget(
-                isFavourite: true,
+                placeId: place.id,
               ),
             ],
           ),

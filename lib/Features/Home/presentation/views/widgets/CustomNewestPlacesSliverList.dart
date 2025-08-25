@@ -61,17 +61,16 @@ class CustomNewestPlacesSliverList extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10, left: 16),
                 child: InkWell(
-                  onTap: () {
-                    GoRouter.of(context)
-                        .push(PlaceDetailsView.routeName, extra: places[index]);
-                  },
-                  child: CustomPlaceHorizintalDesignItem(
-                    place: places[index],
-                  )
-                      .animate()
-                      .moveY(begin: 50)
-                      .fadeIn(duration: 1.seconds, delay: (index * 200).ms),
-                ),
+                        onTap: () {
+                          GoRouter.of(context).push(PlaceDetailsView.routeName,
+                              extra: places[index]);
+                        },
+                        child: CustomPlaceHorizintalDesignItem(
+                          place: places[index],
+                        ))
+                    .animate()
+                    .moveY(begin: 50)
+                    .fadeIn(duration: 1.seconds, delay: (index * 200).ms),
               );
             },
             itemCount: places.length);

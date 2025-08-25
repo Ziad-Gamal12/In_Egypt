@@ -15,21 +15,29 @@ class MyTripsViewBody extends StatefulWidget {
 }
 
 class _MyTripsViewBodyState extends State<MyTripsViewBody> {
-  late ScrollController scrollController;
+  ScrollController scrollController = ScrollController();
   bool hasMore = true;
   List<BookingEntity> fetchedMyTrips = [];
   @override
   void initState() {
-    context.read<MyTripsCubit>().getMyTrips(isPaginated: false);
-    scrollController = ScrollController();
-    scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent - 200 &&
-          hasMore) {
-        context.read<MyTripsCubit>().getMyTrips(isPaginated: true);
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MyTripsCubit>().getMyTrips(isPaginated: false);
+
+      scrollController.addListener(() {
+        if (scrollController.position.pixels >=
+                scrollController.position.maxScrollExtent - 200 &&
+            hasMore) {
+          context.read<MyTripsCubit>().getMyTrips(isPaginated: true);
+        }
+      });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override

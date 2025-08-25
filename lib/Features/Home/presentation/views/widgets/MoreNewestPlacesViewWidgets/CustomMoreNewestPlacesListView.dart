@@ -20,11 +20,10 @@ class CustomMoreNewestPlacesListView extends StatefulWidget {
 class _CustomMoreNewestPlacesListViewState
     extends State<CustomMoreNewestPlacesListView> {
   List<PlaceEntity> newestPlaces = [];
-  late ScrollController scrollController;
+  ScrollController scrollController = ScrollController();
   bool isLoadMore = true;
   @override
   void initState() {
-    scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 200 &&
@@ -72,6 +71,7 @@ class _CustomMoreNewestPlacesListViewState
       return Skeletonizer(
           enabled: isLoading,
           child: ListView.builder(
+            key: PageStorageKey("moreNewestPlacesListView"),
             controller: scrollController,
             itemCount: places.length,
             itemBuilder: (context, index) => InkWell(

@@ -22,11 +22,10 @@ class _CustomMorePopularPlacesGridViewState
   List<PlaceEntity> popularPlaces = [];
   double mainAxisSpacing = 10;
   double crossAxisSpacing = 10;
-  late ScrollController scrollController;
+  late ScrollController scrollController = ScrollController();
   bool isLoadMore = true;
   @override
   void initState() {
-    scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 200 &&
@@ -75,6 +74,7 @@ class _CustomMorePopularPlacesGridViewState
         builder: (context, constraints) => Skeletonizer(
             enabled: isLoading,
             child: GridView.builder(
+              key: PageStorageKey("MorePopularPlacesView"),
               controller: scrollController,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:

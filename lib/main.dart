@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:in_egypt/Features/Wishlist/domain/Repos/WishListRepo.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/services/BlocObserver.dart';
 import 'package:in_egypt/core/services/Shared_preferences.dart';
@@ -24,21 +26,26 @@ class InEgypt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: carioFontFamily,
-        scaffoldBackgroundColor: Colors.white,
+    return BlocProvider(
+      create: (context) => WishListCubit(
+        wishListRepo: getIt<WishListRepo>(),
       ),
-      locale: Locale('ar'),
-      localizationsDelegates: [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      routerConfig: App_router.router,
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: carioFontFamily,
+          scaffoldBackgroundColor: Colors.white,
+        ),
+        locale: Locale('ar'),
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        routerConfig: App_router.router,
+      ),
     );
   }
 }

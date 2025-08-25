@@ -25,6 +25,7 @@ class _MyTripsSliverListState extends State<MyTripsSliverList> {
         return SliverSkeletonizer(
           enabled: isLoading,
           child: SliverList.builder(
+              key: PageStorageKey("myTrips"),
               itemCount: disPlayedTrips.length,
               itemBuilder: (context, index) {
                 return Padding(

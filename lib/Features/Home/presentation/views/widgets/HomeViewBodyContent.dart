@@ -20,8 +20,10 @@ class HomeViewBodyContent extends StatefulWidget {
 class _HomeViewBodyContentState extends State<HomeViewBodyContent> {
   @override
   void initState() {
-    context.read<PopularPlacesCubit>().getPopularPlaces(isPaginated: false);
-    context.read<NewestPlacesCubit>().getNewestPlaces(isPaginated: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<PopularPlacesCubit>().getPopularPlaces(isPaginated: false);
+      context.read<NewestPlacesCubit>().getNewestPlaces(isPaginated: false);
+    });
     super.initState();
   }
 

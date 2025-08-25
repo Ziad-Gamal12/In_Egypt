@@ -7,6 +7,7 @@ import 'package:in_egypt/core/Entities/FireStorePaginateResponse.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
 import 'package:in_egypt/core/errors/Exceptioons.dart';
 import 'package:in_egypt/core/errors/Failures.dart';
+import 'package:in_egypt/core/helpers/getUserData.dart';
 import 'package:in_egypt/core/models/BookingModel.dart';
 import 'package:in_egypt/core/services/DataBaseService.dart';
 import 'package:in_egypt/core/utils/BackEndkeys.dart';
@@ -17,9 +18,12 @@ class MyTripsRepoimp implements MyTripsRepo {
   MyTripsRepoimp({required this.databaseservice});
   Map<String, dynamic> getMyTripsQueery = {
     "orderBy": "createdAt",
-    "where": "user.uid",
-    "whereValue": null,
-    "whereOperator": "==",
+    "filters": {
+      "field": "user.uid",
+      "value": getUserData().uid,
+      "operator": "==",
+    },
+    "searchValue": getUserData().uid,
     "startAfter": null,
     "limit": 10
   };
@@ -34,6 +38,7 @@ class MyTripsRepoimp implements MyTripsRepo {
       } else {
         getMyTripsQueery["startAfter"] = null;
       }
+
       FireStoreResponse response = await databaseservice.getData(
         requirements: FireStoreRequirmentsEntity(
           collection: Backendkeys.bookingsCollection,

@@ -8,6 +8,7 @@ part 'newest_places_state.dart';
 class NewestPlacesCubit extends Cubit<NewestPlacesState> {
   NewestPlacesCubit({required this.placesRepo}) : super(NewestPlacesInitial());
   final PlacesRepo placesRepo;
+  bool isgetData = true;
   void getNewestPlaces({required bool isPaginated}) async {
     emit(PlacesGetNewestPlacesLoading());
     final result = await placesRepo.getNewestPlaces(isPaginated: isPaginated);

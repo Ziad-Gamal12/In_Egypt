@@ -10,4 +10,5 @@ class Backendkeys {
   static const adminRole = "Admin";
   static const placesManagerRole = "PlacesManager";
   static const bookingsManagerRole = "BookingsManager";
+  static const wishlistSubCollection = "wishlist";
 }
