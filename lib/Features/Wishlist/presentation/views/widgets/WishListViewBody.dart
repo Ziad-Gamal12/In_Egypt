@@ -52,12 +52,13 @@ class _WishListViewBodyState extends State<WishListViewBody> {
           if (!isLoadMore && state.response.hasMore) return;
           isLoadMore = state.response.hasMore;
           fetchedWishListPlaces.addAll(state.response.places);
-          setState(() {});
           context
               .read<WishListCubit>()
               .checkFavouritePlaces(places: state.response.places);
+          setState(() {});
         } else if (state is WishListCheckFavouritePlacesSuccess) {
           favouritePlaces.addAll(state.favouritePlaces);
+
           setState(() {});
         }
       },
@@ -71,6 +72,7 @@ class _WishListViewBodyState extends State<WishListViewBody> {
             padding: const EdgeInsets.symmetric(
                 horizontal: kHorizentalPadding, vertical: kVerticalPadding),
             child: CustomScrollView(
+              key: PageStorageKey('myywishList'),
               slivers: [
                 SliverToBoxAdapter(
                   child: Column(

@@ -20,22 +20,36 @@ class CustomFavouritePlaceWidget extends StatefulWidget {
 
 class _CustomFavouritePlaceWidgetState
     extends State<CustomFavouritePlaceWidget> {
+  bool isFavourite = false;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        isFavourite = widget.isFavourite;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<WishListCubit, WishListState>(
-      listener: (context, state) {
-        if (state is WishListAddPlaceToWishListSuccess &&
-            state.placeId == widget.placeId) {
-          widget.isFavourite = true;
-        } else if (state is WishListRemovePlaceFromWishListSuccess &&
-            state.placeId == widget.placeId) {
-          widget.isFavourite = false;
-        }
-      },
-      builder: (context, state) {
-        return InkWell(
+    return BlocListener<WishListCubit, WishListState>(
+        listener: (context, state) {
+          if (state is WishListAddPlaceToWishListSuccess &&
+              state.placeId == widget.placeId) {
+            setState(() {
+              isFavourite = true;
+            });
+          } else if (state is WishListRemovePlaceFromWishListSuccess &&
+              state.placeId == widget.placeId) {
+            setState(() {
+              isFavourite = false;
+            });
+          }
+        },
+        child: InkWell(
           onTap: () {
-            if (widget.isFavourite) {
+            if (isFavourite) {
               context
                   .read<WishListCubit>()
                   .removePlaceFromWishList(placeId: widget.placeId);
@@ -49,13 +63,11 @@ class _CustomFavouritePlaceWidgetState
             backgroundColor: Colors.white,
             radius: 20,
             child: SvgPicture.asset(
-              widget.isFavourite
+              isFavourite
                   ? Assets.assetsIconsFavouriteIcon
                   : Assets.assetsIconsSolidfavouriteIcon,
             ),
           ),
-        );
-      },
-    );
+        ));
   }
 }
