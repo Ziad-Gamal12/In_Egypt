@@ -5,8 +5,10 @@ import 'package:in_egypt/core/widgets/PlaceWidgets/CustomFavouritePlaceWidget.da
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomRatingStarsRow.dart';
 
 class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
-  const CustomPlaceHorizintalDesignInfo({super.key, required this.place});
+  const CustomPlaceHorizintalDesignInfo(
+      {super.key, required this.place, required this.isFavourite});
   final PlaceEntity place;
+  final bool isFavourite;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,6 +32,7 @@ class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
                 ),
               ),
               CustomFavouritePlaceWidget(
+                isFavourite: isFavourite,
                 placeId: place.id,
               ),
             ],

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/widgets/CustomErrorWidget.dart';
 import 'package:in_egypt/core/widgets/EmptyWidget.dart';
@@ -20,6 +21,7 @@ class CustomMoreNewestPlacesListView extends StatefulWidget {
 class _CustomMoreNewestPlacesListViewState
     extends State<CustomMoreNewestPlacesListView> {
   List<PlaceEntity> newestPlaces = [];
+  Map<String, bool> favouritePlaces = {};
   ScrollController scrollController = ScrollController();
   bool isLoadMore = true;
   @override
@@ -42,52 +44,68 @@ class _CustomMoreNewestPlacesListViewState
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NewestPlacesCubit, NewestPlacesState>(
-        listener: (context, state) {
-      if (state is PlacesGetNewestPlacesSuccess) {
-        if (!isLoadMore && state.getplacesResponseEntity.hasMore) {
-          isLoadMore = false;
-        }
-        setState(() {
-          newestPlaces.addAll(state.getplacesResponseEntity.places);
-          isLoadMore = state.getplacesResponseEntity.hasMore;
-        });
-      }
-    }, builder: (context, state) {
-      bool isLoading = state is PlacesGetNewestPlacesLoading;
-      List<PlaceEntity> places = getDisplayedPlaces(state);
-      if (state is PlacesGetNewestPlacesFailure) {
-        return Center(
-          child: CustomErrorWidget(
-            message: state.errmessage,
+    return MultiBlocListener(
+        listeners: [
+          BlocListener<NewestPlacesCubit, NewestPlacesState>(
+            listener: (context, state) {
+              if (state is PlacesGetNewestPlacesSuccess) {
+                if (!isLoadMore && state.getplacesResponseEntity.hasMore) {
+                  isLoadMore = false;
+                }
+                setState(() {
+                  newestPlaces.addAll(state.getplacesResponseEntity.places);
+                  isLoadMore = state.getplacesResponseEntity.hasMore;
+                });
+                context.read<WishListCubit>().checkFavouritePlaces(
+                    places: state.getplacesResponseEntity.places);
+              }
+            },
           ),
-        );
-      }
-      if (state is PlacesGetNewestPlacesSuccess && newestPlaces.isEmpty) {
-        return Center(
-          child: EmptyWidget(),
-        );
-      }
-      return Skeletonizer(
-          enabled: isLoading,
-          child: ListView.builder(
-            key: PageStorageKey("moreNewestPlacesListView"),
-            controller: scrollController,
-            itemCount: places.length,
-            itemBuilder: (context, index) => InkWell(
-              onTap: () {
-                GoRouter.of(context)
-                    .push(PlaceDetailsView.routeName, extra: places[index]);
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: CustomPlaceHorizintalDesignItem(
-                  place: places[index],
-                ),
+          BlocListener<WishListCubit, WishListState>(
+              listener: (context, state) {
+            if (state is WishListCheckFavouritePlacesSuccess) {
+              favouritePlaces.addAll(state.favouritePlaces);
+              setState(() {});
+            }
+          })
+        ],
+        child: BlocBuilder<NewestPlacesCubit, NewestPlacesState>(
+            builder: (context, state) {
+          bool isLoading = state is PlacesGetNewestPlacesLoading;
+          List<PlaceEntity> places = getDisplayedPlaces(state);
+          if (state is PlacesGetNewestPlacesFailure) {
+            return Center(
+              child: CustomErrorWidget(
+                message: state.errmessage,
               ),
-            ),
-          ));
-    });
+            );
+          }
+          if (state is PlacesGetNewestPlacesSuccess && newestPlaces.isEmpty) {
+            return Center(
+              child: EmptyWidget(),
+            );
+          }
+          return Skeletonizer(
+              enabled: isLoading,
+              child: ListView.builder(
+                key: PageStorageKey("moreNewestPlacesListView"),
+                controller: scrollController,
+                itemCount: places.length,
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    GoRouter.of(context)
+                        .push(PlaceDetailsView.routeName, extra: places[index]);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: CustomPlaceHorizintalDesignItem(
+                      place: places[index],
+                      isFavourite: favouritePlaces[places[index].id] ?? false,
+                    ),
+                  ),
+                ),
+              ));
+        }));
   }
 
   List<PlaceEntity> getDisplayedPlaces(NewestPlacesState state) {

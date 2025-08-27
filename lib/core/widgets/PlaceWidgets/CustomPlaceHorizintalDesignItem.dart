@@ -4,8 +4,10 @@ import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignIn
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceImage.dart';
 
 class CustomPlaceHorizintalDesignItem extends StatelessWidget {
-  const CustomPlaceHorizintalDesignItem({super.key, required this.place});
+  const CustomPlaceHorizintalDesignItem(
+      {super.key, required this.place, required this.isFavourite});
   final PlaceEntity place;
+  final bool isFavourite;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -31,6 +33,7 @@ class CustomPlaceHorizintalDesignItem extends StatelessWidget {
             Expanded(
                 flex: 179,
                 child: CustomPlaceHorizintalDesignInfo(
+                  isFavourite: isFavourite,
                   place: place,
                 ))
           ],

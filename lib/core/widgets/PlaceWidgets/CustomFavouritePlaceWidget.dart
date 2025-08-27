@@ -5,11 +5,12 @@ import 'package:in_egypt/core/utils/images.dart';
 import 'package:svg_flutter/svg.dart';
 
 class CustomFavouritePlaceWidget extends StatefulWidget {
-  const CustomFavouritePlaceWidget({
+  CustomFavouritePlaceWidget({
     super.key,
     required this.placeId,
+    required this.isFavourite,
   });
-
+  bool isFavourite;
   final String placeId;
 
   @override
@@ -19,34 +20,22 @@ class CustomFavouritePlaceWidget extends StatefulWidget {
 
 class _CustomFavouritePlaceWidgetState
     extends State<CustomFavouritePlaceWidget> {
-  bool isFavourite = false;
-  @override
-  void initState() {
-    context.read<WishListCubit>().isPlaceAddedToWishList(
-          placeId: widget.placeId,
-        );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<WishListCubit, WishListState>(
       listener: (context, state) {
-        if (state is WishListIsPlaceAddedToWishListSuccess &&
+        if (state is WishListAddPlaceToWishListSuccess &&
             state.placeId == widget.placeId) {
-          isFavourite = state.isAdded;
-        } else if (state is WishListAddPlaceToWishListSuccess &&
-            state.placeId == widget.placeId) {
-          isFavourite = true;
+          widget.isFavourite = true;
         } else if (state is WishListRemovePlaceFromWishListSuccess &&
             state.placeId == widget.placeId) {
-          isFavourite = false;
+          widget.isFavourite = false;
         }
       },
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            if (isFavourite) {
+            if (widget.isFavourite) {
               context
                   .read<WishListCubit>()
                   .removePlaceFromWishList(placeId: widget.placeId);
@@ -60,7 +49,7 @@ class _CustomFavouritePlaceWidgetState
             backgroundColor: Colors.white,
             radius: 20,
             child: SvgPicture.asset(
-              isFavourite
+              widget.isFavourite
                   ? Assets.assetsIconsFavouriteIcon
                   : Assets.assetsIconsSolidfavouriteIcon,
             ),

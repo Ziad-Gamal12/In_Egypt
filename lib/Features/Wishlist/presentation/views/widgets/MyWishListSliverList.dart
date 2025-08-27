@@ -7,9 +7,10 @@ import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignIt
 import 'package:skeletonizer/skeletonizer.dart';
 
 class MyWishListSliverList extends StatefulWidget {
-  const MyWishListSliverList({super.key, required this.places});
+  const MyWishListSliverList(
+      {super.key, required this.places, required this.favouritePlaces});
   final List<PlaceEntity> places;
-
+  final Map<String, bool> favouritePlaces;
   @override
   State<MyWishListSliverList> createState() => _MyWishListSliverListState();
 }
@@ -32,6 +33,9 @@ class _MyWishListSliverListState extends State<MyWishListSliverList> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CustomPlaceHorizintalDesignItem(
+                      isFavourite:
+                          widget.favouritePlaces[widget.places[index].id] ??
+                              false,
                       place: widget.places[index],
                     )
                         .animate()

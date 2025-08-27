@@ -53,21 +53,14 @@ final class WishListGetWishListFailure extends WishListState {
   WishListGetWishListFailure({required this.errMessage});
 }
 
-final class WishListIsPlaceAddedToWishListLoading extends WishListState {
-  final String placeId;
-  WishListIsPlaceAddedToWishListLoading({required this.placeId});
+final class WishListCheckFavouritePlacesLoading extends WishListState {}
+
+final class WishListCheckFavouritePlacesSuccess extends WishListState {
+  final Map<String, bool> favouritePlaces;
+  WishListCheckFavouritePlacesSuccess({required this.favouritePlaces});
 }
 
-final class WishListIsPlaceAddedToWishListSuccess extends WishListState {
-  final bool isAdded;
-  final String placeId;
-  WishListIsPlaceAddedToWishListSuccess(
-      {required this.isAdded, required this.placeId});
-}
-
-final class WishListIsPlaceAddedToWishListFailure extends WishListState {
+final class WishListCheckFavouritePlacesFailure extends WishListState {
   final String errMessage;
-  final String placeId;
-  WishListIsPlaceAddedToWishListFailure(
-      {required this.errMessage, required this.placeId});
+  WishListCheckFavouritePlacesFailure({required this.errMessage});
 }

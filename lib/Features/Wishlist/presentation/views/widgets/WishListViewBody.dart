@@ -15,11 +15,15 @@ class WishListViewBody extends StatefulWidget {
 }
 
 class _WishListViewBodyState extends State<WishListViewBody> {
-  ScrollController scrollController = ScrollController();
+  late ScrollController scrollController;
+  late TextEditingController searchController;
   bool isLoadMore = true;
   List<PlaceEntity> fetchedWishListPlaces = [];
+  Map<String, bool> favouritePlaces = {};
   @override
   void initState() {
+    scrollController = ScrollController();
+    searchController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<WishListCubit>().getWishList(isPaginated: false);
       scrollController.addListener(() {
@@ -36,6 +40,7 @@ class _WishListViewBodyState extends State<WishListViewBody> {
   @override
   void dispose() {
     scrollController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 
@@ -47,6 +52,12 @@ class _WishListViewBodyState extends State<WishListViewBody> {
           if (!isLoadMore && state.response.hasMore) return;
           isLoadMore = state.response.hasMore;
           fetchedWishListPlaces.addAll(state.response.places);
+          setState(() {});
+          context
+              .read<WishListCubit>()
+              .checkFavouritePlaces(places: state.response.places);
+        } else if (state is WishListCheckFavouritePlacesSuccess) {
+          favouritePlaces.addAll(state.favouritePlaces);
           setState(() {});
         }
       },
@@ -68,7 +79,7 @@ class _WishListViewBodyState extends State<WishListViewBody> {
                         height: 20,
                       ),
                       CustomSearchTextField(
-                        controller: TextEditingController(),
+                        controller: searchController,
                       ),
                       SizedBox(
                         height: 40,
@@ -77,6 +88,7 @@ class _WishListViewBodyState extends State<WishListViewBody> {
                   ),
                 ),
                 MyWishListSliverList(
+                  favouritePlaces: favouritePlaces,
                   places: fetchedWishListPlaces,
                 )
               ],
