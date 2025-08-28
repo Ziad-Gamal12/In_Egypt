@@ -107,7 +107,7 @@ class _CustomNewestPlacesSliverListState
                           ))
                       .animate()
                       .moveY(begin: 50)
-                      .fadeIn(duration: 1.seconds, delay: (index * 200).ms),
+                      .fadeIn(duration: 200.ms, delay: (index * 200).ms),
                 );
               },
               itemCount: places.length);

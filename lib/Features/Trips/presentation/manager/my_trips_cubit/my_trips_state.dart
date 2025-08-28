@@ -16,3 +16,16 @@ final class MyTripsGetMyTripsFailure extends MyTripsState {
   final String errmessage;
   MyTripsGetMyTripsFailure({required this.errmessage});
 }
+
+// searh my trips
+final class MyTripsSearchMyTripsLoading extends MyTripsState {}
+
+final class MyTripsSearchMyTripsSuccess extends MyTripsState {
+  final List<BookingEntity> bookings;
+  MyTripsSearchMyTripsSuccess({required this.bookings});
+}
+
+final class MyTripsSearchMyTripsFailure extends MyTripsState {
+  final String errmessage;
+  MyTripsSearchMyTripsFailure({required this.errmessage});
+}

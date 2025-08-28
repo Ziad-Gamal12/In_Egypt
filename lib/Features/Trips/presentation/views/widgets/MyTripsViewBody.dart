@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Trips/presentation/manager/my_trips_cubit/my_trips_cubit.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/widgets/MyTripsSliverList.dart';
+import 'package:in_egypt/Features/Trips/presentation/views/widgets/SearchMyTripsSection.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';
-import 'package:in_egypt/core/widgets/CustomErrorWidget.dart';
-import 'package:in_egypt/core/widgets/CustomTextFields/CustomSearchTextField.dart';
 
 class MyTripsViewBody extends StatefulWidget {
   const MyTripsViewBody({super.key});
@@ -15,19 +14,23 @@ class MyTripsViewBody extends StatefulWidget {
 }
 
 class _MyTripsViewBodyState extends State<MyTripsViewBody> {
-  ScrollController scrollController = ScrollController();
+  late ScrollController scrollController;
   bool hasMore = true;
+  bool isSearching = false;
   List<BookingEntity> fetchedMyTrips = [];
   @override
   void initState() {
+    scrollController = ScrollController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MyTripsCubit>().getMyTrips(isPaginated: false);
-
+      final cubit = context.read<MyTripsCubit>();
+      cubit.getMyTrips(isPaginated: false);
       scrollController.addListener(() {
         if (scrollController.position.pixels >=
                 scrollController.position.maxScrollExtent - 200 &&
-            hasMore) {
-          context.read<MyTripsCubit>().getMyTrips(isPaginated: true);
+            hasMore &&
+            cubit.state is! MyTripsGetMyTripsLoading &&
+            !isSearching) {
+          cubit.getMyTrips(isPaginated: true);
         }
       });
     });
@@ -42,24 +45,16 @@ class _MyTripsViewBodyState extends State<MyTripsViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MyTripsCubit, MyTripsState>(
-      listener: (context, state) {
-        if (state is MyTripsGetMyTripsSuccess) {
-          if (!hasMore && state.getMyTripsResponseEntity.hasMore) return;
-          hasMore = state.getMyTripsResponseEntity.hasMore;
-          fetchedMyTrips.addAll(state.getMyTripsResponseEntity.bookings);
-          setState(() {});
-        }
-      },
-      builder: (context, state) {
-        if (state is MyTripsGetMyTripsFailure) {
-          return Center(
-            child: CustomErrorWidget(
-              message: state.errmessage,
-            ),
-          );
-        }
-        return Padding(
+    return BlocListener<MyTripsCubit, MyTripsState>(
+        listener: (context, state) {
+          if (state is MyTripsGetMyTripsSuccess) {
+            if (!hasMore && state.getMyTripsResponseEntity.hasMore) return;
+            hasMore = state.getMyTripsResponseEntity.hasMore;
+            fetchedMyTrips.addAll(state.getMyTripsResponseEntity.bookings);
+            setState(() {});
+          }
+        },
+        child: Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: kHorizentalPadding, vertical: kVerticalPadding),
             child: CustomScrollView(controller: scrollController, slivers: [
@@ -68,9 +63,12 @@ class _MyTripsViewBodyState extends State<MyTripsViewBody> {
                   height: 20,
                 ),
               ),
-              SliverToBoxAdapter(
-                  child: CustomSearchTextField(
-                controller: TextEditingController(),
+              SliverToBoxAdapter(child: SearchMyTripsSection(
+                isSearching: (val) {
+                  setState(() {
+                    isSearching = val;
+                  });
+                },
               )),
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -79,9 +77,8 @@ class _MyTripsViewBodyState extends State<MyTripsViewBody> {
               ),
               MyTripsSliverList(
                 myTrips: fetchedMyTrips,
+                isSearching: isSearching,
               )
-            ]));
-      },
-    );
+            ])));
   }
 }

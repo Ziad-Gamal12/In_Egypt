@@ -11,12 +11,12 @@ class EmptyWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 50),
+        const SizedBox(height: 100),
         Image.asset(
           Assets.assetsIconsEmptyIcon,
           height: 150,
           width: 150,
-          fit: BoxFit.scaleDown,
+          fit: BoxFit.cover,
         ),
         Text(
           message ?? "لا يوجد شيء",

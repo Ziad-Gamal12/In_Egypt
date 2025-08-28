@@ -63,4 +63,40 @@ class MyTripsRepoimp implements MyTripsRepo {
       return left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
+
+  Map<String, dynamic> searchMyTripsQueery = {
+    "orderBy": "createdAt",
+    "filters": [
+      {
+        "field": "user.uid",
+        "value": getUserData().uid,
+        "operator": "==",
+      },
+    ],
+    "searchField": "place.name",
+    "searchValue": null,
+  };
+  @override
+  Future<Either<Failure, List<BookingEntity>>> searchMyTrips(
+      {required String searchKey}) async {
+    try {
+      searchMyTripsQueery["searchValue"] = searchKey;
+      FireStoreResponse response = await databaseservice.getData(
+        requirements: FireStoreRequirmentsEntity(
+            collection: Backendkeys.bookingsCollection),
+        query: searchMyTripsQueery,
+      );
+      if (response.listData == null) {
+        return right([]);
+      }
+      List<BookingEntity> bookingsEntity = response.listData!
+          .map((e) => BookingModel.fromJson(e).toEntity())
+          .toList();
+      return right(bookingsEntity);
+    } on CustomException catch (e) {
+      return left(ServerFailure(message: e.message));
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
+    }
+  }
 }

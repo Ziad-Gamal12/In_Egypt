@@ -26,11 +26,13 @@ class _CustomMorePopularPlacesGridViewState
   bool isLoadMore = true;
   @override
   void initState() {
+    final cubit = context.read<PopularPlacesCubit>();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 200 &&
-          isLoadMore) {
-        context.read<PopularPlacesCubit>().getPopularPlaces(isPaginated: true);
+          isLoadMore &&
+          cubit.state is! PlacesGetPopularPlacesLoading) {
+        cubit.getPopularPlaces(isPaginated: true);
       }
     });
     super.initState();

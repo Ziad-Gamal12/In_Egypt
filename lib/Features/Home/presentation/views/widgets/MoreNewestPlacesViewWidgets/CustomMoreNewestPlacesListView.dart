@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
@@ -26,12 +27,14 @@ class _CustomMoreNewestPlacesListViewState
   bool isLoadMore = true;
   @override
   void initState() {
+    final cubit = context.read<NewestPlacesCubit>();
     scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 200 &&
-          isLoadMore) {
-        context.read<NewestPlacesCubit>().getNewestPlaces(isPaginated: true);
+          isLoadMore &&
+          cubit.state is! PlacesGetNewestPlacesLoading) {
+        cubit.getNewestPlaces(isPaginated: true);
       }
     });
     super.initState();
@@ -64,18 +67,7 @@ class _CustomMoreNewestPlacesListViewState
           ),
           BlocListener<WishListCubit, WishListState>(
               listener: (context, state) {
-            if (state is WishListCheckFavouritePlacesSuccess) {
-              favouritePlaces.addAll(state.favouritePlaces);
-              setState(() {});
-            } else if (state is WishListAddPlaceToWishListSuccess) {
-              setState(() {
-                favouritePlaces[state.placeId] = true;
-              });
-            } else if (state is WishListRemovePlaceFromWishListSuccess) {
-              setState(() {
-                favouritePlaces[state.placeId] = false;
-              });
-            }
+            moreNewestPlacesWishListListenerHandler(state);
           })
         ],
         child: BlocBuilder<NewestPlacesCubit, NewestPlacesState>(
@@ -110,11 +102,29 @@ class _CustomMoreNewestPlacesListViewState
                     child: CustomPlaceHorizintalDesignItem(
                       place: places[index],
                       isFavourite: favouritePlaces[places[index].id] ?? false,
-                    ),
+                    )
+                        .animate()
+                        .fadeIn(duration: 200.ms, delay: (index * 200).ms)
+                        .moveY(begin: 50),
                   ),
                 ),
               ));
         }));
+  }
+
+  void moreNewestPlacesWishListListenerHandler(WishListState state) {
+    if (state is WishListCheckFavouritePlacesSuccess) {
+      favouritePlaces.addAll(state.favouritePlaces);
+      setState(() {});
+    } else if (state is WishListAddPlaceToWishListSuccess) {
+      setState(() {
+        favouritePlaces[state.placeId] = true;
+      });
+    } else if (state is WishListRemovePlaceFromWishListSuccess) {
+      setState(() {
+        favouritePlaces[state.placeId] = false;
+      });
+    }
   }
 
   List<PlaceEntity> getDisplayedPlaces(NewestPlacesState state) {

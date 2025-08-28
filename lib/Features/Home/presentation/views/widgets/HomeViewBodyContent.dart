@@ -7,6 +7,7 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomHomeView
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomHomeViewSearchSection.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomNewestPlacesHeader.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomNewestPlacesSliverList.dart';
+import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomSearchingPlacesWidget.dart';
 
 class HomeViewBodyContent extends StatefulWidget {
   const HomeViewBodyContent({
@@ -18,6 +19,7 @@ class HomeViewBodyContent extends StatefulWidget {
 }
 
 class _HomeViewBodyContentState extends State<HomeViewBodyContent> {
+  bool isSearching = false;
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,27 +44,41 @@ class _HomeViewBodyContentState extends State<HomeViewBodyContent> {
             ),
           ),
           SliverToBoxAdapter(
-            child: CustomHomeViewSearchSection(),
-          ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 20,
+            child: CustomHomeViewSearchSection(
+              isSearching: (val) {
+                setState(() {
+                  isSearching = val;
+                });
+              },
             ),
           ),
           SliverToBoxAdapter(
-            child: CustomHomeViewPopularPlacesSection(),
-          ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 20,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: CustomNewestPlacesHeader(),
-          ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 10,
+            child: Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CustomHomeViewPopularPlacesSection(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CustomNewestPlacesHeader(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+                if (isSearching)
+                  Positioned.fill(
+                    child: CustomSearchingPlacesWidget(),
+                  )
+                else
+                  SizedBox()
+              ],
             ),
           ),
           CustomNewestPlacesSliverList(),

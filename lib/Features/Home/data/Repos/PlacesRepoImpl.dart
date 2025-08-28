@@ -68,7 +68,7 @@ class PlacesRepoImpl implements PlacesRepo {
         requirements: FireStoreRequirmentsEntity(
           collection: Backendkeys.placesCollection,
         ),
-        query: {"searchField": "name", "searchValue": searchKey},
+        query: {"searchField": "name", "searchValue": searchKey, "limit": 10},
       );
       if (response.listData == null) {
         return right([]);

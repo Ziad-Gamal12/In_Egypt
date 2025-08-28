@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Home/domain/Repos/PlacesRepo.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/popular_places_cubit/popular_places_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/search_places_cubit/search_places_cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/HomeViewBodyContent.dart';
 import 'package:in_egypt/core/services/get_it_Service.dart';
 
@@ -19,6 +20,9 @@ class HomeViewBody extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 NewestPlacesCubit(placesRepo: getIt<PlacesRepo>())),
+        BlocProvider(
+            create: (context) =>
+                SearchPlacesCubit(placesRepo: getIt<PlacesRepo>())),
       ],
       child: SafeArea(
         child: HomeViewBodyContent(),

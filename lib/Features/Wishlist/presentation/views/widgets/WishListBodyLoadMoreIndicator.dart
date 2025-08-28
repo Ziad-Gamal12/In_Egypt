@@ -3,7 +3,10 @@ import 'package:in_egypt/constant.dart';
 
 class WishListBodyLoadMoreIndicator extends StatelessWidget {
   final bool isLoading;
-  const WishListBodyLoadMoreIndicator({super.key, required this.isLoading});
+  const WishListBodyLoadMoreIndicator({
+    super.key,
+    required this.isLoading,
+  });
 
   @override
   Widget build(BuildContext context) {

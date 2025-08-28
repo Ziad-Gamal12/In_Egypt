@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/search_places_cubit/search_places_cubit.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomSearchTextField.dart';
-import 'package:provider/provider.dart';
 
-class CustomHomeViewSearchSection extends StatefulWidget {
-  const CustomHomeViewSearchSection({super.key, required this.isSearching});
+class WishListViewBodySearchSection extends StatefulWidget {
+  const WishListViewBodySearchSection({super.key, required this.isSearching});
   final ValueChanged<bool> isSearching;
   @override
-  State<CustomHomeViewSearchSection> createState() =>
-      _CustomHomeViewSearchSectionState();
+  State<WishListViewBodySearchSection> createState() =>
+      _WishListViewBodySearchSectionState();
 }
 
-class _CustomHomeViewSearchSectionState
-    extends State<CustomHomeViewSearchSection> {
+class _WishListViewBodySearchSectionState
+    extends State<WishListViewBodySearchSection> {
   late TextEditingController searchController;
+
   @override
   void initState() {
     searchController = TextEditingController();
     searchController.addListener(() {
       if (searchController.text.isNotEmpty) {
-        String searchKey = searchController.text.trim();
         widget.isSearching(true);
+        String searchKey = searchController.text.trim();
         context.read<SearchPlacesCubit>().searchPlaces(searchKey: searchKey);
       } else {
         widget.isSearching(false);
@@ -30,18 +31,13 @@ class _CustomHomeViewSearchSectionState
   }
 
   @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: CustomSearchTextField(
-        controller: searchController,
-      ),
+    return Column(
+      children: [
+        const SizedBox(height: 20),
+        CustomSearchTextField(controller: searchController),
+        const SizedBox(height: 40),
+      ],
     );
   }
 }
