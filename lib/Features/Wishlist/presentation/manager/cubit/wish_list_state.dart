@@ -39,7 +39,11 @@ final class WishListRemovePlaceFromWishListFailure extends WishListState {
       {required this.errMessage, required this.placeId});
 }
 
-final class WishListGetWishListLoading extends WishListState {}
+final class WishListGetWishListLoading extends WishListState {
+  final bool isFirstLoad;
+
+  WishListGetWishListLoading({required this.isFirstLoad});
+}
 
 final class WishListGetWishListSuccess extends WishListState {
   final GetWishListResponseEntity response;

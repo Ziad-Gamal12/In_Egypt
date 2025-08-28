@@ -10,7 +10,9 @@ class WishListCubit extends Cubit<WishListState> {
   WishListCubit({required this.wishListRepo}) : super(WishListInitial());
   final WishListRepo wishListRepo;
   Future<void> getWishList({required bool isPaginated}) async {
-    emit(WishListGetWishListLoading());
+    emit(WishListGetWishListLoading(
+      isFirstLoad: !isPaginated,
+    ));
     final result = await wishListRepo.getWishList(isPaginated: isPaginated);
     result.fold((failure) {
       emit(WishListGetWishListFailure(errMessage: failure.message));

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
-import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/MyWishListSliverList.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/WishListBodyHeader.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/WishListBodyList.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/WishListBodyLoadMoreIndicator.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/WishListBodyLoadingList.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/widgets/CustomErrorWidget.dart';
-import 'package:in_egypt/core/widgets/CustomTextFields/CustomSearchTextField.dart';
 
 class WishListViewBody extends StatefulWidget {
   const WishListViewBody({super.key});
@@ -19,9 +21,13 @@ class _WishListViewBodyState extends State<WishListViewBody> {
   late TextEditingController searchController;
   bool isLoadMore = true;
   List<PlaceEntity> fetchedWishListPlaces = [];
-  Map<String, bool> favouritePlaces = {};
   @override
   void initState() {
+    handleInitState();
+    super.initState();
+  }
+
+  void handleInitState() {
     scrollController = ScrollController();
     searchController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -34,7 +40,6 @@ class _WishListViewBodyState extends State<WishListViewBody> {
         }
       });
     });
-    super.initState();
   }
 
   @override
@@ -47,21 +52,7 @@ class _WishListViewBodyState extends State<WishListViewBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<WishListCubit, WishListState>(
-      listener: (context, state) {
-        if (state is WishListGetWishListSuccess) {
-          if (!isLoadMore && state.response.hasMore) return;
-          isLoadMore = state.response.hasMore;
-          fetchedWishListPlaces.addAll(state.response.places);
-          context
-              .read<WishListCubit>()
-              .checkFavouritePlaces(places: state.response.places);
-          setState(() {});
-        } else if (state is WishListCheckFavouritePlacesSuccess) {
-          favouritePlaces.addAll(state.favouritePlaces);
-
-          setState(() {});
-        }
-      },
+      listener: wishListBlocListenerHandler,
       builder: (context, state) {
         if (state is WishListGetWishListFailure) {
           return Center(
@@ -75,27 +66,51 @@ class _WishListViewBodyState extends State<WishListViewBody> {
               key: PageStorageKey('myywishList'),
               slivers: [
                 SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomSearchTextField(
-                        controller: searchController,
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                    ],
+                    child: WishListBodyHeader(controller: searchController)),
+                if (state is WishListGetWishListLoading && state.isFirstLoad)
+                  SliverToBoxAdapter(
+                      child: WishListBodyLoadingList(
+                    fakePlaces: generateFakeLoadingPlaces(),
+                  ))
+                else
+                  WishListBodyList(
+                    places: fetchedWishListPlaces,
                   ),
-                ),
-                MyWishListSliverList(
-                  favouritePlaces: favouritePlaces,
-                  places: fetchedWishListPlaces,
+                SliverToBoxAdapter(
+                  child: WishListBodyLoadMoreIndicator(
+                      isLoading: state is WishListGetWishListLoading &&
+                          !state.isFirstLoad),
                 )
               ],
             ));
       },
     );
+  }
+
+  void wishListBlocListenerHandler(context, state) {
+    if (state is WishListGetWishListSuccess) {
+      if (!isLoadMore && state.response.hasMore) return;
+      isLoadMore = state.response.hasMore;
+      fetchedWishListPlaces.addAll(state.response.places);
+      setState(() {});
+    }
+  }
+
+  List<PlaceEntity> generateFakeLoadingPlaces() {
+    return List.generate(10, (index) {
+      return PlaceEntity(
+          category: "",
+          description: "",
+          id: '',
+          images: [],
+          latitude: 0,
+          longitude: 0,
+          name: "",
+          rating: 0,
+          location: "",
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          ticketPrice: 0);
+    });
   }
 }

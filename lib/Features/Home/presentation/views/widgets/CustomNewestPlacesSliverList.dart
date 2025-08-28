@@ -39,6 +39,14 @@ class _CustomNewestPlacesSliverListState
           if (state is WishListCheckFavouritePlacesSuccess) {
             favouritePlaces.addAll(state.favouritePlaces);
             setState(() {});
+          } else if (state is WishListAddPlaceToWishListSuccess) {
+            setState(() {
+              favouritePlaces[state.placeId] = true;
+            });
+          } else if (state is WishListRemovePlaceFromWishListSuccess) {
+            setState(() {
+              favouritePlaces[state.placeId] = false;
+            });
           }
         }),
       ],

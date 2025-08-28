@@ -22,10 +22,11 @@ class _CustomMoreNewestPlacesListViewState
     extends State<CustomMoreNewestPlacesListView> {
   List<PlaceEntity> newestPlaces = [];
   Map<String, bool> favouritePlaces = {};
-  ScrollController scrollController = ScrollController();
+  late ScrollController scrollController;
   bool isLoadMore = true;
   @override
   void initState() {
+    scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 200 &&
@@ -50,7 +51,7 @@ class _CustomMoreNewestPlacesListViewState
             listener: (context, state) {
               if (state is PlacesGetNewestPlacesSuccess) {
                 if (!isLoadMore && state.getplacesResponseEntity.hasMore) {
-                  isLoadMore = false;
+                  return;
                 }
                 setState(() {
                   newestPlaces.addAll(state.getplacesResponseEntity.places);
@@ -66,6 +67,14 @@ class _CustomMoreNewestPlacesListViewState
             if (state is WishListCheckFavouritePlacesSuccess) {
               favouritePlaces.addAll(state.favouritePlaces);
               setState(() {});
+            } else if (state is WishListAddPlaceToWishListSuccess) {
+              setState(() {
+                favouritePlaces[state.placeId] = true;
+              });
+            } else if (state is WishListRemovePlaceFromWishListSuccess) {
+              setState(() {
+                favouritePlaces[state.placeId] = false;
+              });
             }
           })
         ],
