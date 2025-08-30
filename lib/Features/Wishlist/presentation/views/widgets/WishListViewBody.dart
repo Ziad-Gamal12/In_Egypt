@@ -90,6 +90,8 @@ class _WishListViewBodyState extends State<WishListViewBody> {
                   SliverToBoxAdapter(child: WishListViewBodySearchSection(
                     isSearching: (val) {
                       setState(() {
+                        searchedWishListPlaces.clear();
+                        searchedfavouritePlaces.clear();
                         isSearching = val;
                       });
                     },

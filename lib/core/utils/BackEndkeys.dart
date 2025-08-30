@@ -5,6 +5,7 @@ class Backendkeys {
   static const usersCollection = "Users";
   static const storeUserLocaly = "UserData";
   static const placesCollection = "Places";
+  static const reviewsSubCollection = "reviews";
   static const bookingsCollection = "Bookings";
   static const userRole = "User";
   static const adminRole = "Admin";

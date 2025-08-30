@@ -8,6 +8,7 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomHomeView
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomNewestPlacesHeader.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomNewestPlacesSliverList.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomSearchingPlacesWidget.dart';
+import 'package:in_egypt/Features/Home/presentation/views/widgets/PlacesCategoriesSection.dart';
 
 class HomeViewBodyContent extends StatefulWidget {
   const HomeViewBodyContent({
@@ -59,6 +60,10 @@ class _HomeViewBodyContentState extends State<HomeViewBodyContent> {
               children: [
                 Column(
                   children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    PlacesCategoriesSection(),
                     SizedBox(
                       height: 20,
                     ),

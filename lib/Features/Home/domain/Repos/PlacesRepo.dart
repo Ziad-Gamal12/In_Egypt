@@ -13,4 +13,6 @@ abstract class PlacesRepo {
   Future<Either<Failure, List<PlaceEntity>>> searchPlaces({
     required String searchKey,
   });
+  Future<Either<Failure, GetplacesResponseEntity>> getPlacesByCategory(
+      {required String category, required bool isPaginated});
 }

@@ -2,8 +2,8 @@ import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 
 class PlaceReviewEntity {
   final UserEntity user;
-  final double rating;
-  final String review;
+  double rating;
+  String review;
   final DateTime createdAt;
 
   PlaceReviewEntity({

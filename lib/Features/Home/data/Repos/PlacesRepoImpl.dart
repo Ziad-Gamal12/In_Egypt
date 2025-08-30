@@ -128,4 +128,57 @@ class PlacesRepoImpl implements PlacesRepo {
       return left(ServerFailure(message: e.toString()));
     }
   }
+
+  Map<String, dynamic> getPlacesByCategorysquery = {
+    "orderBy": "createdAt",
+    "filters": [
+      {
+        "field": "category",
+        "value": "",
+        "operator": "==",
+      },
+    ],
+    "limit": 10,
+    "startAfter": null,
+  };
+  DocumentSnapshot<Object?>? getPlacesByCategorylastDocumentSnapshot;
+  @override
+  Future<Either<Failure, GetplacesResponseEntity>> getPlacesByCategory(
+      {required String category, required bool isPaginated}) async {
+    try {
+      getPlacesByCategorysquery["filters"][0]["value"] = category;
+      if (isPaginated) {
+        getPlacesByCategorysquery["startAfter"] =
+            getPlacesByCategorylastDocumentSnapshot;
+      } else {
+        getPlacesByCategorysquery["startAfter"] = null;
+      }
+      FireStoreResponse response = await databaseservice.getData(
+        requirements: FireStoreRequirmentsEntity(
+          collection: Backendkeys.placesCollection,
+        ),
+        query: getPlacesByCategorysquery,
+      );
+
+      final placesData = response.listData ?? [];
+
+      if (placesData.isNotEmpty && response.lastDocumentSnapshot != null) {
+        getPlacesByCategorylastDocumentSnapshot = response.lastDocumentSnapshot;
+      }
+
+      List<PlaceEntity> placesEntity =
+          placesData.map((e) => PlaceModel.fromJson(e).toEntity()).toList();
+
+      bool hasMore = response.hasMore ??
+          placesData.length == getPlacesByCategorysquery["limit"];
+
+      return right(
+        GetplacesResponseEntity(places: placesEntity, hasMore: hasMore),
+      );
+    } on CustomException catch (e) {
+      return left(ServerFailure(message: e.message));
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
+    }
+  }
 }

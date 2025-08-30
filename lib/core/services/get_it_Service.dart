@@ -8,7 +8,9 @@ import 'package:in_egypt/Features/Book/data/repos/BookingsRepoImp/BookingsRepoIm
 import 'package:in_egypt/Features/Book/data/repos/PaymentRepo/PaymentRepoImpl.dart';
 import 'package:in_egypt/Features/Book/domain/repos/BookingsRepo/BookingsRepo.dart';
 import 'package:in_egypt/Features/Book/domain/repos/PaymentRepo/PaymentRepo.dart';
+import 'package:in_egypt/Features/Home/data/Repos/PlaceReviewsRepoImp.dart';
 import 'package:in_egypt/Features/Home/data/Repos/PlacesRepoImpl.dart';
+import 'package:in_egypt/Features/Home/domain/Repos/PlaceReviewsRepo.dart';
 import 'package:in_egypt/Features/Home/domain/Repos/PlacesRepo.dart';
 import 'package:in_egypt/Features/Trips/data/Repos/MyTripsRepoimp.dart';
 import 'package:in_egypt/Features/Trips/domain/Repos/MyTripsRepo.dart';
@@ -55,6 +57,9 @@ void setup_Getit() {
     databaseservice: getIt<Databaseservice>(),
   ));
   getIt.registerSingleton<WishListRepo>(WishListRepoImp(
+    dataBaseService: getIt<Databaseservice>(),
+  ));
+  getIt.registerSingleton<PlaceReviewsRepo>(PlaceReviewsRepoImp(
     dataBaseService: getIt<Databaseservice>(),
   ));
 }

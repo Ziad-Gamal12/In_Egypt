@@ -6,6 +6,8 @@ import 'package:in_egypt/Features/Auth/presentation/Views/SignUpView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/BookView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/BookedSuccessView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomWebView.dart';
+import 'package:in_egypt/Features/Home/domain/Entities/SelectPlaceCategoryEntity.dart';
+import 'package:in_egypt/Features/Home/presentation/views/CategoryPlacesView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/MoreNewestPlacesView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/MorePopularPlacesView.dart';
@@ -98,6 +100,14 @@ class App_router {
         builder: (BuildContext context, GoRouterState state) {
           return BookedSuccessView(
             bookingEntity: state.extra as BookingEntity,
+          );
+        },
+      ),
+      GoRoute(
+        path: CategoryPlacesView.routeName,
+        builder: (BuildContext context, GoRouterState state) {
+          return CategoryPlacesView(
+            category: state.extra as SelectPlaceCategoryEntity,
           );
         },
       ),

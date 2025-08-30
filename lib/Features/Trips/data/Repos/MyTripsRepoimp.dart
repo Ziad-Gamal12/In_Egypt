@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:in_egypt/Features/Trips/domain/Entities/GetMyTripsResponseEntity.dart';
@@ -81,6 +83,7 @@ class MyTripsRepoimp implements MyTripsRepo {
       {required String searchKey}) async {
     try {
       searchMyTripsQueery["searchValue"] = searchKey;
+      log("$searchKey       ${searchMyTripsQueery["searchValue"]}");
       FireStoreResponse response = await databaseservice.getData(
         requirements: FireStoreRequirmentsEntity(
             collection: Backendkeys.bookingsCollection),

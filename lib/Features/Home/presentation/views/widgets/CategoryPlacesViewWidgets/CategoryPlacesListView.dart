@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
+import 'package:in_egypt/Features/Home/presentation/manager/places_categories_cubit/places_categories_cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
@@ -10,30 +10,28 @@ import 'package:in_egypt/core/widgets/EmptyWidget.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignItem.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CustomMoreNewestPlacesListView extends StatefulWidget {
-  const CustomMoreNewestPlacesListView({super.key});
-
+class CategoryPlacesListView extends StatefulWidget {
+  const CategoryPlacesListView({super.key, required this.category});
+  final String category;
   @override
-  State<CustomMoreNewestPlacesListView> createState() =>
-      _CustomMoreNewestPlacesListViewState();
+  State<CategoryPlacesListView> createState() => _CategoryPlacesListViewState();
 }
 
-class _CustomMoreNewestPlacesListViewState
-    extends State<CustomMoreNewestPlacesListView> {
+class _CategoryPlacesListViewState extends State<CategoryPlacesListView> {
   List<PlaceEntity> newestPlaces = [];
   Map<String, bool> favouritePlaces = {};
   late ScrollController scrollController;
   bool isLoadMore = true;
   @override
   void initState() {
-    final cubit = context.read<NewestPlacesCubit>();
+    final cubit = context.read<PlacesCategoriesCubit>();
     scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 200 &&
           isLoadMore &&
-          cubit.state is! PlacesGetNewestPlacesLoading) {
-        cubit.getNewestPlaces(isPaginated: true);
+          cubit.state is! PlacesCategoriesGetPlacesByCategoryLoading) {
+        cubit.getPlacesByCategory(isPaginated: true, category: widget.category);
       }
     });
     super.initState();
@@ -49,18 +47,19 @@ class _CustomMoreNewestPlacesListViewState
   Widget build(BuildContext context) {
     return MultiBlocListener(
         listeners: [
-          BlocListener<NewestPlacesCubit, NewestPlacesState>(
+          BlocListener<PlacesCategoriesCubit, PlacesCategoriesState>(
             listener: (context, state) {
-              if (state is PlacesGetNewestPlacesSuccess) {
-                if (!isLoadMore && state.getplacesResponseEntity.hasMore) {
+              if (state is PlacesCategoriesGetPlacesByCategorySuccess) {
+                if (!isLoadMore && state.response.hasMore) {
                   return;
                 }
                 setState(() {
-                  newestPlaces.addAll(state.getplacesResponseEntity.places);
-                  isLoadMore = state.getplacesResponseEntity.hasMore;
+                  newestPlaces.addAll(state.response.places);
+                  isLoadMore = state.response.hasMore;
                 });
-                context.read<WishListCubit>().checkFavouritePlaces(
-                    places: state.getplacesResponseEntity.places);
+                context
+                    .read<WishListCubit>()
+                    .checkFavouritePlaces(places: state.response.places);
               }
             },
           ),
@@ -69,18 +68,19 @@ class _CustomMoreNewestPlacesListViewState
             moreNewestPlacesWishListListenerHandler(state);
           })
         ],
-        child: BlocBuilder<NewestPlacesCubit, NewestPlacesState>(
+        child: BlocBuilder<PlacesCategoriesCubit, PlacesCategoriesState>(
             builder: (context, state) {
-          bool isLoading = state is PlacesGetNewestPlacesLoading;
+          bool isLoading = state is PlacesCategoriesGetPlacesByCategoryLoading;
           List<PlaceEntity> places = getDisplayedPlaces(state);
-          if (state is PlacesGetNewestPlacesFailure) {
+          if (state is PlacesCategoriesGetPlacesByCategoryFailure) {
             return Center(
               child: CustomErrorWidget(
-                message: state.errmessage,
+                message: state.errMessage,
               ),
             );
           }
-          if (state is PlacesGetNewestPlacesSuccess && newestPlaces.isEmpty) {
+          if (state is PlacesCategoriesGetPlacesByCategorySuccess &&
+              newestPlaces.isEmpty) {
             return Center(
               child: EmptyWidget(),
             );
@@ -88,7 +88,7 @@ class _CustomMoreNewestPlacesListViewState
           return Skeletonizer(
               enabled: isLoading,
               child: ListView.builder(
-                key: PageStorageKey("moreNewestPlacesListView"),
+                key: PageStorageKey("categoryPlacesListView"),
                 controller: scrollController,
                 itemCount: places.length,
                 itemBuilder: (context, index) => InkWell(
@@ -123,24 +123,25 @@ class _CustomMoreNewestPlacesListViewState
     }
   }
 
-  List<PlaceEntity> getDisplayedPlaces(NewestPlacesState state) {
-    List<PlaceEntity> places = state is PlacesGetNewestPlacesSuccess
-        ? newestPlaces
-        : List.generate(
-            10,
-            (_) => PlaceEntity(
-                category: "",
-                description: "",
-                id: '',
-                images: [],
-                latitude: 0,
-                longitude: 0,
-                name: "",
-                rating: 0,
-                location: "",
-                createdAt: DateTime.now(),
-                updatedAt: DateTime.now(),
-                ticketPrice: 0));
+  List<PlaceEntity> getDisplayedPlaces(PlacesCategoriesState state) {
+    List<PlaceEntity> places =
+        state is PlacesCategoriesGetPlacesByCategorySuccess
+            ? newestPlaces
+            : List.generate(
+                10,
+                (_) => PlaceEntity(
+                    category: "",
+                    description: "",
+                    id: '',
+                    images: [],
+                    latitude: 0,
+                    longitude: 0,
+                    name: "",
+                    rating: 0,
+                    location: "",
+                    createdAt: DateTime.now(),
+                    updatedAt: DateTime.now(),
+                    ticketPrice: 0));
     return places;
   }
 }
