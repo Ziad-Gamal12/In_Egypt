@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceLocationWidget.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceRatingWidget.dart';
 
 class CustomPlaceTitleAndRatingAndLocation extends StatelessWidget {
-  const CustomPlaceTitleAndRatingAndLocation({super.key, required this.place});
-  final PlaceEntity place;
+  const CustomPlaceTitleAndRatingAndLocation({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
+    PlaceEntity place = context.read<PlaceEntity>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,

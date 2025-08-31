@@ -6,6 +6,7 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/PlaceDetailsWi
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/services/get_it_Service.dart';
 import 'package:in_egypt/core/widgets/CustomAppBar.dart';
+import 'package:provider/provider.dart';
 
 class PlaceDetailsView extends StatelessWidget {
   const PlaceDetailsView({super.key, required this.placeEntity});
@@ -21,8 +22,9 @@ class PlaceDetailsView extends StatelessWidget {
         appBar: CustomAppBar(
           appBartitle: placeEntity.name,
         ),
-        body: PlaceDetailsViewBody(
-          place: placeEntity,
+        body: Provider.value(
+          value: placeEntity,
+          child: PlaceDetailsViewBody(),
         ),
       ),
     );

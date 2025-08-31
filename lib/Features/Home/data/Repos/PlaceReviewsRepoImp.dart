@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:in_egypt/Features/Home/domain/Entities/GetPlaceReviewsResponseEntity.dart';
 import 'package:in_egypt/Features/Home/domain/Repos/PlaceReviewsRepo.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
@@ -93,6 +95,57 @@ class PlaceReviewsRepoImp implements PlaceReviewsRepo {
     } on CustomException catch (e) {
       return left(Failure(message: e.message));
     } catch (e) {
+      return left(Failure(message: "حدث خطأ ما"));
+    }
+  }
+
+  Map<String, dynamic> getPlaceReviewsQuery = {
+    "orderBy": "createdAt",
+    "limit": 10,
+    "startAfter": null,
+  };
+  DocumentSnapshot<Object?>? getPlaceReviewslastDocumentSnapshot;
+
+  @override
+  Future<Either<Failure, GetPlaceReviewsResponseEntity>> getPlaceReviews(
+      {required String placeId, required bool isPaginated}) async {
+    try {
+      if (isPaginated) {
+        getPlaceReviewsQuery["startAfter"] =
+            getPlaceReviewslastDocumentSnapshot;
+      } else {
+        getPlaceReviewsQuery["startAfter"] = null;
+      }
+      final result = await dataBaseService.getData(
+        requirements: FireStoreRequirmentsEntity(
+          collection: Backendkeys.placesCollection,
+          docId: placeId,
+          subCollection: Backendkeys.reviewsSubCollection,
+        ),
+        query: getPlaceReviewsQuery,
+      );
+
+      final reviewsData = result.listData ?? [];
+
+      if (reviewsData.isNotEmpty && result.lastDocumentSnapshot != null) {
+        getPlaceReviewslastDocumentSnapshot = result.lastDocumentSnapshot!;
+      }
+
+      List<PlaceReviewEntity> reviewsEntity = reviewsData
+          .map((e) => PlaceReviewModel.fromJson(e).toEntity())
+          .toList();
+
+      bool hasMore =
+          result.hasMore ?? reviewsData.length == getPlaceReviewsQuery["limit"];
+
+      return right(
+        GetPlaceReviewsResponseEntity(reviews: reviewsEntity, hasMore: hasMore),
+      );
+    } on CustomException catch (e, s) {
+      log("$e\n$s");
+      return left(Failure(message: e.message));
+    } catch (e, s) {
+      log("$e\n$s");
       return left(Failure(message: "حدث خطأ ما"));
     }
   }

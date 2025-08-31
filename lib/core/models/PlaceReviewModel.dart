@@ -44,7 +44,7 @@ class PlaceReviewModel {
       'user': user,
       'rating': rating,
       'review': review,
-      'createdAt': createdAt.toIso8601String(),
+      'createdAt': createdAt,
     };
   }
 }

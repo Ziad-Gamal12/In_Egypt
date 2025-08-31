@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:in_egypt/Features/Home/domain/Entities/GetPlaceReviewsResponseEntity.dart';
 import 'package:in_egypt/Features/Home/domain/Repos/PlaceReviewsRepo.dart';
 import 'package:in_egypt/core/Entities/PlaceReviewEntity.dart';
 import 'package:meta/meta.dart';
@@ -20,5 +21,18 @@ class PlaceDetailsCubit extends Cubit<PlaceDetailsState> {
     result.fold(
         (failure) => emit(PlacesAddReviewFailure(errMessage: failure.message)),
         (resonse) => emit(PlacesAddReviewSuccess()));
+  }
+
+  Future<void> getPlaceReviews(
+      {required String placeId, required bool isPaginated}) async {
+    emit(PlacesGetPlaceReviewsLoading(
+      isFirstLoading: !isPaginated,
+    ));
+    final result = await placeReviewsRepo.getPlaceReviews(
+        placeId: placeId, isPaginated: isPaginated);
+    result.fold(
+        (failure) =>
+            emit(PlacesGetPlaceReviewsFailure(errMessage: failure.message)),
+        (resonse) => emit(PlacesGetPlaceReviewsSuccess(response: resonse)));
   }
 }
