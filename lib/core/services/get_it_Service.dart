@@ -61,5 +61,6 @@ void setup_Getit() {
   ));
   getIt.registerSingleton<PlaceReviewsRepo>(PlaceReviewsRepoImp(
     dataBaseService: getIt<Databaseservice>(),
+    dioService: getIt<DioService>(),
   ));
 }

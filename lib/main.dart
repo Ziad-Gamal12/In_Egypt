@@ -11,9 +11,11 @@ import 'package:in_egypt/core/services/get_it_Service.dart';
 import 'package:in_egypt/core/utils/App_router.dart';
 import 'package:in_egypt/firebase_options.dart';
 import 'package:in_egypt/generated/l10n.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(url: supaBaseUrl, anonKey: supaBaseAnonKey);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await shared_preferences_Services.init();
   setup_Getit();

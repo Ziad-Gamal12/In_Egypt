@@ -1,30 +1,94 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:in_egypt/Features/Home/domain/Repos/PlaceReviewsRepo.dart';
+import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
 import 'package:in_egypt/core/Entities/PlaceReviewEntity.dart';
 import 'package:in_egypt/core/errors/Exceptioons.dart';
 import 'package:in_egypt/core/errors/Failures.dart';
 import 'package:in_egypt/core/models/PlaceReviewModel.dart';
 import 'package:in_egypt/core/services/DataBaseService.dart';
+import 'package:in_egypt/core/services/DioService.dart';
 import 'package:in_egypt/core/utils/BackEndkeys.dart';
 
 class PlaceReviewsRepoImp implements PlaceReviewsRepo {
   final Databaseservice dataBaseService;
-
-  PlaceReviewsRepoImp({required this.dataBaseService});
+  final DioService dioService;
+  PlaceReviewsRepoImp(
+      {required this.dataBaseService, required this.dioService});
 
   @override
   Future<Either<Failure, void>> addReview(
       {required String placeId, required PlaceReviewEntity review}) async {
     try {
       final json = PlaceReviewModel.fromEntity(review).toJson();
-      final result = await dataBaseService.setData(
+      await dataBaseService.setData(
           requirements: FireStoreRequirmentsEntity(
               collection: Backendkeys.placesCollection,
               docId: placeId,
               subCollection: Backendkeys.reviewsSubCollection,
               subDocId: review.user.uid),
           data: json);
+      log("added review to firestore successfully");
+      final response =
+          await updateRating(placeId: placeId, rating: review.rating);
+      return response.fold((failure) async {
+        log("failed to update rating");
+        log(failure.message);
+        await removeReview(placeId: placeId, reviewId: review.user.uid);
+        return left(Failure(message: failure.message));
+      }, (response) {
+        return right(response);
+      });
+    } on CustomException catch (e) {
+      log(e.message);
+      return left(Failure(message: e.message));
+    } catch (e) {
+      log(e.toString());
+      return left(Failure(message: "حدث خطأ ما"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateRating(
+      {required String placeId, required double rating}) async {
+    try {
+      await dioService.postData(
+        fullUrl:
+            "https://bnhhxkelcpnuneupdddw.supabase.co/functions/v1/update-rating",
+        data: {
+          'placeId': placeId,
+          'newRating': rating,
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer $supaBaseAnonKey',
+          'Content-Type': 'application/json',
+        }),
+      );
+      return right(null);
+    } on ApiException catch (e) {
+      log("====${e.message}");
+      return left(Failure(message: e.message));
+    } on CustomException catch (e) {
+      log(e.message);
+      return left(Failure(message: e.message));
+    } catch (e) {
+      log(e.toString());
+      return left(Failure(message: "حدث خطأ ما"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeReview(
+      {required String placeId, required String reviewId}) async {
+    try {
+      final result = await dataBaseService.deleteDoc(
+          collectionKey: Backendkeys.placesCollection,
+          docId: placeId,
+          subCollectionKey: Backendkeys.reviewsSubCollection,
+          subDocId: reviewId);
       return right(result);
     } on CustomException catch (e) {
       return left(Failure(message: e.message));

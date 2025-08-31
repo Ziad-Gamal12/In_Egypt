@@ -32,7 +32,8 @@ class PaymentRepoImpl implements PaymentRepo {
         'Authorization': 'Bearer $fawaterkTestaccessToken',
       };
       final result = await dioService.getData(
-          url: "getPaymentmethods", options: Options(headers: headers));
+          fullUrl: "https://staging.fawaterk.com/api/v2/getPaymentmethods",
+          options: Options(headers: headers));
       PaymentMethodEntity mainPaymentMethodResponse =
           PaymentMethodModel.fromJson(result).toEntity();
       List<DatumEntity> data = [];
@@ -104,7 +105,7 @@ class PaymentRepoImpl implements PaymentRepo {
         'Authorization': 'Bearer $fawaterkTestaccessToken',
       };
       final result = await dioService.postData(
-          url: "invoiceInitPay",
+          fullUrl: "https://staging.fawaterk.com/api/v2/invoiceInitPay",
           options: Options(
             headers: headers,
           ),

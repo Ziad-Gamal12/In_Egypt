@@ -4,16 +4,15 @@ import 'package:in_egypt/core/errors/Exceptioons.dart';
 class DioService {
   final Dio dio;
   DioService({required this.dio});
-  String baseUrl = "https://staging.fawaterk.com/api/v2/";
 
   Future<Map<String, dynamic>> getData({
-    required String url,
+    required String fullUrl,
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
     try {
       Response response = await dio.get(
-        "$baseUrl$url",
+        fullUrl,
         queryParameters: queryParameters,
         options: options,
       );
@@ -26,14 +25,14 @@ class DioService {
   }
 
   Future<Map<String, dynamic>> postData({
-    required String url,
+    required String fullUrl,
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
     try {
       Response response = await dio.post(
-        "$baseUrl$url",
+        fullUrl,
         data: data,
         queryParameters: queryParameters,
         options: options,
