@@ -36,6 +36,7 @@ class StepsCubit extends Cubit<StepsState> {
       width: double.infinity,
       selectedCellsTextStyle: customTextStyle,
       currentDateTextStyle: customTextStyle,
+      currentDate: DateTime.now(),
       enabledCellsTextStyle: customTextStyle,
       leadingDateTextStyle: customTextStyle,
       singleSelectedCellTextStyle: customTextStyle,

@@ -35,7 +35,7 @@ class BookedSuccessViewBody extends StatelessWidget {
           ),
           Custombutton(
               text: "الصفحة الرئيسية",
-              color: Colors.green,
+              color: Color(0xff00c985),
               textColor: Colors.white,
               onPressed: () {
                 GoRouter.of(context).go(HomeView.routeName);

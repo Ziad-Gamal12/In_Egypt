@@ -45,7 +45,7 @@ class _MyTripsViewBodyState extends State<MyTripsViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MyTripsCubit, MyTripsState>(
+    return BlocConsumer<MyTripsCubit, MyTripsState>(
         listener: (context, state) {
           if (state is MyTripsGetMyTripsSuccess) {
             if (!hasMore && state.getMyTripsResponseEntity.hasMore) return;
@@ -54,7 +54,7 @@ class _MyTripsViewBodyState extends State<MyTripsViewBody> {
             setState(() {});
           }
         },
-        child: Padding(
+        builder: (context, state) => Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: kHorizentalPadding, vertical: kVerticalPadding),
             child: CustomScrollView(controller: scrollController, slivers: [
@@ -78,7 +78,20 @@ class _MyTripsViewBodyState extends State<MyTripsViewBody> {
               MyTripsSliverList(
                 myTrips: fetchedMyTrips,
                 isSearching: isSearching,
-              )
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child:
+                    state is MyTripsGetMyTripsLoading && !state.isFirstLoading
+                        ? const CircularProgressIndicator(
+                            color: kMainColor,
+                          )
+                        : const SizedBox(),
+              ),
             ])));
   }
 }

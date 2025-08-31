@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
@@ -95,19 +94,14 @@ class _CustomNewestPlacesSliverListState
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 10, left: 16),
                   child: InkWell(
-                          onTap: () {
-                            GoRouter.of(context).push(
-                                PlaceDetailsView.routeName,
-                                extra: places[index]);
-                          },
-                          child: CustomPlaceHorizintalDesignItem(
-                            place: places[index],
-                            isFavourite:
-                                favouritePlaces[places[index].id] ?? false,
-                          ))
-                      .animate()
-                      .moveY(begin: 50)
-                      .fadeIn(duration: 200.ms, delay: (index * 200).ms),
+                      onTap: () {
+                        GoRouter.of(context).push(PlaceDetailsView.routeName,
+                            extra: places[index]);
+                      },
+                      child: CustomPlaceHorizintalDesignItem(
+                        place: places[index],
+                        isFavourite: favouritePlaces[places[index].id] ?? false,
+                      )),
                 );
               },
               itemCount: places.length);

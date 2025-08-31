@@ -10,7 +10,9 @@ class MyTripsCubit extends Cubit<MyTripsState> {
   MyTripsCubit({required this.myTripsRepo}) : super(MyTripsInitial());
   final MyTripsRepo myTripsRepo;
   Future<void> getMyTrips({required bool isPaginated}) async {
-    emit(MyTripsGetMyTripsLoading());
+    emit(MyTripsGetMyTripsLoading(
+      isFirstLoading: !isPaginated,
+    ));
     final result = await myTripsRepo.getMyTrips(isPaginated: isPaginated);
     result.fold(
         (failure) =>

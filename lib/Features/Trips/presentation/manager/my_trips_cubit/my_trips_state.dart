@@ -5,7 +5,10 @@ sealed class MyTripsState {}
 
 final class MyTripsInitial extends MyTripsState {}
 
-final class MyTripsGetMyTripsLoading extends MyTripsState {}
+final class MyTripsGetMyTripsLoading extends MyTripsState {
+  final bool isFirstLoading;
+  MyTripsGetMyTripsLoading({required this.isFirstLoading});
+}
 
 final class MyTripsGetMyTripsSuccess extends MyTripsState {
   final GetMyTripsResponseEntity getMyTripsResponseEntity;

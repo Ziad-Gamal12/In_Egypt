@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';
@@ -44,11 +45,18 @@ class _CustomBookDateSelectorState extends State<CustomBookDateSelector> {
                 border: Border.all(
                     color: range != null ? kMainColor : Color(0xffF3F3F3),
                     width: 2)),
-            child: Text(
-              getText(range),
-              style: AppTextStyles(context)
-                  .semiBold16
-                  .copyWith(color: Colors.black),
+            child: Row(
+              children: [
+                Icon(FontAwesomeIcons.solidCalendarDays, color: Colors.grey),
+                Spacer(),
+                Text(
+                  getText(range),
+                  style: AppTextStyles(context)
+                      .semiBold16
+                      .copyWith(color: Colors.black),
+                ),
+                Spacer(),
+              ],
             ),
           ),
         );

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Book/presentation/manager/steps_cubit/steps_cubit.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingButton.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingStepsPageView.dart';
-import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomBookingStepsRow.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
@@ -35,26 +34,16 @@ class _BookViewBodyState extends State<BookViewBody> {
             vertical: kVerticalPadding, horizontal: kHorizentalPadding),
         child: Stack(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomBookingStepsRow(currentIndex: currentIndex),
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Form(
-                    key: formKey,
-                    child: CustomBookingStepsPageView(
-                        onSelected: (value) {
-                          selectedMethod = value;
-                          setState(() {});
-                        },
-                        currentIndex: currentIndex),
-                  ),
-                ),
-              ],
+            Positioned.fill(
+              child: Form(
+                key: formKey,
+                child: CustomBookingStepsPageView(
+                    onSelected: (value) {
+                      selectedMethod = value;
+                      setState(() {});
+                    },
+                    currentIndex: currentIndex),
+              ),
             ),
             Positioned(
                 left: 16,

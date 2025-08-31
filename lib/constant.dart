@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const carioFontFamily = 'Cairo';
-const kMainColor = Color(0xFFFCD240);
+const kMainColor = Color.fromARGB(255, 255, 210, 46);
 const kHorizentalPadding = 16.0;
 const kVerticalPadding = 20.0;
 const fawaterkTestaccessToken =

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/widgets/EmptyWidget.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignItem.dart';
@@ -27,16 +26,12 @@ class _MyWishListSliverListState extends State<MyWishListSliverList> {
           itemCount: widget.places.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: CustomPlaceHorizintalDesignItem(
-                isFavourite:
-                    widget.favouritePlaces[widget.places[index].id] ?? false,
-                place: widget.places[index],
-              )
-                  .animate()
-                  .fadeIn(duration: 200.ms, delay: (index * 200).ms)
-                  .moveY(begin: 50),
-            );
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: CustomPlaceHorizintalDesignItem(
+                  isFavourite:
+                      widget.favouritePlaces[widget.places[index].id] ?? false,
+                  place: widget.places[index],
+                ));
           });
     }
   }

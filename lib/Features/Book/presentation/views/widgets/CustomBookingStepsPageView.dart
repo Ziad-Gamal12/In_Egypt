@@ -31,7 +31,6 @@ class _CustomBookingStepsPageViewState
         CustomBookPaymentPageViewItem(
           onSelected: widget.onSelected,
         ),
-        SizedBox(),
       ],
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
@@ -19,17 +18,13 @@ class CustomPopularPlacesListView extends StatelessWidget {
             child: AspectRatio(
                 aspectRatio: 186 / 250,
                 child: InkWell(
-                  onTap: () {
-                    GoRouter.of(context)
-                        .push(PlaceDetailsView.routeName, extra: places[index]);
-                  },
-                  child: CustomPlaceVerticalDesignItem(
-                    place: places[index],
-                  )
-                      .animate()
-                      .moveX(begin: -50)
-                      .fadeIn(duration: 1.seconds, delay: (index * 200).ms),
-                )),
+                    onTap: () {
+                      GoRouter.of(context).push(PlaceDetailsView.routeName,
+                          extra: places[index]);
+                    },
+                    child: CustomPlaceVerticalDesignItem(
+                      place: places[index],
+                    ))),
           );
         });
   }

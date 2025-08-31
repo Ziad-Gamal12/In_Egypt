@@ -14,6 +14,7 @@ import 'package:in_egypt/Features/Home/presentation/views/MorePopularPlacesView.
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
+import 'package:in_egypt/Features/Trips/presentation/views/MyTripDetailsView.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';
 import 'package:in_egypt/core/Entities/CustomWebViewNavigationRequirmentsEntity.dart';
@@ -111,6 +112,11 @@ class App_router {
           );
         },
       ),
+      GoRoute(
+          path: MyTripDetailsView.routeName,
+          builder: (context, state) => MyTripDetailsView(
+                bookingEntity: state.extra as BookingEntity,
+              )),
     ],
   );
 }
