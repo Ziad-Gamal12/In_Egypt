@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/Custom_BottomNavigationBar.dart';
 import 'package:in_egypt/Features/Home/presentation/views/widgets/HomeViewBody.dart';
+import 'package:in_egypt/Features/Profile/Presentation/views/ProfileView.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
 import 'package:in_egypt/Features/Wishlist/presentation/views/WishlistView.dart';
 
@@ -17,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
     HomeViewBody(),
     MyTripsView(),
     WishListView(),
-    SizedBox(),
+    ProfileView(),
   ];
 
   @override

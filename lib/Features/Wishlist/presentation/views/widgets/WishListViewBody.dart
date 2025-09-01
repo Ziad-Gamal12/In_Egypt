@@ -20,25 +20,28 @@ class WishListViewBody extends StatefulWidget {
 class _WishListViewBodyState extends State<WishListViewBody> {
   late ScrollController scrollController;
   bool isLoadMore = true;
+  bool isSearching = false;
+
   List<PlaceEntity> fetchedWishListPlaces = [];
   Map<String, bool> favouritePlaces = {};
+
   List<PlaceEntity> searchedWishListPlaces = [];
-  Map<String, bool> searchedfavouritePlaces = {};
-  bool isSearching = false;
+  Map<String, bool> searchedFavouritePlaces = {};
+
   @override
   void initState() {
-    handleInitState();
     super.initState();
+    _setupScrollController();
   }
 
-  void handleInitState() {
+  void _setupScrollController() {
     scrollController = ScrollController();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cubit = context.read<WishListCubit>();
       cubit.getWishList(isPaginated: false);
+
       scrollController.addListener(() {
-        if (scrollController.position.pixels ==
+        if (scrollController.position.pixels >=
                 scrollController.position.maxScrollExtent - 200 &&
             isLoadMore &&
             cubit.state is! WishListGetWishListLoading &&
@@ -60,98 +63,87 @@ class _WishListViewBodyState extends State<WishListViewBody> {
     return MultiBlocListener(
       listeners: [
         BlocListener<SearchPlacesCubit, SearchPlacesState>(
-            listener: (context, state) {
-          if (state is SearchPlacesSuccess) {
-            searchedWishListPlaces.addAll(state.places);
-            context
-                .read<WishListCubit>()
-                .checkFavouritePlaces(places: state.places);
-          }
-        }),
+          listener: (context, state) {
+            if (state is SearchPlacesSuccess) {
+              searchedWishListPlaces.addAll(state.places);
+              context
+                  .read<WishListCubit>()
+                  .checkFavouritePlaces(places: state.places);
+            }
+          },
+        ),
         BlocListener<WishListCubit, WishListState>(
           listener: (context, state) {
-            wishListBlocListnerHandler(context, state);
+            _handleWishListState(context, state);
           },
         ),
       ],
       child: BlocBuilder<WishListCubit, WishListState>(
         builder: (context, state) {
           if (state is WishListGetWishListFailure) {
-            return Center(
-              child: CustomErrorWidget(message: state.errMessage),
-            );
+            return Center(child: CustomErrorWidget(message: state.errMessage));
           }
+
           return Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: kHorizentalPadding, vertical: kVerticalPadding),
-              child: CustomScrollView(
-                key: PageStorageKey('myywishList'),
-                slivers: [
-                  SliverToBoxAdapter(child: WishListViewBodySearchSection(
+            padding: const EdgeInsets.symmetric(
+              horizontal: kHorizentalPadding,
+              vertical: kVerticalPadding,
+            ),
+            child: CustomScrollView(
+              key: const PageStorageKey('wishListScroll'),
+              controller: scrollController,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: WishListViewBodySearchSection(
                     isSearching: (val) {
                       setState(() {
                         searchedWishListPlaces.clear();
-                        searchedfavouritePlaces.clear();
+                        searchedFavouritePlaces.clear();
                         isSearching = val;
                       });
                     },
-                  )),
-                  if (state is WishListGetWishListLoading && state.isFirstLoad)
-                    SliverToBoxAdapter(
-                        child: WishListBodyLoadingList(
-                      fakePlaces: generateFakeLoadingPlaces(),
-                    ))
-                  else
-                    WishListBodyList(
-                      favouritePlaces: isSearching
-                          ? searchedfavouritePlaces
-                          : favouritePlaces,
-                      places: isSearching
-                          ? searchedWishListPlaces
-                          : fetchedWishListPlaces,
-                    ),
+                  ),
+                ),
+                if (state is WishListGetWishListLoading && state.isFirstLoad)
                   SliverToBoxAdapter(
-                    child: WishListBodyLoadMoreIndicator(
-                        isLoading: state is WishListGetWishListLoading &&
-                            !state.isFirstLoad),
+                    child: WishListBodyLoadingList(
+                      fakePlaces: _generateFakeLoadingPlaces(),
+                    ),
                   )
-                ],
-              ));
+                else
+                  WishListBodyList(
+                    favouritePlaces:
+                        isSearching ? searchedFavouritePlaces : favouritePlaces,
+                    places: isSearching
+                        ? searchedWishListPlaces
+                        : fetchedWishListPlaces,
+                  ),
+                SliverToBoxAdapter(
+                  child: WishListBodyLoadMoreIndicator(
+                    isLoading: state is WishListGetWishListLoading &&
+                        !state.isFirstLoad,
+                  ),
+                ),
+              ],
+            ),
+          );
         },
       ),
     );
   }
 
-  List<PlaceEntity> generateFakeLoadingPlaces() {
-    return List.generate(10, (index) {
-      return PlaceEntity(
-          category: "",
-          description: "",
-          id: '',
-          images: [],
-          latitude: 0,
-          longitude: 0,
-          name: "",
-          rating: 0,
-          location: "",
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-          ticketPrice: 0);
-    });
-  }
-
-  void wishListBlocListnerHandler(BuildContext context, WishListState state) {
+  void _handleWishListState(BuildContext context, WishListState state) {
     if (state is WishListGetWishListSuccess) {
       if (!isLoadMore && state.response.hasMore) return;
       isLoadMore = state.response.hasMore;
+      fetchedWishListPlaces.addAll(state.response.places);
       context
           .read<WishListCubit>()
           .checkFavouritePlaces(places: state.response.places);
-      fetchedWishListPlaces.addAll(state.response.places);
       setState(() {});
     } else if (state is WishListCheckFavouritePlacesSuccess) {
       if (isSearching) {
-        searchedfavouritePlaces.addAll(state.favouritePlaces);
+        searchedFavouritePlaces.addAll(state.favouritePlaces);
       } else {
         favouritePlaces.addAll(state.favouritePlaces);
       }
@@ -159,7 +151,7 @@ class _WishListViewBodyState extends State<WishListViewBody> {
     } else if (state is WishListAddPlaceToWishListSuccess) {
       final placeId = state.placeId;
       if (isSearching) {
-        searchedfavouritePlaces[placeId] = true;
+        searchedFavouritePlaces[placeId] = true;
       } else {
         favouritePlaces[placeId] = true;
       }
@@ -167,11 +159,31 @@ class _WishListViewBodyState extends State<WishListViewBody> {
     } else if (state is WishListRemovePlaceFromWishListSuccess) {
       final placeId = state.placeId;
       if (isSearching) {
-        searchedfavouritePlaces[placeId] = false;
+        searchedFavouritePlaces[placeId] = false;
       } else {
         favouritePlaces[placeId] = false;
       }
       setState(() {});
     }
+  }
+
+  List<PlaceEntity> _generateFakeLoadingPlaces() {
+    return List.generate(
+      6,
+      (_) => PlaceEntity(
+        category: "",
+        description: "",
+        id: '',
+        images: [],
+        latitude: 0,
+        longitude: 0,
+        name: "",
+        rating: 0,
+        location: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        ticketPrice: 0,
+      ),
+    );
   }
 }

@@ -154,6 +154,10 @@ class Assets {
   /// assets/images/onboardingHistoric.jpg
   static const String assetsImagesOnboardingHistoric = "assets/images/onboardingHistoric.jpg";
 
+  /// Assets for assetsImagesProfileBackGroudImage
+  /// assets/images/ProfileBackGroudImage.jpg
+  static const String assetsImagesProfileBackGroudImage = "assets/images/ProfileBackGroudImage.jpg";
+
   /// Assets for assetsImagesTestFavouritePlaceItemBackGround
   /// assets/images/Test_FavouritePlaceItemBackGround.png
   static const String assetsImagesTestFavouritePlaceItemBackGround = "assets/images/Test_FavouritePlaceItemBackGround.png";
