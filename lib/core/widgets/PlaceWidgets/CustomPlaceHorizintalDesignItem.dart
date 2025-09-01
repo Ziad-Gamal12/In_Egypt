@@ -12,12 +12,13 @@ class CustomPlaceHorizintalDesignItem extends StatelessWidget {
   final bool isFavourite;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return AspectRatio(
       aspectRatio: 315 / 155,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDark ? Colors.grey[900] : Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Color(0xffF3F3F3), width: 1)),
         child: Row(

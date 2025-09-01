@@ -70,7 +70,7 @@ class _CustomBookPaymentPageViewItemState
                       setState(() {});
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
                       child: AspectRatio(
                           aspectRatio: 4 / 1,
                           child: CustomPaymentMethodItem(

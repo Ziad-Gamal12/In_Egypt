@@ -8,18 +8,22 @@ class CustomMyTripItemDateRow extends StatelessWidget {
   final BookingEntity trip;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       children: [
         Icon(
           FontAwesomeIcons.solidCalendarCheck,
-          color: Colors.black,
+          color: isDark == true ? Colors.grey : Colors.black,
         ),
         SizedBox(
           width: 10,
         ),
         Text(
           "${trip.startAt?.day}/${trip.startAt?.month}/${trip.startAt?.year}",
-          style: AppTextStyles(context).regular16.copyWith(color: Colors.black),
+          style: AppTextStyles(context)
+              .regular16
+              .copyWith(color: isDark == true ? Colors.white : Colors.black),
         ),
         SizedBox(
           width: 5,

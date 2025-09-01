@@ -13,16 +13,18 @@ class CustomHomeViewAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserEntity user = getUserData();
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 25,
-          child: user.photoUrl == ""
-              ? Image.asset(Assets.assetsIconsUserIcon, height: 40, width: 40)
-              : ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: CustomCachedNetworkImage(imageUrl: user.photoUrl)),
+          backgroundColor: isDark ? Colors.grey[900] : Colors.grey[50],
+          radius: 30,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: CustomCachedNetworkImage(imageUrl: user.photoUrl),
+              )),
         ),
         SizedBox(
           width: 10,

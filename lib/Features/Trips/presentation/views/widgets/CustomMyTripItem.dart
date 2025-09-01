@@ -10,15 +10,16 @@ class CustomMyTripItem extends StatelessWidget {
   final BookingEntity trip;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return AspectRatio(
         aspectRatio: 325 / 168,
         child: Container(
           padding: EdgeInsets.all(30),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDark ? Colors.grey[900] : Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.shade50,
+                color: isDark ? Colors.grey.shade800 : Colors.grey.shade50,
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: Offset(0, 3), // changes position of shadow
@@ -37,9 +38,8 @@ class CustomMyTripItem extends StatelessWidget {
                   children: [
                     Text(
                       trip.place?.name ?? "غير معروف",
-                      style: AppTextStyles(context)
-                          .semiBold20
-                          .copyWith(color: Colors.black),
+                      style: AppTextStyles(context).semiBold20.copyWith(
+                          color: isDark == true ? Colors.white : Colors.black),
                     ),
                     Spacer(),
                     Text(

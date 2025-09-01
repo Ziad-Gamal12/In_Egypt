@@ -20,6 +20,8 @@ class _CustomBookDateSelectorState extends State<CustomBookDateSelector> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     BookingEntity bookingEntity = context.read<BookingEntity>();
     return BlocConsumer<StepsCubit, StepsState>(
       listener: (context, state) {
@@ -40,20 +42,18 @@ class _CustomBookDateSelectorState extends State<CustomBookDateSelector> {
             alignment: Alignment.center,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: isDark ? Colors.grey[850] : Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                    color: range != null ? kMainColor : Color(0xffF3F3F3),
-                    width: 2)),
+                    color: range != null ? kMainColor : Colors.grey, width: 2)),
             child: Row(
               children: [
                 Icon(FontAwesomeIcons.solidCalendarDays, color: Colors.grey),
                 Spacer(),
                 Text(
                   getText(range),
-                  style: AppTextStyles(context)
-                      .semiBold16
-                      .copyWith(color: Colors.black),
+                  style: AppTextStyles(context).semiBold16.copyWith(
+                      color: isDark == true ? Colors.white : Colors.black),
                 ),
                 Spacer(),
               ],

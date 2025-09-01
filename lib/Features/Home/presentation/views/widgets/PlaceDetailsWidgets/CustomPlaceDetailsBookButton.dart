@@ -11,16 +11,20 @@ class CustomPlaceDetailsBookButton extends StatelessWidget {
   final PlaceEntity place;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.all(23),
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade200,
-          blurRadius: 50,
-          spreadRadius: 1,
-          offset: const Offset(5, -15),
-        )
-      ]),
+      decoration: BoxDecoration(
+          color: isDark ? Colors.grey.shade900 : Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+              blurRadius: 30,
+              spreadRadius: 1,
+              offset: const Offset(0, -5),
+            )
+          ]),
       child: Row(
         children: [
           Expanded(

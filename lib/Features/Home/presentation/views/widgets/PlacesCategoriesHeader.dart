@@ -8,9 +8,13 @@ class PlacesCategoriesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Text(
       "أحدث الفئات",
-      style: AppTextStyles(context).semiBold20.copyWith(color: Colors.black),
+      style: AppTextStyles(context)
+          .semiBold20
+          .copyWith(color: isDark == true ? Colors.white : Colors.black),
     );
   }
 }

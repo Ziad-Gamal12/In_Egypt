@@ -10,6 +10,8 @@ class CustomPlaceRatingWidget extends StatelessWidget {
   Color? ratingColor;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       children: [
         CustomRatingStarsRow(rating: rating),
@@ -18,9 +20,17 @@ class CustomPlaceRatingWidget extends StatelessWidget {
           "$rating",
           style: AppTextStyles(
             context,
-          ).medium12.copyWith(color: ratingColor ?? Colors.black),
+          ).medium12.copyWith(color: getRatingColor(isDark: isDark)),
         ),
       ],
     );
+  }
+
+  Color getRatingColor({required bool isDark}) {
+    if (ratingColor != null) {
+      return ratingColor!;
+    } else {
+      return isDark ? Colors.white : Colors.black;
+    }
   }
 }

@@ -7,8 +7,11 @@ class CustomRatingStarItem extends StatelessWidget {
   final bool isFilled;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return !isFilled
-        ? Icon(Icons.star_rate_rounded, color: Colors.grey.shade300)
+        ? Icon(Icons.star_rate_rounded,
+            color: isDark ? Colors.grey : Colors.grey.shade300)
         : const Icon(Icons.star_rate_rounded, color: Colors.amber);
   }
 }

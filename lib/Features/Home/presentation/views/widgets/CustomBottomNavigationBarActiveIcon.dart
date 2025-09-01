@@ -15,11 +15,13 @@ class Custombottomnavigationbaractiveicon extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          color: const Color(0xff05080E),
+          color: isDark ? Colors.amber : const Color(0xff05080E),
           borderRadius: BorderRadius.circular(30)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -27,15 +29,16 @@ class Custombottomnavigationbaractiveicon extends StatelessWidget {
           SvgPicture.asset(
             iconPath,
             fit: BoxFit.scaleDown,
-            color: Colors.white,
+            color: isDark ? Colors.black : Colors.white,
           ),
           const SizedBox(
             width: 10,
           ),
           Text(
             title,
-            style:
-                AppTextStyles(context).regular11.copyWith(color: Colors.white),
+            style: AppTextStyles(context)
+                .regular11
+                .copyWith(color: isDark ? Colors.black : Colors.white),
             overflow: TextOverflow.ellipsis,
           )
         ],

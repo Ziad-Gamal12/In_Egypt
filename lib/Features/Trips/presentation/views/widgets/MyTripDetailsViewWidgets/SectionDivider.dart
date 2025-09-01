@@ -5,9 +5,11 @@ class SectionDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Divider(
       height: 40,
-      color: Colors.grey.shade200,
+      color: isDark == true ? Colors.grey.shade800 : Colors.grey.shade200,
       thickness: 2,
     );
   }

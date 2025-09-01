@@ -12,12 +12,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   AppBar build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return AppBar(
       leadingWidth: 40,
       elevation: 0,
       scrolledUnderElevation: 0,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.grey[990] : Colors.white,
       leading: Padding(
         padding: const EdgeInsets.only(right: 10),
         child: InkWell(
@@ -28,12 +30,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Assets.assetsIconsArrowLeftBack,
             height: 20,
             width: 20,
+            color: isDark ? Colors.white : Colors.black,
           ),
         ),
       ),
       title: Text(
         appBartitle,
-        style: AppTextStyles(context).bold19.copyWith(color: Colors.black),
+        style: AppTextStyles(context)
+            .bold19
+            .copyWith(color: isDark ? Colors.white : Colors.black),
       ),
       centerTitle: true,
     );

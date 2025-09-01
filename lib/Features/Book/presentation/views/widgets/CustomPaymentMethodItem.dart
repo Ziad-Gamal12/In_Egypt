@@ -12,14 +12,16 @@ class CustomPaymentMethodItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDark ? Colors.grey[850] : Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade50,
-              blurRadius: 50,
+              color: isDark ? Colors.grey.shade900 : Colors.grey.shade50,
+              blurRadius: 20,
               spreadRadius: 1,
               offset: const Offset(5, 15),
             )
@@ -38,9 +40,8 @@ class CustomPaymentMethodItem extends StatelessWidget {
               method.nameAr ?? "",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTextStyles(context)
-                  .semiBold16
-                  .copyWith(color: Colors.black),
+              style: AppTextStyles(context).semiBold16.copyWith(
+                  color: isDark == true ? Colors.white : Colors.black),
             ),
           ),
           Spacer(),

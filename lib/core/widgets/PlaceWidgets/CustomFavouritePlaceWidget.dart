@@ -24,6 +24,8 @@ class _CustomFavouritePlaceWidgetState
     extends State<CustomFavouritePlaceWidget> {
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return InkWell(
       onTap: () {
         if (widget.isFavourite) {
@@ -37,12 +39,15 @@ class _CustomFavouritePlaceWidgetState
         }
       },
       child: CircleAvatar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark == true ? Colors.grey[850] : Colors.white,
         radius: 20,
         child: SvgPicture.asset(
           widget.isFavourite
               ? Assets.assetsIconsFavouriteIcon
               : Assets.assetsIconsSolidfavouriteIcon,
+          height: 20,
+          width: 20,
+          color: widget.isFavourite ? Colors.red : Colors.grey,
         ),
       ),
     );

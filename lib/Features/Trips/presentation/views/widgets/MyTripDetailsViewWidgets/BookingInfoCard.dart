@@ -14,11 +14,13 @@ class BookingInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        color: isDark ? Colors.grey.shade800 : Colors.grey.shade50,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -33,18 +35,16 @@ class BookingInfoCard extends StatelessWidget {
                 children: [
                   Text(
                     "الرقم التعريفي:  ${bookingEntity.id}",
-                    style: AppTextStyles(context)
-                        .regular16
-                        .copyWith(color: Colors.black),
+                    style: AppTextStyles(context).regular16.copyWith(
+                        color: isDark == true ? Colors.white : Colors.black),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 10),
                   Text(
                     "تاريخ الحجز:  ${bookingEntity.createdAt.day}/${bookingEntity.createdAt.month}/${bookingEntity.createdAt.year}",
-                    style: AppTextStyles(context)
-                        .regular16
-                        .copyWith(color: Colors.black),
+                    style: AppTextStyles(context).regular16.copyWith(
+                        color: isDark == true ? Colors.white : Colors.black),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

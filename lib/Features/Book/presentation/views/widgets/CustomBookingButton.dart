@@ -29,7 +29,7 @@ class CustomBookingButton extends StatelessWidget {
     return Custombutton(
         text: currentIndex != 1 ? "التالي" : "دفع الان",
         color: kMainColor,
-        textColor: Colors.white,
+        textColor: Colors.black,
         onPressed: () {
           onTap(context);
         });

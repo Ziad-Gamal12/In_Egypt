@@ -10,11 +10,13 @@ class SelectPlaceCategoryItem extends StatelessWidget {
   final SelectPlaceCategoryEntity e;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 5),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? Colors.grey.shade900 : Colors.white,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: Colors.grey),
       ),
@@ -22,7 +24,8 @@ class SelectPlaceCategoryItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25,
-            backgroundColor: Colors.grey.shade50,
+            backgroundColor:
+                isDark ? Colors.grey.shade800 : Colors.grey.shade50,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Image.asset(
@@ -38,7 +41,9 @@ class SelectPlaceCategoryItem extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyles(
               context,
-            ).regular13.copyWith(color: Colors.black),
+            )
+                .regular13
+                .copyWith(color: isDark == true ? Colors.white : Colors.black),
           ),
         ],
       ),

@@ -10,13 +10,15 @@ class MyTripPlaceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("المكان المحجوز",
             style: AppTextStyles(context)
                 .semiBold20
-                .copyWith(color: Colors.black)),
+                .copyWith(color: isDark == true ? Colors.white : Colors.black)),
         const SizedBox(height: 10),
         MyTripPlaceDetails(place: place),
       ],

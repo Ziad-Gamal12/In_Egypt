@@ -8,13 +8,16 @@ class CustomNewestPlacesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           "أحدث الأماكن",
-          style:
-              AppTextStyles(context).semiBold20.copyWith(color: Colors.black),
+          style: AppTextStyles(context)
+              .semiBold20
+              .copyWith(color: isDark == true ? Colors.white : Colors.black),
         ),
         const Spacer(),
         Padding(

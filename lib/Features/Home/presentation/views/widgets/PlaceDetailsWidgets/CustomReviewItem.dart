@@ -9,6 +9,8 @@ class CustomReviewItem extends StatelessWidget {
   final PlaceReviewEntity placeReviewEntity;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,9 +37,9 @@ class CustomReviewItem extends StatelessWidget {
                     children: [
                       Text(
                         "${placeReviewEntity.user.firstName} ${placeReviewEntity.user.lastName}",
-                        style: AppTextStyles(context)
-                            .semiBold14
-                            .copyWith(color: Colors.black),
+                        style: AppTextStyles(context).semiBold14.copyWith(
+                            color:
+                                isDark == true ? Colors.white : Colors.black),
                       ),
                       const Spacer(),
                       Text(

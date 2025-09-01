@@ -9,14 +9,17 @@ class CustomPlaceReviewsSectionHeader extends StatelessWidget {
   final double rating;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "التقييمات",
-          style:
-              AppTextStyles(context).semiBold20.copyWith(color: Colors.black),
+          style: AppTextStyles(context)
+              .semiBold20
+              .copyWith(color: isDark == true ? Colors.white : Colors.black),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -28,9 +31,8 @@ class CustomPlaceReviewsSectionHeader extends StatelessWidget {
             ),
             Text(
               rating.toString(),
-              style: AppTextStyles(context)
-                  .semiBold20
-                  .copyWith(color: Colors.black),
+              style: AppTextStyles(context).semiBold20.copyWith(
+                  color: isDark == true ? Colors.white : Colors.black),
             ),
           ],
         )

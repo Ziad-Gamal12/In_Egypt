@@ -13,16 +13,18 @@ class _CustomSearchingPlacesWidgetState
     extends State<CustomSearchingPlacesWidget> {
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: EdgeInsets.only(left: 16, top: 10),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDark ? Colors.grey.shade800 : Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.grey.shade200),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade200,
+              color: isDark ? Colors.grey.shade900 : Colors.grey.shade200,
               blurRadius: 20,
               spreadRadius: 1,
               offset: const Offset(5, 15),

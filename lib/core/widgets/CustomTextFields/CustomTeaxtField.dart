@@ -36,6 +36,8 @@ class Customteaxtfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     OutlineInputBorder initBorder = OutlineInputBorder(
       borderSide: BorderSide(color: Color(0xffBABABA)),
       borderRadius: BorderRadius.circular(15),
@@ -64,8 +66,8 @@ class Customteaxtfield extends StatelessWidget {
         focusedBorder: activeBorder,
         enabledBorder: initBorder,
         filled: true,
-        focusColor: Colors.white,
-        fillColor: filledColor ?? Colors.white,
+        focusColor: isDark ? Colors.grey[850] : Colors.white,
+        fillColor: isDark ? Colors.grey[850] : Colors.white,
       ),
     );
   }

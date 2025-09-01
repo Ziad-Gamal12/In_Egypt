@@ -12,6 +12,7 @@ class CustomPlaceTitleAndRatingAndLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PlaceEntity place = context.read<PlaceEntity>();
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,7 +28,8 @@ class CustomPlaceTitleAndRatingAndLocation extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: AppTextStyles(
                 context,
-              ).semiBold16.copyWith(color: Colors.black),
+              ).semiBold16.copyWith(
+                  color: isDark == true ? Colors.white : Colors.black),
             ),
             SizedBox(height: 5),
             CustomPlaceLocationWidget(location: place.location),
@@ -35,7 +37,7 @@ class CustomPlaceTitleAndRatingAndLocation extends StatelessWidget {
         ),
         CustomPlaceRatingWidget(
           rating: place.rating,
-          ratingColor: Colors.black,
+          ratingColor: isDark == true ? Colors.white : Colors.black,
         ),
       ],
     );

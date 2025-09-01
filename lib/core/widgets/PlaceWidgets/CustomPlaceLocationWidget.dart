@@ -10,6 +10,8 @@ class CustomPlaceLocationWidget extends StatelessWidget {
   final String location;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,12 +20,14 @@ class CustomPlaceLocationWidget extends StatelessWidget {
           Assets.assetsIconsLocationIcon,
           height: 20,
           width: 20,
-          color: Colors.black,
+          color: isDark ? Colors.white : Colors.black,
         ),
         SizedBox(width: 5),
         Text(
           location,
-          style: AppTextStyles(context).medium12.copyWith(color: Colors.black),
+          style: AppTextStyles(context)
+              .medium12
+              .copyWith(color: isDark == true ? Colors.white : Colors.black),
         ),
       ],
     );

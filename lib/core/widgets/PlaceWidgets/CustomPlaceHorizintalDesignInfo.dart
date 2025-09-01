@@ -13,6 +13,7 @@ class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
   final bool isFavourite;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +31,8 @@ class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles(
                     context,
-                  ).semiBold16.copyWith(color: Colors.black),
+                  ).semiBold16.copyWith(
+                      color: isDark == true ? Colors.white : Colors.black),
                 ),
               ),
               CustomFavouritePlaceWidget(
@@ -56,7 +58,8 @@ class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
               place.rating.toString(),
               style: AppTextStyles(
                 context,
-              ).semiBold12.copyWith(color: Colors.black),
+              ).semiBold12.copyWith(
+                  color: isDark == true ? Colors.white : Colors.black),
             ),
           ],
         ),

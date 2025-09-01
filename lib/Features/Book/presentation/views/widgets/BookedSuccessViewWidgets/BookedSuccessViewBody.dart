@@ -13,6 +13,7 @@ class BookedSuccessViewBody extends StatelessWidget {
   final BookingEntity bookingEntity;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: kHorizentalPadding, vertical: 40),
@@ -27,8 +28,9 @@ class BookedSuccessViewBody extends StatelessWidget {
           SizedBox(height: 10),
           Text(
             "رقم الحجز: #${bookingEntity.id}",
-            style:
-                AppTextStyles(context).regular14.copyWith(color: Colors.black),
+            style: AppTextStyles(context)
+                .regular14
+                .copyWith(color: isDark == true ? Colors.white : Colors.black),
           ),
           Spacer(
             flex: 3,

@@ -16,16 +16,17 @@ class _CustomBottomnavigationbarState extends State<CustomBottomnavigationbar> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return IntrinsicHeight(
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-            color: Colors.white,
+            color: isDark ? Colors.black : Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: isDark ? Colors.black26 : Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: const Offset(0, 3), // changes position of shadow

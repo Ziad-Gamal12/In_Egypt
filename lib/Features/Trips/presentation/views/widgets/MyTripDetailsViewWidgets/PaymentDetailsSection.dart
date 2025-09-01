@@ -9,26 +9,31 @@ class PaymentDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("تفاصيل الدفع",
             style: AppTextStyles(context)
                 .semiBold20
-                .copyWith(color: Colors.black)),
+                .copyWith(color: isDark == true ? Colors.white : Colors.black)),
         const SizedBox(height: 10),
         ListTile(
-          leading: const Icon(Icons.people, color: Colors.black),
+          leading: Icon(Icons.people,
+              color: isDark == true ? Colors.grey : Colors.black),
           title: Text(
             "عدد الأفراد:  ${bookingEntity.numberOfGuests} فرد",
-            style:
-                AppTextStyles(context).semiBold16.copyWith(color: Colors.black),
+            style: AppTextStyles(context)
+                .semiBold16
+                .copyWith(color: isDark == true ? Colors.white : Colors.black),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
         ),
         ListTile(
-          leading: const Icon(Icons.attach_money, color: Colors.black),
+          leading: Icon(Icons.attach_money,
+              color: isDark == true ? Colors.grey : Colors.black),
           title: Text(
             "السعر:  ${bookingEntity.totalPrice} جنيه",
             style:

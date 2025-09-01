@@ -10,11 +10,14 @@ class Custombottomnavigationbar_inActiveicon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
         color: Colors.transparent,
         child: SvgPicture.asset(
           iconPath,
           fit: BoxFit.scaleDown,
+          color: isDark ? Colors.white : Colors.black,
         ));
   }
 }

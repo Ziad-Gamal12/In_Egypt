@@ -27,8 +27,11 @@ class StepsCubit extends Cubit<StepsState> {
   }
 
   void selectDateRange({required BuildContext context}) async {
-    TextStyle customTextStyle =
-        AppTextStyles(context).semiBold16.copyWith(color: Colors.black);
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    TextStyle customTextStyle = AppTextStyles(context)
+        .semiBold16
+        .copyWith(color: isDark ? Colors.white : Colors.black);
     DateTimeRange<DateTime>? range = await showRangePickerDialog(
       context: context,
       minDate: DateTime.now(),

@@ -10,14 +10,17 @@ class AboutPlaceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PlaceEntity place = context.read<PlaceEntity>();
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           "تفاصيل المكان",
-          style:
-              AppTextStyles(context).semiBold20.copyWith(color: Colors.black),
+          style: AppTextStyles(context)
+              .semiBold20
+              .copyWith(color: isDark == true ? Colors.white : Colors.black),
         ),
         SizedBox(
           height: 10,

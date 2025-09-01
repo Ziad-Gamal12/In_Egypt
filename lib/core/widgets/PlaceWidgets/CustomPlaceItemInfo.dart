@@ -12,9 +12,11 @@ class CustomPlaceItemInfo extends StatelessWidget {
   final PlaceEntity place;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? Colors.grey.shade900 : Colors.white,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
@@ -30,7 +32,7 @@ class CustomPlaceItemInfo extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: AppTextStyles(
               context,
-            ).semiBold16.copyWith(color: titleColor ?? Colors.black),
+            ).semiBold16.copyWith(color: getTitleColor(isDark: isDark)),
           ),
           SizedBox(height: 5),
           CustomPlaceLocationWidget(location: place.location),
@@ -39,5 +41,13 @@ class CustomPlaceItemInfo extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color getTitleColor({required bool isDark}) {
+    if (titleColor != null) {
+      return titleColor!;
+    } else {
+      return isDark ? Colors.white : Colors.black;
+    }
   }
 }

@@ -23,13 +23,6 @@ class CustomProfileActionButtons extends StatelessWidget {
         SizedBox(
           height: 30,
         ),
-        CustomProfileActionButton(
-          title: "اللغة",
-          iconData: Icons.language,
-        ),
-        SizedBox(
-          height: 30,
-        ),
         CustomProfileDarkModeActionButton(),
         SizedBox(
           height: 30,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/MyWishListSliverListItem.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/widgets/EmptyWidget.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignItem.dart';
 
 class MyWishListSliverList extends StatefulWidget {
   const MyWishListSliverList({
@@ -30,10 +30,10 @@ class _MyWishListSliverListState extends State<MyWishListSliverList> {
           itemBuilder: (context, index) {
             return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: CustomPlaceHorizintalDesignItem(
+                child: MyWishListSliverListItem(
+                  place: widget.places[index],
                   isFavourite:
                       widget.favouritePlaces[widget.places[index].id] ?? false,
-                  place: widget.places[index],
                 ));
           });
     }

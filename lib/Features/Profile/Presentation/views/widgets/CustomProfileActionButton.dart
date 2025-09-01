@@ -16,6 +16,8 @@ class CustomProfileActionButton extends StatelessWidget {
   void Function()? onTap;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return AspectRatio(
       aspectRatio: 6 / 1,
       child: InkWell(
@@ -23,7 +25,7 @@ class CustomProfileActionButton extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDark ? Colors.grey[800] : Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.grey),
           ),
@@ -35,10 +37,11 @@ class CustomProfileActionButton extends StatelessWidget {
                 title,
                 style: AppTextStyles(context)
                     .semiBold16
-                    .copyWith(color: Colors.black),
+                    .copyWith(color: isDark ? Colors.white : Colors.black),
               ),
               if (iconData != null && trailing == null)
-                Icon(iconData, color: Colors.black, size: 35)
+                Icon(iconData,
+                    color: isDark ? Colors.white : Colors.black, size: 35)
               else if (trailing != null && iconData == null)
                 trailing!
               else

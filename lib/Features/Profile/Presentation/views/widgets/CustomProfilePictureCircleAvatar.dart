@@ -9,9 +9,11 @@ class CustomProfilePictureCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return CircleAvatar(
       radius: 60,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.grey[800] : Colors.white,
       child: CircleAvatar(
         radius: 55,
         backgroundColor: Color(0xffce9d63),

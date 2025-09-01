@@ -12,4 +12,5 @@ class Backendkeys {
   static const placesManagerRole = "PlacesManager";
   static const bookingsManagerRole = "BookingsManager";
   static const wishlistSubCollection = "wishlist";
+  static const isDark = "isDark";
 }

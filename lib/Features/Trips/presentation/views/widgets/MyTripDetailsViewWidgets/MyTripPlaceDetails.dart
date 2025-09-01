@@ -26,6 +26,8 @@ class _MyTripPlaceDetailsState extends State<MyTripPlaceDetails> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return BlocListener<WishListCubit, WishListState>(
         listener: (context, state) {
           if (state is WishListCheckFavouritePlacesSuccess) {
@@ -55,9 +57,8 @@ class _MyTripPlaceDetailsState extends State<MyTripPlaceDetails> {
               )
             : Text(
                 "لا يوجد مكان محجوز",
-                style: AppTextStyles(context)
-                    .regular14
-                    .copyWith(color: Colors.black),
+                style: AppTextStyles(context).regular14.copyWith(
+                    color: isDark == true ? Colors.white : Colors.black),
               ));
   }
 }

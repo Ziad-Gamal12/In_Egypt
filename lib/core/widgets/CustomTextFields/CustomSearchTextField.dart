@@ -10,6 +10,8 @@ class CustomSearchTextField extends StatelessWidget {
   final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     OutlineInputBorder border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
       borderSide: BorderSide.none,
@@ -23,14 +25,14 @@ class CustomSearchTextField extends StatelessWidget {
         ).regular14.copyWith(color: const Color(0xffBABABA)),
         suffixIcon: Icon(
           FontAwesomeIcons.magnifyingGlass,
-          color: Colors.black,
+          color: isDark ? Colors.grey : Colors.black,
         ),
         border: border,
         focusedBorder: border,
         enabledBorder: border,
         filled: true,
-        focusColor: Colors.white,
-        fillColor: Color(0xffFAFAFA),
+        focusColor: isDark ? Colors.grey[850] : Colors.white,
+        fillColor: isDark ? Colors.grey[850] : Color(0xffF5F5F5),
       ),
     );
   }
