@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:dartz/dartz.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/core/errors/Failures.dart';

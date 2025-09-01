@@ -12,7 +12,9 @@ class PlacesCategoriesCubit extends Cubit<PlacesCategoriesState> {
 
   Future<void> getPlacesByCategory(
       {required String category, required bool isPaginated}) async {
-    emit(PlacesCategoriesGetPlacesByCategoryLoading());
+    emit(PlacesCategoriesGetPlacesByCategoryLoading(
+      isFirstLoading: !isPaginated,
+    ));
     final result = await placesRepo.getPlacesByCategory(
         category: category, isPaginated: isPaginated);
     result.fold(

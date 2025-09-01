@@ -1,6 +1,8 @@
+// ignore_for_file: must_be_immutable, file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/manager/wish_list_cubit/wish_list_cubit.dart';
 import 'package:in_egypt/core/utils/images.dart';
 import 'package:svg_flutter/svg.dart';
 

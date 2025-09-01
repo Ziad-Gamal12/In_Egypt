@@ -20,7 +20,10 @@ class _MyWishListSliverListState extends State<MyWishListSliverList> {
   @override
   Widget build(BuildContext context) {
     if (widget.places.isEmpty) {
-      return SliverToBoxAdapter(child: EmptyWidget());
+      return SliverToBoxAdapter(
+          child: EmptyWidget(
+        message: "لا يوجد اماكن في المفضلة",
+      ));
     } else {
       return SliverList.builder(
           itemCount: widget.places.length,

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:in_egypt/core/Entities/PaymentMethodsEntities/DatumEntity.dart';
 
 class PaymentMethodEntity {

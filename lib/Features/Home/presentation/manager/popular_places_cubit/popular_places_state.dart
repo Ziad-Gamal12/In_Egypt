@@ -5,7 +5,10 @@ sealed class PopularPlacesState {}
 
 final class PopularPlacesInitial extends PopularPlacesState {}
 
-final class PlacesGetPopularPlacesLoading extends PopularPlacesState {}
+final class PlacesGetPopularPlacesLoading extends PopularPlacesState {
+  final bool isFirstLoading;
+  PlacesGetPopularPlacesLoading({required this.isFirstLoading});
+}
 
 final class PlacesGetPopularPlacesSuccess extends PopularPlacesState {
   final GetplacesResponseEntity getplacesResponseEntity;

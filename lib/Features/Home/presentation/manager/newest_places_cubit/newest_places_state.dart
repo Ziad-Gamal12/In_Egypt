@@ -5,7 +5,10 @@ sealed class NewestPlacesState {}
 
 final class NewestPlacesInitial extends NewestPlacesState {}
 
-final class PlacesGetNewestPlacesLoading extends NewestPlacesState {}
+final class PlacesGetNewestPlacesLoading extends NewestPlacesState {
+  final bool isFirstLoading;
+  PlacesGetNewestPlacesLoading({required this.isFirstLoading});
+}
 
 final class PlacesGetNewestPlacesSuccess extends NewestPlacesState {
   final GetplacesResponseEntity getplacesResponseEntity;

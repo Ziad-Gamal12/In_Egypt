@@ -10,7 +10,7 @@ class BookingDateDetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("تفاصيل الحجز",
             style: AppTextStyles(context)

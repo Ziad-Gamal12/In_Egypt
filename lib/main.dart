@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:in_egypt/Features/Wishlist/domain/Repos/WishListRepo.dart';
-import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/manager/wish_list_cubit/wish_list_cubit.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/services/BlocObserver.dart';
 import 'package:in_egypt/core/services/Shared_preferences.dart';
@@ -15,9 +15,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(url: supaBaseUrl, anonKey: supaBaseAnonKey);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await shared_preferences_Services.init();
+  await Future.wait([
+    Supabase.initialize(url: supaBaseUrl, anonKey: supaBaseAnonKey),
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+    shared_preferences_Services.init()
+  ]);
+
   setup_Getit();
   Bloc.observer = Custom_Blocobserver();
   runApp(const InEgypt());

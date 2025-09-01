@@ -6,7 +6,11 @@ sealed class PlacesCategoriesState {}
 final class PlacesCategoriesInitial extends PlacesCategoriesState {}
 
 final class PlacesCategoriesGetPlacesByCategoryLoading
-    extends PlacesCategoriesState {}
+    extends PlacesCategoriesState {
+  final bool isFirstLoading;
+
+  PlacesCategoriesGetPlacesByCategoryLoading({required this.isFirstLoading});
+}
 
 final class PlacesCategoriesGetPlacesByCategoryFailure
     extends PlacesCategoriesState {

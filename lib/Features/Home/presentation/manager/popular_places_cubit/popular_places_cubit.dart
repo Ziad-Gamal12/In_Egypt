@@ -10,7 +10,9 @@ class PopularPlacesCubit extends Cubit<PopularPlacesState> {
       : super(PopularPlacesInitial());
   final PlacesRepo placesRepo;
   void getPopularPlaces({required bool isPaginated}) async {
-    emit(PlacesGetPopularPlacesLoading());
+    emit(PlacesGetPopularPlacesLoading(
+      isFirstLoading: !isPaginated,
+    ));
     final result = await placesRepo.getPopularPlaces(isPaginated: isPaginated);
     result.fold(
         (failure) => emit(PlacesGetPopularPlacesFailure(failure.message)),

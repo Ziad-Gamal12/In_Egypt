@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:in_egypt/Features/Auth/data/models/UserModel.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';

@@ -47,7 +47,7 @@ class _MyTripsSliverListState extends State<MyTripsSliverList> {
             state is MyTripsGetMyTripsLoading && state.isFirstLoading ||
                 state is MyTripsSearchMyTripsLoading;
         disPlayedTrips = getDisplayedTrips(state);
-        if (disPlayedTrips.isEmpty) {
+        if (disPlayedTrips.isEmpty && state is MyTripsGetMyTripsSuccess) {
           return SliverToBoxAdapter(
             child: Center(
               child: EmptyWidget(

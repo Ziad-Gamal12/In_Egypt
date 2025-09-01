@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
-import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/manager/wish_list_cubit/wish_list_cubit.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
 import 'package:in_egypt/core/widgets/CustomErrorWidget.dart';

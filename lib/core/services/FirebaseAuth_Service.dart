@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types
+// ignore_for_file: file_names, camel_case_types, depend_on_referenced_packages
 
 import 'dart:async';
 import 'dart:convert';

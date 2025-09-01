@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomEmailTextField.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomPasswordTextField.dart';

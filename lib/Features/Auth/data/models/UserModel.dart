@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 
 class UserModel {

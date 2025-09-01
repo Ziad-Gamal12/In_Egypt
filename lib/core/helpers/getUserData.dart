@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 import 'package:in_egypt/Features/Auth/data/models/UserModel.dart';

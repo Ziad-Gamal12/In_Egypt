@@ -1,6 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:in_egypt/core/Entities/PlaceEntity.dart';
-import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignInfo%20copy.dart';
+import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceHorizintalDesignInfo.dart';
 import 'package:in_egypt/core/widgets/PlaceWidgets/CustomPlaceImage.dart';
 
 class CustomPlaceHorizintalDesignItem extends StatelessWidget {

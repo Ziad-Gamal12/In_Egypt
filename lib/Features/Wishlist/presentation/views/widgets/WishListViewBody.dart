@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/search_places_cubit/search_places_cubit.dart';
-import 'package:in_egypt/Features/Wishlist/presentation/manager/cubit/wish_list_cubit.dart';
+import 'package:in_egypt/Features/Wishlist/presentation/manager/wish_list_cubit/wish_list_cubit.dart';
 import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/WishListBodyList.dart';
 import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/WishListBodyLoadMoreIndicator.dart';
 import 'package:in_egypt/Features/Wishlist/presentation/views/widgets/WishListBodyLoadingList.dart';

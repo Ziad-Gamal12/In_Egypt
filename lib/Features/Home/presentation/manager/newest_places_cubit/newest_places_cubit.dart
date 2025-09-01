@@ -10,7 +10,9 @@ class NewestPlacesCubit extends Cubit<NewestPlacesState> {
   final PlacesRepo placesRepo;
   bool isgetData = true;
   void getNewestPlaces({required bool isPaginated}) async {
-    emit(PlacesGetNewestPlacesLoading());
+    emit(PlacesGetNewestPlacesLoading(
+      isFirstLoading: !isPaginated,
+    ));
     final result = await placesRepo.getNewestPlaces(isPaginated: isPaginated);
     result.fold(
         (failure) => emit(PlacesGetNewestPlacesFailure(failure.message)),

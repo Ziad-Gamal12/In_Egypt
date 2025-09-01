@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Home/presentation/manager/newest_places_cubit/newest_places_cubit.dart';
-import 'package:in_egypt/Features/Home/presentation/views/widgets/MoreNewestPlacesViewWidgets/CustomMoreNewestPlacesListView.dart';
+import 'package:in_egypt/Features/Home/presentation/views/widgets/MoreNewestPlacesViewWidgets/CustomMoreNewestPlacesBodyContent.dart';
 import 'package:in_egypt/constant.dart';
 
 class MoreNewestPlacesViewBody extends StatefulWidget {
@@ -24,7 +24,7 @@ class _MoreNewestPlacesViewBodyState extends State<MoreNewestPlacesViewBody> {
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: kHorizentalPadding, vertical: kVerticalPadding),
-      child: CustomMoreNewestPlacesListView(),
+      child: CustomMoreNewestPlacesBodyContent(),
     );
   }
 }
