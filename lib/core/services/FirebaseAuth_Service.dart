@@ -319,4 +319,128 @@ class firebaseAuthService {
       }
     }
   }
+
+  Future<bool> checkAccountPassword({required String password}) async {
+    try {
+      final user = auth.currentUser;
+      if (user == null) return false;
+
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: password,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+      return true;
+    } on FirebaseAuthException catch (e, s) {
+      log(
+        "Exception from FirebaseAuthService.checkAccountPassword in catch With Firebase Exception: ${e.toString()} and the Firebase Code is ${e.code}",
+      );
+      if (e.code == "network-request-failed") {
+        throw CustomException(message: "لا يوجد اتصال بالانترنت");
+      } else if (e.code == "operation-not-allowed") {
+        throw CustomException(message: " لا يمكنك تسجيل الدخول الان");
+      } else if (e.code == "too-many-requests") {
+        throw CustomException(
+          message: " عذراً لقد تم تجاوز عدد المحاولات المسموح بها",
+        );
+      } else if (e.code == "invalid-credential") {
+        throw CustomException(
+          message:
+              "لقد تم تمرير بيانات غير صحيحة. تأكد من المدخلات وحاول مجددًا",
+        );
+      } else if (e.code == "internal-error") {
+        throw CustomException(
+          message: "هناك عطل داخلى سوف يتم حل هذا العطل فى اقرب وقت",
+        );
+      } else if (e.code == "popup-blocked") {
+        throw CustomException(message: "المستخدم قام بحظر النافذة الجديدة");
+      } else if (e.code == "popup-closed-by-user") {
+        throw CustomException(message: "المستخدم قام بحظر النافذة الجديدة");
+      } else if (e.code == "account-exists-with-different-credential") {
+        throw CustomException(
+          message: "البريد الالكتروني مستخدم من قبل بخاصتك",
+        );
+      } else if (e.code == "user-disabled") {
+        throw CustomException(message: "تم تعطيل حسابك");
+      } else {
+        throw CustomException(message: "حدث خطأ ما");
+      }
+    } catch (e, s) {
+      log("$e\n$s");
+      throw CustomException(message: "حدث خطأ ما");
+    }
+  }
+
+  Future<void> changePassword({required String password}) async {
+    try {
+      final user = auth.currentUser;
+      if (user == null) return;
+      await user.updatePassword(password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "network-request-failed") {
+        throw CustomException(message: "لا يوجد اتصال بالانترنت");
+      } else if (e.code == "operation-not-allowed") {
+        throw CustomException(message: " لا يمكنك تسجيل الدخول الان");
+      } else if (e.code == "too-many-requests") {
+        throw CustomException(
+          message: " عذراً لقد تم تجاوز عدد المحاولات المسموح بها",
+        );
+      } else if (e.code == "internal-error") {
+        throw CustomException(
+          message: "هناك عطل داخلى سوف يتم حل هذا العطل فى اقرب وقت",
+        );
+      } else if (e.code == "popup-blocked") {
+        throw CustomException(message: "المستخدم قام بحظر النافذة الجديدة");
+      } else if (e.code == "popup-closed-by-user") {
+        throw CustomException(message: "المستخدم قام بحظر النافذة الجديدة");
+      } else if (e.code == "account-exists-with-different-credential") {
+        throw CustomException(
+          message: "البريد الالكتروني مستخدم من قبل بخاصتك",
+        );
+      } else if (e.code == "user-disabled") {
+        throw CustomException(message: "تم تعطيل حسابك");
+      } else {
+        throw CustomException(message: "حدث خطأ ما");
+      }
+    } catch (e) {
+      throw CustomException(message: "حدث خطأ ما");
+    }
+  }
+
+  Future<void> changeEmail({required String email}) async {
+    try {
+      final user = auth.currentUser;
+      if (user == null) return;
+      await user.verifyBeforeUpdateEmail(email);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "network-request-failed") {
+        throw CustomException(message: "لا يوجد اتصال بالانترنت");
+      } else if (e.code == "operation-not-allowed") {
+        throw CustomException(message: " لا يمكنك تسجيل الدخول الان");
+      } else if (e.code == "too-many-requests") {
+        throw CustomException(
+          message: " عذراً لقد تم تجاوز عدد المحاولات المسموح بها",
+        );
+      } else if (e.code == "internal-error") {
+        throw CustomException(
+          message: "هناك عطل داخلى سوف يتم حل هذا العطل فى اقرب وقت",
+        );
+      } else if (e.code == "popup-blocked") {
+        throw CustomException(message: "المستخدم قام بحظر النافذة الجديدة");
+      } else if (e.code == "popup-closed-by-user") {
+        throw CustomException(message: "المستخدم قام بحظر النافذة الجديدة");
+      } else if (e.code == "account-exists-with-different-credential") {
+        throw CustomException(
+          message: "البريد الالكتروني مستخدم من قبل بخاصتك",
+        );
+      } else if (e.code == "user-disabled") {
+        throw CustomException(message: "تم تعطيل حسابك");
+      } else {
+        throw CustomException(message: "حدث خطأ ما");
+      }
+    } catch (e) {
+      throw CustomException(message: "حدث خطأ ما");
+    }
+  }
 }

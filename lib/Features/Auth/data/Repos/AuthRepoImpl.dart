@@ -222,11 +222,12 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  Future<Either<Failure, void>> storeUserDataInFireStore({
-    required Map<String, dynamic> userjson,
-    required User user,
-    required String uid,
-  }) async {
+  Future<Either<Failure, void>> storeUserDataInFireStore(
+      {required Map<String, dynamic> userjson,
+      required User user,
+      required String uid,
+      bool signOut = true,
+      bool checkVerified = true}) async {
     try {
       await databaseservice.setData(
         requirements: FireStoreRequirmentsEntity(
@@ -235,14 +236,66 @@ class AuthRepoImpl implements AuthRepo {
         ),
         data: userjson,
       );
-      await user.sendEmailVerification();
-      await authService.signout();
+      if (checkVerified) {
+        await user.sendEmailVerification();
+      }
+      if (signOut) {
+        await authService.signout();
+      }
       return Right(null);
     } on CustomException catch (e, s) {
       log("$e\n$s");
       return Left(ServerFailure(message: e.message));
     } catch (e, s) {
       log("$e\n$s");
+      return Left(ServerFailure(message: "حدث خطأ ما"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateUser(
+    String? newPassword, {
+    required UserEntity userEntity,
+    required String currentPassword,
+  }) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      Map<String, dynamic> userJson = UserModel.fromEntity(userEntity).toJson();
+      if (user != null) {
+        bool isValid =
+            await authService.checkAccountPassword(password: currentPassword);
+        if (isValid) {
+          if (newPassword != null) {
+            await authService.changePassword(password: newPassword);
+          }
+          if (userEntity.email != user.email) {
+            await authService.changeEmail(email: userEntity.email);
+          }
+
+          final result = await storeUserDataInFireStore(
+              user: user,
+              userjson: userJson,
+              uid: user.uid,
+              signOut: false,
+              checkVerified: false);
+
+          if (result.isLeft()) {
+            return result;
+          } else {
+            await storeUserLocally(userJson);
+            return Right(null);
+          }
+        } else {
+          return Left(ServerFailure(message: "كلمة المرور غير صحيحة"));
+        }
+      } else {
+        return Left(ServerFailure(message: "المستخدم غير موجود"));
+      }
+    } on CustomException catch (e, s) {
+      log("$e $s");
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      log("$e");
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
