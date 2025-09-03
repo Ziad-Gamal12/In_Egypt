@@ -14,16 +14,17 @@ class LogoutDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.grey.shade900 : Colors.white,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 60),
         child: Text(
           "هل انت متأكد من تسجيل الخروج؟",
           style: AppTextStyles(
             context,
-          ).regular13.copyWith(color: kMainColor, fontWeight: FontWeight.w600),
+          ).semiBold14.copyWith(color: kMainColor, fontWeight: FontWeight.w600),
           textAlign: TextAlign.center,
         ),
       ),
@@ -34,14 +35,13 @@ class LogoutDialog extends StatelessWidget {
               child: Custombutton(
                 onPressed: () async {
                   await firebaseAuthService().signout();
-
                   if (context.mounted) {
                     GoRouter.of(context).go(SignInView.routeName);
                   }
                 },
                 text: "تأكيد",
                 color: kMainColor,
-                textColor: Colors.white,
+                textColor: Colors.black,
               ),
             ),
             const SizedBox(width: 10),
@@ -51,7 +51,7 @@ class LogoutDialog extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 text: "لا أرغب",
-                color: Colors.white,
+                color: isDark ? Colors.grey.shade900 : Colors.white,
                 textColor: kMainColor,
                 side: const BorderSide(color: kMainColor),
               ),

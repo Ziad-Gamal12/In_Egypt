@@ -10,10 +10,11 @@ class CutomSignUpNavigationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Custombutton(
       text: "انشاء حساب",
-      color: Colors.white,
-      textColor: Colors.black,
+      color: isDark ? Colors.grey.shade900 : Colors.white,
+      textColor: isDark ? Colors.grey.shade300 : Colors.black,
       onPressed: () {
         GoRouter.of(context).push(SignUpView.routeName);
       },

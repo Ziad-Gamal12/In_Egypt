@@ -3,6 +3,7 @@ import 'package:in_egypt/Features/Profile/Presentation/views/widgets/CustomProfi
 import 'package:in_egypt/Features/Profile/Presentation/views/widgets/CustomProfilePicture.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/widgets/CustomButton.dart';
+import 'package:in_egypt/core/widgets/LogoutDialog.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({super.key});
@@ -24,7 +25,10 @@ class ProfileViewBody extends StatelessWidget {
                 text: "تسجيل الخروج",
                 color: Colors.amber,
                 textColor: Colors.black,
-                onPressed: () {}),
+                onPressed: () {
+                  showDialog(
+                      context: context, builder: (context) => LogoutDialog());
+                }),
             SizedBox(
               height: 30,
             ),

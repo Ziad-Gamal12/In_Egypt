@@ -16,6 +16,7 @@ class CustomSocialButton extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return MaterialButton(
       height: 54,
       minWidth: double.infinity,
@@ -35,7 +36,9 @@ class CustomSocialButton extends StatelessWidget {
               text,
               style: AppTextStyles(
                 context,
-              ).semiBold16.copyWith(color: const Color(0xff0C0D0D)),
+              ).semiBold16.copyWith(
+                  color:
+                      isDark ? Colors.grey.shade300 : const Color(0xff0C0D0D)),
             ),
           ],
         ),

@@ -46,8 +46,12 @@ class CustomHomeViewAppBar extends StatelessWidget {
         Spacer(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: SvgPicture.asset(Assets.assetsIconsNotificationIcon,
-              height: 30, width: 30),
+          child: SvgPicture.asset(
+            Assets.assetsIconsNotificationIcon,
+            height: 30,
+            width: 30,
+            color: isDark ? Colors.grey : Colors.black,
+          ),
         ),
       ],
     );

@@ -5,15 +5,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_egypt/core/widgets/CustomTextFields/CustomTeaxtField.dart';
 
 class CustomEmailTextField extends StatelessWidget {
-  CustomEmailTextField({super.key, required this.controller, this.onSaved});
+  CustomEmailTextField(
+      {super.key,
+      required this.controller,
+      this.onSaved,
+      this.isIconVisible = false});
   final TextEditingController controller;
   ValueChanged<String?>? onSaved;
+  bool isIconVisible;
   @override
   Widget build(BuildContext context) {
     return Customteaxtfield(
         controller: controller,
         labelText: "البريد الإلكتروني",
-        prefixIcon: FontAwesomeIcons.envelope,
+        prefixIcon: isIconVisible ? FontAwesomeIcons.envelope : null,
         onSaved: onSaved,
         obscureText: false,
         textInputType: TextInputType.emailAddress,

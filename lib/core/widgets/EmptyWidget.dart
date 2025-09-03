@@ -9,23 +9,27 @@ class EmptyWidget extends StatelessWidget {
   String? message;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 100),
+        const SizedBox(height: 200),
         Image.asset(
           Assets.assetsIconsEmptyIcon,
           height: 150,
           width: 150,
           fit: BoxFit.cover,
         ),
+        const SizedBox(height: 20),
         Text(
           message ?? "لا يوجد شيء",
           textAlign: TextAlign.center,
           style: AppTextStyles(
             context,
-          ).semiBold20.copyWith(color: Colors.black),
+          )
+              .semiBold20
+              .copyWith(color: isDark ? Colors.grey.shade300 : Colors.black),
         ),
       ],
     );

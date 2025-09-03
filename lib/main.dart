@@ -57,7 +57,7 @@ class _InEgyptState extends State<InEgypt> {
           final themeDataDark = ThemeData(
             fontFamily: carioFontFamily,
             brightness: Brightness.dark,
-            scaffoldBackgroundColor: Colors.black,
+            scaffoldBackgroundColor: Colors.grey[1000],
           );
 
           final themeData =
@@ -65,7 +65,7 @@ class _InEgyptState extends State<InEgypt> {
 
           return AnimatedTheme(
             data: themeData,
-            duration: const Duration(milliseconds: 500), // زمن التحويل
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,

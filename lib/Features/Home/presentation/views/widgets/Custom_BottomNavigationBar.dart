@@ -21,17 +21,10 @@ class _CustomBottomnavigationbarState extends State<CustomBottomnavigationbar> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-            color: isDark ? Colors.black : Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: isDark ? Colors.black26 : Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ]),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+          color: isDark ? Colors.grey[850] : Colors.white,
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 20),
           child: Row(
