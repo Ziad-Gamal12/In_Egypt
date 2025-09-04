@@ -56,8 +56,11 @@ class _AddReviewTextFieldState extends State<AddReviewTextField> {
                   }
                 },
                 icon: state is PlacesAddReviewLoading
-                    ? CircularProgressIndicator(
-                        color: Colors.amber,
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(
+                          color: Colors.amber,
+                        ),
                       )
                     : Icon(
                         FontAwesomeIcons.paperPlane,

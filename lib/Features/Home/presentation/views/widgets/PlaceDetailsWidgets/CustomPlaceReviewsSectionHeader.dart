@@ -30,7 +30,7 @@ class CustomPlaceReviewsSectionHeader extends StatelessWidget {
               width: 5,
             ),
             Text(
-              rating.toString(),
+              rating.toStringAsFixed(1),
               style: AppTextStyles(context).semiBold20.copyWith(
                   color: isDark == true ? Colors.white : Colors.black),
             ),

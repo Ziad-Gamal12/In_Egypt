@@ -17,7 +17,7 @@ class CustomPlaceRatingWidget extends StatelessWidget {
         CustomRatingStarsRow(rating: rating),
         SizedBox(width: 5),
         Text(
-          "$rating",
+          rating.toStringAsFixed(1),
           style: AppTextStyles(
             context,
           ).medium12.copyWith(color: getRatingColor(isDark: isDark)),

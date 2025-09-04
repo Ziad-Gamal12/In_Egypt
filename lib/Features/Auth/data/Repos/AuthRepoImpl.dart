@@ -271,7 +271,6 @@ class AuthRepoImpl implements AuthRepo {
           if (userEntity.email != user.email) {
             await authService.changeEmail(email: userEntity.email);
           }
-
           final result = await storeUserDataInFireStore(
               user: user,
               userjson: userJson,

@@ -14,6 +14,7 @@ import 'package:in_egypt/Features/Home/presentation/views/MorePopularPlacesView.
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/PersonalDetailsView.dart';
+import 'package:in_egypt/Features/Profile/Presentation/views/QuestionsAndAnswersView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/MyTripDetailsView.dart';
 import 'package:in_egypt/Features/Trips/presentation/views/MyTripsView.dart';
@@ -121,6 +122,9 @@ class App_router {
       GoRoute(
           path: PersonalDetailsView.routeName,
           builder: (context, state) => PersonalDetailsView()),
+      GoRoute(
+          path: QuestionsAndAnswersView.routeName,
+          builder: (context, state) => QuestionsAndAnswersView()),
     ],
   );
 }

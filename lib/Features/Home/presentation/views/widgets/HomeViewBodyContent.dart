@@ -24,8 +24,12 @@ class _HomeViewBodyContentState extends State<HomeViewBodyContent> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PopularPlacesCubit>().getPopularPlaces(isPaginated: false);
-      context.read<NewestPlacesCubit>().getNewestPlaces(isPaginated: false);
+      final popularCubit = context.read<PopularPlacesCubit>();
+      final newestCubit = context.read<NewestPlacesCubit>();
+
+      popularCubit.getPopularPlaces(isPaginated: false);
+
+      newestCubit.getNewestPlaces(isPaginated: false);
     });
     super.initState();
   }

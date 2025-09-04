@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/PersonalDetailsView.dart';
+import 'package:in_egypt/Features/Profile/Presentation/views/QuestionsAndAnswersView.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/widgets/CustomProfileActionButton.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/widgets/CustomProfileDarkModeActionButton.dart';
 
@@ -28,6 +29,9 @@ class CustomProfileActionButtons extends StatelessWidget {
           height: 30,
         ),
         CustomProfileActionButton(
+          onTap: () {
+            GoRouter.of(context).push(QuestionsAndAnswersView.routeName);
+          },
           title: "أسئلة و أجوبة",
           iconData: Icons.contact_support,
         ),

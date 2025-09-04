@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
-import 'package:in_egypt/Features/Profile/Presentation/manager/cubit/update_user_data_cubit.dart';
+import 'package:in_egypt/Features/Profile/Presentation/manager/update_user_data_cubit/update_user_data_cubit.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/widgets/CustomButton.dart';
 

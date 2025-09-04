@@ -18,20 +18,21 @@ class _AddReviewRatingSelectionSectionState
   int currentIndex = -1;
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 60,
       width: double.infinity,
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDark ? Colors.grey.shade900 : Colors.white,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
             bottomRight: Radius.circular(10),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade200,
+              color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
               blurRadius: 20,
               spreadRadius: 1,
               offset: const Offset(0, 15),
