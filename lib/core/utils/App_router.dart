@@ -13,6 +13,7 @@ import 'package:in_egypt/Features/Home/presentation/views/MoreNewestPlacesView.d
 import 'package:in_egypt/Features/Home/presentation/views/MorePopularPlacesView.dart';
 import 'package:in_egypt/Features/Home/presentation/views/PlaceDetailsView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
+import 'package:in_egypt/Features/Profile/Presentation/views/AboutUsView.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/PersonalDetailsView.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/QuestionsAndAnswersView.dart';
 import 'package:in_egypt/Features/Splash/presentation/views/SplashView.dart';
@@ -125,6 +126,9 @@ class App_router {
       GoRoute(
           path: QuestionsAndAnswersView.routeName,
           builder: (context, state) => QuestionsAndAnswersView()),
+      GoRoute(
+          path: AboutUsView.routeName,
+          builder: (context, state) => AboutUsView()),
     ],
   );
 }

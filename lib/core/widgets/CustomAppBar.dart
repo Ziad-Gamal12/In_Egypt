@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: isDark ? Colors.grey[990] : Colors.white,
+      backgroundColor: isDark ? Colors.grey[900] : Colors.white,
       leading: Padding(
         padding: const EdgeInsets.only(right: 10),
         child: InkWell(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_egypt/Features/Profile/Presentation/views/AboutUsView.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/PersonalDetailsView.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/QuestionsAndAnswersView.dart';
 import 'package:in_egypt/Features/Profile/Presentation/views/widgets/CustomProfileActionButton.dart';
@@ -39,6 +40,9 @@ class CustomProfileActionButtons extends StatelessWidget {
           height: 30,
         ),
         CustomProfileActionButton(
+          onTap: () {
+            GoRouter.of(context).push(AboutUsView.routeName);
+          },
           title: "من نحن",
           iconData: Icons.info,
         ),
