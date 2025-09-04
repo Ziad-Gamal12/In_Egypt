@@ -10,6 +10,7 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         appBartitle: "الملف الشخصي",
+        isBackButton: false,
       ),
       body: ProfileViewBody(),
     );

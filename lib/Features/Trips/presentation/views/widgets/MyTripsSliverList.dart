@@ -55,6 +55,16 @@ class _MyTripsSliverListState extends State<MyTripsSliverList> {
               ),
             ),
           );
+        } else if (state is MyTripsSearchMyTripsSuccess &&
+            disPlayedTrips.isEmpty &&
+            widget.isSearching == true) {
+          return SliverToBoxAdapter(
+            child: Center(
+              child: EmptyWidget(
+                message: "لا يوجد نتائج للبحث",
+              ),
+            ),
+          );
         }
         return SliverSkeletonizer(
           enabled: isLoading,
@@ -97,7 +107,8 @@ class _MyTripsSliverListState extends State<MyTripsSliverList> {
               id: "",
               totalPrice: 0,
               paymentMethod: ""));
-    } else if (widget.isSearching && state is MyTripsSearchMyTripsSuccess) {
+    } else if (widget.isSearching == true &&
+        state is MyTripsSearchMyTripsSuccess) {
       return state.bookings;
     } else {
       return widget.myTrips;

@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, file_names
 
-import 'dart:developer';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -35,10 +34,8 @@ class BookingsRepoImp implements BookingsRepo {
           data: json);
       return Right(null);
     } on CustomException catch (e) {
-      log(e.message);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
-      log(e.toString());
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }

@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:crypto/crypto.dart';
@@ -26,9 +25,6 @@ class firebaseAuthService {
       await auth.currentUser!.reload();
       return auth.currentUser!;
     } on FirebaseAuthException catch (e) {
-      log(
-        "Exception from FirebaseAuthService.createUserWithEmailAndPassword in catch With Firebase Exception: ${e.toString()} and the Firebase Code is ${e.code}",
-      );
       if (e.code == 'weak-password') {
         throw CustomException(message: 'الرقم السري ضعيف');
       } else if (e.code == 'email-already-in-use') {
@@ -53,9 +49,6 @@ class firebaseAuthService {
         throw CustomException(message: "حدث خطأ ما");
       }
     } catch (e) {
-      log(
-        "Exception from FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()}",
-      );
       throw CustomException(message: "حدث خطأ ما");
     }
   }
@@ -68,9 +61,6 @@ class firebaseAuthService {
       );
       return credential.user!;
     } on FirebaseAuthException catch (e) {
-      log(
-        "Exception from FirebaseAuthService.signInWithEmailAndPassword in catch With Firebase Exception: ${e.toString()} and the Firebase Code is ${e.code}",
-      );
       if (e.code == 'user-not-found') {
         throw CustomException(message: 'لا يوجد مستخدم بهذا البريد الالكتروني');
       } else if (e.code == 'wrong-password') {
@@ -101,9 +91,6 @@ class firebaseAuthService {
         throw CustomException(message: "حدث خطأ ما");
       }
     } catch (e) {
-      log(
-        "Exception from FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()}",
-      );
       throw CustomException(message: "حدث خطأ ما");
     }
   }
@@ -224,7 +211,6 @@ class firebaseAuthService {
         throw CustomException(message: "حدث خطأ ما");
       }
     } catch (e) {
-      log(e.toString());
       throw CustomException(message: "حدث خطأ ما");
     }
   }
@@ -292,9 +278,6 @@ class firebaseAuthService {
     try {
       await auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      log(
-        "Exception from FirebaseAuthService.resetPassword in catch With Firebase Exception: ${e.toString()} and the Firebase Code is ${e.code}",
-      );
       if (e.code == 'user-not-found') {
         throw CustomException(message: 'لا يوجد مستخدم بهذا البريد الالكتروني');
       } else if (e.code == "network-request-failed") {
@@ -312,9 +295,6 @@ class firebaseAuthService {
       } else if (e.code == "invalid-email") {
         throw CustomException(message: "البريد الالكتروني غير صالح");
       } else {
-        log(
-          "Exception from FirebaseAuthService.resetPassword: ${e.toString()}",
-        );
         throw CustomException(message: "حدث خطأ ما");
       }
     }
@@ -333,9 +313,6 @@ class firebaseAuthService {
       await user.reauthenticateWithCredential(credential);
       return true;
     } on FirebaseAuthException catch (e, s) {
-      log(
-        "Exception from FirebaseAuthService.checkAccountPassword in catch With Firebase Exception: ${e.toString()} and the Firebase Code is ${e.code}",
-      );
       if (e.code == "network-request-failed") {
         throw CustomException(message: "لا يوجد اتصال بالانترنت");
       } else if (e.code == "operation-not-allowed") {
@@ -367,7 +344,6 @@ class firebaseAuthService {
         throw CustomException(message: "حدث خطأ ما");
       }
     } catch (e, s) {
-      log("$e\n$s");
       throw CustomException(message: "حدث خطأ ما");
     }
   }

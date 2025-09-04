@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
@@ -48,13 +46,10 @@ class PaymentRepoImpl implements PaymentRepo {
           status: mainPaymentMethodResponse.status, data: data);
       return Right(editedPaymentMethod);
     } on CustomException catch (e) {
-      log(e.message);
       return Left(ServerFailure(message: e.message));
     } on ApiException catch (e) {
-      log(e.message);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
-      log(e.toString());
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
@@ -142,13 +137,10 @@ class PaymentRepoImpl implements PaymentRepo {
         return left(ServerFailure(message: "خطأ في البيانات"));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return Left(ServerFailure(message: e.message));
     } on ApiException catch (e) {
-      log(e.message);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
-      log(e.toString());
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -33,22 +31,17 @@ class PlaceReviewsRepoImp implements PlaceReviewsRepo {
               subCollection: Backendkeys.reviewsSubCollection,
               subDocId: review.user.uid),
           data: json);
-      log("added review to firestore successfully");
       final response =
           await updateRating(placeId: placeId, rating: review.rating);
       return response.fold((failure) async {
-        log("failed to update rating");
-        log(failure.message);
         await removeReview(placeId: placeId, reviewId: review.user.uid);
         return left(Failure(message: failure.message));
       }, (response) {
         return right(response);
       });
     } on CustomException catch (e) {
-      log(e.message);
       return left(Failure(message: e.message));
     } catch (e) {
-      log(e.toString());
       return left(Failure(message: "حدث خطأ ما"));
     }
   }
@@ -71,13 +64,10 @@ class PlaceReviewsRepoImp implements PlaceReviewsRepo {
       );
       return right(null);
     } on ApiException catch (e) {
-      log("====${e.message}");
       return left(Failure(message: e.message));
     } on CustomException catch (e) {
-      log(e.message);
       return left(Failure(message: e.message));
     } catch (e) {
-      log(e.toString());
       return left(Failure(message: "حدث خطأ ما"));
     }
   }
@@ -141,11 +131,9 @@ class PlaceReviewsRepoImp implements PlaceReviewsRepo {
       return right(
         GetPlaceReviewsResponseEntity(reviews: reviewsEntity, hasMore: hasMore),
       );
-    } on CustomException catch (e, s) {
-      log("$e\n$s");
+    } on CustomException catch (e) {
       return left(Failure(message: e.message));
-    } catch (e, s) {
-      log("$e\n$s");
+    } catch (e) {
       return left(Failure(message: "حدث خطأ ما"));
     }
   }

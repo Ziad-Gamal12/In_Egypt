@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:in_egypt/Features/Book/domain/repos/BookingsRepo/BookingsRepo.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';
@@ -36,7 +34,6 @@ class BookingBloc extends Bloc<BookingBlocEvent, BookingBlocState> {
       );
     });
     on<PaymentFailedEvent>((event, emit) {
-      log("PaymentFailedEvent");
       emit(BookingAddBookingFailure("عملية الدفع فاشلة"));
     });
     on<PaymentLoadingEvent>((event, emit) => emit(BookingAddBookingLoading()));

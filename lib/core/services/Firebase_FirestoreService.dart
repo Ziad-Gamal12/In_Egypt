@@ -1,7 +1,5 @@
 // ignore_for_file: file_names
 
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:in_egypt/core/Entities/FireStorePaginateResponse.dart';
 import 'package:in_egypt/core/Entities/FireStoreRequirmentsEntity.dart';
@@ -218,12 +216,8 @@ class FirebaseFirestoreservice implements Databaseservice {
         listData: querySnapshot.docs.map((e) => e.data()).toList(),
       );
     } on FirebaseException catch (e, s) {
-      log("error in get data ${e.toString()} and StackTrace ${s.toString()}");
       throw _getFireStoreCustomException(e: e);
     } catch (e, s) {
-      log(
-        "error in catch get data ${e.toString()} and StackTrace ${s.toString()}",
-      );
       throw CustomException(message: "❌ حدث خطاء غير متوقع.");
     }
   }

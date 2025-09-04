@@ -7,33 +7,35 @@ import 'package:in_egypt/core/utils/textStyles.dart';
 import 'package:svg_flutter/svg_flutter.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key, required this.appBartitle});
+  CustomAppBar(
+      {super.key, required this.appBartitle, this.isBackButton = true});
   final String appBartitle;
-
+  bool? isBackButton;
   @override
   AppBar build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-
     return AppBar(
       leadingWidth: 40,
       elevation: 0,
       scrolledUnderElevation: 0,
       surfaceTintColor: Colors.transparent,
       backgroundColor: isDark ? Colors.grey[900] : Colors.white,
-      leading: Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: InkWell(
-          onTap: () {
-            GoRouter.of(context).pop();
-          },
-          child: SvgPicture.asset(
-            Assets.assetsIconsArrowLeftBack,
-            height: 20,
-            width: 20,
-            color: isDark ? Colors.white : Colors.black,
-          ),
-        ),
-      ),
+      leading: isBackButton!
+          ? Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: InkWell(
+                onTap: () {
+                  GoRouter.of(context).pop();
+                },
+                child: SvgPicture.asset(
+                  Assets.assetsIconsArrowLeftBack,
+                  height: 20,
+                  width: 20,
+                  color: isDark ? Colors.white : Colors.black,
+                ),
+              ),
+            )
+          : null,
       title: Text(
         appBartitle,
         style: AppTextStyles(context)

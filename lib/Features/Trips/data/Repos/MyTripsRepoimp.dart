@@ -18,12 +18,13 @@ class MyTripsRepoimp implements MyTripsRepo {
   MyTripsRepoimp({required this.databaseservice});
   Map<String, dynamic> getMyTripsQueery = {
     "orderBy": "createdAt",
-    "filters": {
-      "field": "user.uid",
-      "value": getUserData().uid,
-      "operator": "==",
-    },
-    "searchValue": getUserData().uid,
+    "filters": [
+      {
+        "field": "user.uid",
+        "value": getUserData().uid,
+        "operator": "==",
+      }
+    ] as List<Map<String, dynamic>>,
     "startAfter": null,
     "limit": 10
   };
@@ -71,8 +72,8 @@ class MyTripsRepoimp implements MyTripsRepo {
         "field": "user.uid",
         "value": getUserData().uid,
         "operator": "==",
-      },
-    ],
+      }
+    ] as List<Map<String, dynamic>>,
     "searchField": "place.name",
     "searchValue": null,
   };

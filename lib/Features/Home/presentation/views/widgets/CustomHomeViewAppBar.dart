@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/helpers/getUserData.dart';
-import 'package:in_egypt/core/utils/images.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
 import 'package:in_egypt/core/widgets/CustomCachedNetworkImage.dart';
-import 'package:svg_flutter/svg_flutter.dart';
 
 class CustomHomeViewAppBar extends StatelessWidget {
   const CustomHomeViewAppBar({super.key});
@@ -41,16 +39,6 @@ class CustomHomeViewAppBar extends StatelessWidget {
                     AppTextStyles(context).bold20.copyWith(color: kMainColor),
               ),
             ],
-          ),
-        ),
-        Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: SvgPicture.asset(
-            Assets.assetsIconsNotificationIcon,
-            height: 30,
-            width: 30,
-            color: isDark ? Colors.grey : Colors.black,
           ),
         ),
       ],

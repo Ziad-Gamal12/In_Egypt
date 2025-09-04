@@ -14,7 +14,10 @@ class MyTripsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => MyTripsCubit(myTripsRepo: getIt<MyTripsRepo>()),
       child: Scaffold(
-        appBar: CustomAppBar(appBartitle: "رحلاتي"),
+        appBar: CustomAppBar(
+          appBartitle: "رحلاتي",
+          isBackButton: false,
+        ),
         body: MyTripsViewBody(),
       ),
     );

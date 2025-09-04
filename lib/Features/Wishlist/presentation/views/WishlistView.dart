@@ -16,7 +16,10 @@ class WishListView extends StatelessWidget {
         placesRepo: getIt<PlacesRepo>(),
       ),
       child: Scaffold(
-        appBar: CustomAppBar(appBartitle: "المفضلة"),
+        appBar: CustomAppBar(
+          appBartitle: "المفضلة",
+          isBackButton: false,
+        ),
         body: WishListViewBody(),
       ),
     );

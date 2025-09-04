@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +38,6 @@ class AuthRepoImpl implements AuthRepo {
     } on CustomException catch (e) {
       return Left(ServerFailure(message: e.message));
     } catch (e, s) {
-      log("$e\n$s");
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
@@ -75,7 +73,7 @@ class AuthRepoImpl implements AuthRepo {
         await user.delete();
       }
     } catch (e, s) {
-      log("$e\n$s");
+      ("$e\n$s");
 
       throw CustomException(message: "حدث خطأ أثناء حذف المستخدم");
     }
@@ -244,10 +242,10 @@ class AuthRepoImpl implements AuthRepo {
       }
       return Right(null);
     } on CustomException catch (e, s) {
-      log("$e\n$s");
+      ("$e\n$s");
       return Left(ServerFailure(message: e.message));
     } catch (e, s) {
-      log("$e\n$s");
+      ("$e\n$s");
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
@@ -291,10 +289,10 @@ class AuthRepoImpl implements AuthRepo {
         return Left(ServerFailure(message: "المستخدم غير موجود"));
       }
     } on CustomException catch (e, s) {
-      log("$e $s");
+      ("$e $s");
       return Left(ServerFailure(message: e.message));
     } catch (e) {
-      log("$e");
+      ("$e");
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
