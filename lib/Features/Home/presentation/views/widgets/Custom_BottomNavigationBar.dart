@@ -5,15 +5,19 @@ import 'package:in_egypt/Features/Home/domain/Entities/BottomnavigationbarEntity
 import 'package:in_egypt/Features/Home/presentation/views/widgets/CustomBottomNavigationBar_Item.dart';
 
 class CustomBottomnavigationbar extends StatefulWidget {
-  const CustomBottomnavigationbar({super.key, required this.currentIndex});
-  final ValueChanged<int> currentIndex;
+  CustomBottomnavigationbar(
+      {super.key,
+      required this.currentIndexChanged,
+      required this.currentIndex});
+  final ValueChanged<int> currentIndexChanged;
+  int currentIndex;
+
   @override
   State<CustomBottomnavigationbar> createState() =>
       _CustomBottomnavigationbarState();
 }
 
 class _CustomBottomnavigationbarState extends State<CustomBottomnavigationbar> {
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
@@ -35,17 +39,17 @@ class _CustomBottomnavigationbarState extends State<CustomBottomnavigationbar> {
               int index = e.key;
               BottomnavigationbarEntity bottomnavigationbarEntity = e.value;
               return Expanded(
-                flex: currentIndex == index ? 3 : 2,
+                flex: widget.currentIndex == index ? 3 : 2,
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      currentIndex = index;
-                      widget.currentIndex(currentIndex);
+                      widget.currentIndex = index;
+                      widget.currentIndexChanged(index);
                     });
                   },
                   child: CustombottomnavigationbarItem(
                     index: index,
-                    isSelected: currentIndex == index ? true : false,
+                    isSelected: widget.currentIndex == index ? true : false,
                     bottomnavigationbarEntity: bottomnavigationbarEntity,
                   ),
                 ),

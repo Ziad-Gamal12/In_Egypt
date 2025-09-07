@@ -8,7 +8,8 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/HomeViewBodyCo
 import 'package:in_egypt/core/services/get_it_Service.dart';
 
 class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({super.key});
+  const HomeViewBody({super.key, required this.onTap});
+  final ValueChanged<int> onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,9 @@ class HomeViewBody extends StatelessWidget {
                 SearchPlacesCubit(placesRepo: getIt<PlacesRepo>())),
       ],
       child: SafeArea(
-        child: HomeViewBodyContent(),
+        child: HomeViewBodyContent(
+          onTap: onTap,
+        ),
       ),
     );
   }

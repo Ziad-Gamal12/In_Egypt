@@ -14,21 +14,30 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int currentIndex = 0;
-  List<Widget> bottomNavViews = [
-    HomeViewBody(),
-    MyTripsView(),
-    WishListView(),
-    ProfileView(),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: CustomBottomnavigationbar(currentIndex: (val) {
+    List<Widget> bottomNavViews = [
+      HomeViewBody(
+        onTap: (val) {
           setState(() {
             currentIndex = val;
           });
-        }),
+        },
+      ),
+      MyTripsView(),
+      WishListView(),
+      ProfileView(),
+    ];
+    return Scaffold(
+        bottomNavigationBar: CustomBottomnavigationbar(
+          currentIndexChanged: (val) {
+            setState(() {
+              currentIndex = val;
+            });
+          },
+          currentIndex: currentIndex,
+        ),
         body: PageView.builder(
           itemCount: bottomNavViews.length,
           physics: const NeverScrollableScrollPhysics(),

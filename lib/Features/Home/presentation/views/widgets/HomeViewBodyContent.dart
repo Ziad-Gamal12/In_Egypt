@@ -13,7 +13,9 @@ import 'package:in_egypt/Features/Home/presentation/views/widgets/PlacesCategori
 class HomeViewBodyContent extends StatefulWidget {
   const HomeViewBodyContent({
     super.key,
+    required this.onTap,
   });
+  final ValueChanged<int> onTap;
 
   @override
   State<HomeViewBodyContent> createState() => _HomeViewBodyContentState();
@@ -41,7 +43,9 @@ class _HomeViewBodyContentState extends State<HomeViewBodyContent> {
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: CustomHomeViewAppBar(),
+            child: CustomHomeViewAppBar(
+              onTap: widget.onTap,
+            ),
           ),
           SliverToBoxAdapter(
             child: SizedBox(

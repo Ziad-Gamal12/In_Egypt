@@ -43,6 +43,6 @@ class Custombottomnavigationbaractiveicon extends StatelessWidget {
           )
         ],
       ),
-    ).animate().moveY(begin: 20, duration: 600.ms).fadeIn(duration: 600.ms);
+    ).animate().moveY(begin: 20, duration: 300.ms).fadeIn(duration: 300.ms);
   }
 }
