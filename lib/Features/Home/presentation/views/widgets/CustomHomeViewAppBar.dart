@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/constant.dart';
 import 'package:in_egypt/core/helpers/getUserData.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
@@ -10,7 +9,6 @@ class CustomHomeViewAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserEntity user = getUserData();
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       children: [
@@ -21,7 +19,8 @@ class CustomHomeViewAppBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               child: Padding(
                 padding: const EdgeInsets.all(4),
-                child: CustomCachedNetworkImage(imageUrl: user.photoUrl),
+                child:
+                    CustomCachedNetworkImage(imageUrl: getUserData().photoUrl),
               )),
         ),
         SizedBox(
@@ -34,7 +33,7 @@ class CustomHomeViewAppBar extends StatelessWidget {
                 AppTextStyles(context).semiBold20.copyWith(color: Colors.grey),
             children: [
               TextSpan(
-                text: user.firstName,
+                text: getUserData().firstName,
                 style:
                     AppTextStyles(context).bold20.copyWith(color: kMainColor),
               ),

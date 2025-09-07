@@ -10,7 +10,22 @@ import 'package:in_egypt/core/utils/BackEndkeys.dart';
 UserEntity getUserData() {
   String userJsonString = shared_preferences_Services.stringGetter(
       key: Backendkeys.storeUserLocaly);
-  Map<String, dynamic> userJson = jsonDecode(userJsonString);
-  UserEntity userEntity = UserModel.fromJson(userJson).toEntity();
-  return userEntity;
+  if (userJsonString == "") {
+    return UserEntity(
+        uid: "",
+        firstName: "",
+        isBlocked: true,
+        isVerified: false,
+        fullName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        photoUrl: "",
+        role: "",
+        createdAt: "");
+  } else {
+    Map<String, dynamic> userJson = jsonDecode(userJsonString);
+    UserEntity userEntity = UserModel.fromJson(userJson).toEntity();
+    return userEntity;
+  }
 }

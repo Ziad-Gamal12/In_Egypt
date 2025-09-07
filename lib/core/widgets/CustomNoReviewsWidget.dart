@@ -10,6 +10,7 @@ class CustomNoReviewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -19,13 +20,16 @@ class CustomNoReviewsWidget extends StatelessWidget {
           height: 150,
           width: 150,
           fit: BoxFit.fill,
+          color: isDark ? Colors.grey.shade300 : Colors.black,
         ),
         Text(
           "لا يوجد تقييمات",
           textAlign: TextAlign.center,
           style: AppTextStyles(
             context,
-          ).semiBold20.copyWith(color: Colors.black),
+          )
+              .semiBold20
+              .copyWith(color: isDark ? Colors.grey.shade300 : Colors.black),
         ),
       ],
     );

@@ -13,6 +13,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class firebaseAuthService {
   FirebaseAuth auth = FirebaseAuth.instance;
+
   Future<User> createUserWithEmailAndPassword(
     String email,
     String password,

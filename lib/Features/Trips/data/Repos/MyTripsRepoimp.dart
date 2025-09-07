@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:in_egypt/Features/Auth/domain/Entities/UserEntity.dart';
 import 'package:in_egypt/Features/Trips/domain/Entities/GetMyTripsResponseEntity.dart';
 import 'package:in_egypt/Features/Trips/domain/Repos/MyTripsRepo.dart';
 import 'package:in_egypt/core/Entities/BookingEntity.dart';
@@ -21,7 +22,7 @@ class MyTripsRepoimp implements MyTripsRepo {
     "filters": [
       {
         "field": "user.uid",
-        "value": getUserData().uid,
+        "value": null,
         "operator": "==",
       }
     ] as List<Map<String, dynamic>>,
@@ -33,6 +34,8 @@ class MyTripsRepoimp implements MyTripsRepo {
   @override
   Future<Either<Failure, GetMyTripsResponseEntity>> getMyTrips(
       {required bool isPaginated}) async {
+    UserEntity user = getUserData();
+    getMyTripsQueery["filters"][0]["value"] = user.uid;
     try {
       if (isPaginated) {
         getMyTripsQueery["startAfter"] = lastDocumentSnapshot;

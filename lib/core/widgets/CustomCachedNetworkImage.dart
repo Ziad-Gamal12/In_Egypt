@@ -26,6 +26,8 @@ class CustomCachedNetworkImage extends StatelessWidget {
           color: Colors.red,
         );
       },
+      memCacheWidth: 600,
+      memCacheHeight: 400,
     );
   }
 }

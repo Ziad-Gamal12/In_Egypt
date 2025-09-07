@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,20 +18,31 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Future.wait([
-    Supabase.initialize(url: supaBaseUrl, anonKey: supaBaseAnonKey),
-    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
-    shared_preferences_Services.init()
-  ]);
 
+  await Future.wait([
+    Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ),
+    shared_preferences_Services.init(),
+  ]);
   setup_Getit();
   Bloc.observer = Custom_Blocobserver();
   runApp(
-    BlocProvider(
-      create: (_) => ThemeCubit()..loadTheme(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()..loadTheme()),
+        BlocProvider(
+            create: (_) => WishListCubit(
+                  wishListRepo: getIt<WishListRepo>(),
+                )),
+      ],
       child: const InEgypt(),
     ),
   );
+  unawaited(Supabase.initialize(
+    url: supaBaseUrl,
+    anonKey: supaBaseAnonKey,
+  ));
 }
 
 class InEgypt extends StatefulWidget {

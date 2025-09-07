@@ -55,10 +55,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         }
       },
       builder: (context, state) {
-        return CustomLoadingWidget(
-          isloading: state is SignUpLoading,
-          child: Provider.value(
-            value: userEntity,
+        return Provider.value(
+          value: userEntity,
+          child: CustomLoadingWidget(
+            isloading: state is SignUpLoading,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: kHorizentalPadding,

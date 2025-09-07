@@ -27,6 +27,6 @@ abstract class shared_preferences_Services {
   }
 
   static String stringGetter({required String key}) {
-    return sharedPreferences.getString(key) ?? " ";
+    return sharedPreferences.getString(key) ?? "";
   }
 }

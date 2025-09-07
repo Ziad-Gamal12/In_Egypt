@@ -55,7 +55,7 @@ class CustomPlaceHorizintalDesignInfo extends StatelessWidget {
             CustomRatingStarsRow(rating: place.rating),
             SizedBox(width: 5),
             Text(
-              place.rating.toString(),
+              place.rating.toStringAsFixed(1),
               style: AppTextStyles(
                 context,
               ).semiBold12.copyWith(

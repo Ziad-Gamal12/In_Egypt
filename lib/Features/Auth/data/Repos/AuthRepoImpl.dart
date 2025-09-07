@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,16 +29,25 @@ class AuthRepoImpl implements AuthRepo {
   }) async {
     try {
       User user = await authService.signInWithEmailAndPassword(email, password);
-      final result = await fetchUserAndStoreLocally(user.uid);
-      if (result.isLeft()) {
-        authService.signout();
-        return result;
+      if (user.emailVerified == false) {
+        await user.sendEmailVerification();
+        await authService.signout();
+        return Left(ServerFailure(
+            message:
+                "📩 بعتنالك رسالة تأكيد على إيميلك، لو مش لاقيها في الـ Inbox بص في الـ Spam."));
       } else {
-        return Right(null);
+        final result = await fetchUserAndStoreLocally(user.uid);
+        if (result.isLeft()) {
+          authService.signout();
+          return result;
+        } else {
+          return Right(null);
+        }
       }
     } on CustomException catch (e) {
+      log(e.message);
       return Left(ServerFailure(message: e.message));
-    } catch (e, s) {
+    } catch (e) {
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }
@@ -56,6 +66,7 @@ class AuthRepoImpl implements AuthRepo {
       );
       userEntity.uid = user.uid;
       final userModel = UserModel.fromEntity(userEntity);
+
       return await storeUserDataInFireStore(
           user: user, userjson: userModel.toJson(), uid: user.uid);
     } on CustomException catch (e) {
@@ -134,6 +145,7 @@ class AuthRepoImpl implements AuthRepo {
         return await fetchUserAndStoreLocally(user.uid);
       } else {
         return await storeUserDataInFireStore(
+          signOut: false,
           user: user,
           userjson: UserModel.fromEntity(
             UserEntity(
@@ -184,6 +196,7 @@ class AuthRepoImpl implements AuthRepo {
         return await fetchUserAndStoreLocally(user.uid);
       } else {
         return await storeUserDataInFireStore(
+          signOut: false,
           user: user,
           userjson: UserModel.fromEntity(
             UserEntity(
@@ -234,10 +247,10 @@ class AuthRepoImpl implements AuthRepo {
         ),
         data: userjson,
       );
-      if (checkVerified) {
+      if (checkVerified == true) {
         await user.sendEmailVerification();
       }
-      if (signOut) {
+      if (signOut == true) {
         await authService.signout();
       }
       return Right(null);
@@ -293,6 +306,18 @@ class AuthRepoImpl implements AuthRepo {
       return Left(ServerFailure(message: e.message));
     } catch (e) {
       ("$e");
+      return Left(ServerFailure(message: "حدث خطأ ما"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> resetPassword({required String email}) async {
+    try {
+      await authService.resetPassword(email: email);
+      return Right(null);
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
       return Left(ServerFailure(message: "حدث خطأ ما"));
     }
   }

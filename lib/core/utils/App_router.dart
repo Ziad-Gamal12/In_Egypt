@@ -1,8 +1,10 @@
 // ignore_for_file: file_names, camel_case_types
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_egypt/Features/Auth/presentation/Views/CustomResetPasswordView.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignInView.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/SignUpView.dart';
+import 'package:in_egypt/Features/Auth/presentation/Views/TermsAndConditionsView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/BookView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/BookedSuccessView.dart';
 import 'package:in_egypt/Features/Book/presentation/views/widgets/CustomWebView.dart';
@@ -129,6 +131,12 @@ class App_router {
       GoRoute(
           path: AboutUsView.routeName,
           builder: (context, state) => AboutUsView()),
+      GoRoute(
+          path: TermsAndConditionsView.routeName,
+          builder: (context, state) => TermsAndConditionsView()),
+      GoRoute(
+          path: CustomResetPasswordView.routeName,
+          builder: (context, state) => CustomResetPasswordView()),
     ],
   );
 }
