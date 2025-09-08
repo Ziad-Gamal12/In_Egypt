@@ -32,6 +32,7 @@ class _AddReviewTextFieldState extends State<AddReviewTextField> {
           widget.controller.clear();
           placeReviewEntity.rating = 0;
           placeReviewEntity.review = '';
+
           setState(() {});
 
           showSuccessSnackBar(

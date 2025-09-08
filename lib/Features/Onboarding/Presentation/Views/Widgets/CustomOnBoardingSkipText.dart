@@ -31,7 +31,13 @@ class _CustomOnBoardingSkipTextState extends State<CustomOnBoardingSkipText> {
           }
         },
         child: Container(
-          color: Colors.transparent.withOpacity(.1),
+          decoration: BoxDecoration(
+            color: Colors.transparent.withOpacity(.1),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+            ),
+          ),
           child: Padding(
             padding: EdgeInsets.only(
               left: 30,

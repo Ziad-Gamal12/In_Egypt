@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CustomRemmberMeWidget.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CustomSeperatedWidget.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CustomSignInActionButton.dart';
 import 'package:in_egypt/Features/Auth/presentation/Views/Widgets/SignInViewWidgets/CutomSignUpNavigationButton.dart';
@@ -64,8 +63,8 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     ),
                     SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [CustomRemmberMeWidget(), ForgetPasswordText()],
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [ForgetPasswordText()],
                     ),
                     SizedBox(height: 40),
                     CutomSignUpNavigationButton(),

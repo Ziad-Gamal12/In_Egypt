@@ -21,7 +21,7 @@ class OnBoardingPageViewItemEntity {
       OnBoardingPageViewItemEntity(
           imagePath: Assets.assetsImagesArtboard2,
           title: "شواطئ",
-          title2: "مصـــــر"),
+          title2: "مصــــــر"),
       OnBoardingPageViewItemEntity(
           imagePath: Assets.assetsImagesArtboard1,
           title2: "مصــــر",

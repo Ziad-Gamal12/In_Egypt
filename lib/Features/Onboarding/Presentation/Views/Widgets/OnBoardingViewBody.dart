@@ -41,7 +41,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
           ),
         ),
         Positioned(
-          bottom: 20,
+          bottom: 40,
           right: 16,
           left: 16,
           child: CustomOnboardingButton(

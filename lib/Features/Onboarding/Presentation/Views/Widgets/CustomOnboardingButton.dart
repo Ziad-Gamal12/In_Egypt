@@ -32,7 +32,7 @@ class _CustomOnboardingButtonState extends State<CustomOnboardingButton> {
   @override
   Widget build(BuildContext context) {
     return Custombutton(
-      text: currentPage != 2 ? "التالي" : "بدأ المغامرة",
+      text: currentPage != 2 ? "التالي" : "أبــــدء",
       color: kMainColor,
       textColor: Colors.black,
       onPressed: () async {
