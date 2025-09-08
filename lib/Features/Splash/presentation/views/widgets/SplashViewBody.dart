@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_egypt/Features/Auth/presentation/Views/SignInView.dart';
-import 'package:in_egypt/Features/Home/presentation/views/HomeView.dart';
 import 'package:in_egypt/Features/Onboarding/Presentation/Views/OnBoardingView.dart';
 import 'package:in_egypt/core/services/FirebaseAuth_Service.dart';
 import 'package:in_egypt/core/services/Shared_preferences.dart';
@@ -45,15 +43,17 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       if (!mounted) {
         return;
       } else {
-        if (isOnboardingSeen) {
-          if (isSignedIn) {
-            GoRouter.of(context).go(HomeView.routeName);
-          } else {
-            GoRouter.of(context).go(SignInView.routeName);
-          }
-        } else {
-          GoRouter.of(context).go(OnBoardingView.routeName);
-        }
+        GoRouter.of(context).go(OnBoardingView.routeName);
+
+        // if (isOnboardingSeen) {
+        //   if (isSignedIn) {
+        //     GoRouter.of(context).go(HomeView.routeName);
+        //   } else {
+        //     GoRouter.of(context).go(SignInView.routeName);
+        //   }
+        // } else {
+        //   GoRouter.of(context).go(OnBoardingView.routeName);
+        // }
       }
     });
   }

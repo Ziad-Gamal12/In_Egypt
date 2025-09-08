@@ -142,29 +142,25 @@ class Assets {
   /// assets/images/AppLogo.svg
   static const String assetsImagesAppLogo = "assets/images/AppLogo.svg";
 
+  /// Assets for assetsImagesArtboard1
+  /// assets/images/Artboard1.png
+  static const String assetsImagesArtboard1 = "assets/images/Artboard1.png";
+
+  /// Assets for assetsImagesArtboard2
+  /// assets/images/Artboard2.png
+  static const String assetsImagesArtboard2 = "assets/images/Artboard2.png";
+
+  /// Assets for assetsImagesArtboard3
+  /// assets/images/Artboard3.png
+  static const String assetsImagesArtboard3 = "assets/images/Artboard3.png";
+
   /// Assets for assetsImagesMyTripBackGround
   /// assets/images/MyTripBackGround.svg
   static const String assetsImagesMyTripBackGround = "assets/images/MyTripBackGround.svg";
 
-  /// Assets for assetsImagesOnboardingBeach
-  /// assets/images/onboardingBeach.jpg
-  static const String assetsImagesOnboardingBeach = "assets/images/onboardingBeach.jpg";
-
-  /// Assets for assetsImagesOnboardingDessert
-  /// assets/images/onboardingDessert.jpg
-  static const String assetsImagesOnboardingDessert = "assets/images/onboardingDessert.jpg";
-
-  /// Assets for assetsImagesOnboardingHistoric
-  /// assets/images/onboardingHistoric.jpg
-  static const String assetsImagesOnboardingHistoric = "assets/images/onboardingHistoric.jpg";
-
   /// Assets for assetsImagesProfileBackGroudImage
   /// assets/images/ProfileBackGroudImage.jpg
   static const String assetsImagesProfileBackGroudImage = "assets/images/ProfileBackGroudImage.jpg";
-
-  /// Assets for assetsImagesTestFavouritePlaceItemBackGround
-  /// assets/images/Test_FavouritePlaceItemBackGround.png
-  static const String assetsImagesTestFavouritePlaceItemBackGround = "assets/images/Test_FavouritePlaceItemBackGround.png";
 
   /// Assets for assetsLottieCamelWalk
   /// assets/lottie/camelWalk.json

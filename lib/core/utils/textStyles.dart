@@ -155,4 +155,12 @@ class AppTextStyles {
         fontWeight: FontWeight.w300,
         fontSize: getresposiveTet(context: context, basesize: 14),
       );
+  TextStyle get regular30 => TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: getresposiveTet(context: context, basesize: 30),
+      );
+  TextStyle get extrabold70 => TextStyle(
+        fontWeight: FontWeight.w900,
+        fontSize: getresposiveTet(context: context, basesize: 70),
+      );
 }

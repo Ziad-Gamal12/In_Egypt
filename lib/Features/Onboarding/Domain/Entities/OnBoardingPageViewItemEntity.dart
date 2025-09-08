@@ -3,34 +3,29 @@ import 'package:in_egypt/core/utils/images.dart';
 class OnBoardingPageViewItemEntity {
   final String imagePath;
   final String title;
-  final String description;
+  final String title2;
 
   OnBoardingPageViewItemEntity({
     required this.imagePath,
     required this.title,
-    required this.description,
+    required this.title2,
   });
 
   static List<OnBoardingPageViewItemEntity> toList() {
     return [
       OnBoardingPageViewItemEntity(
-        imagePath: Assets.assetsImagesOnboardingHistoric,
-        title: "اكتشف تاريخ مصر العريق",
-        description:
-            "استكشف الحضارات القديمة والمعالم الأثرية التي صنعت مجد التاريخ.",
+        imagePath: Assets.assetsImagesArtboard3,
+        title: "معالم",
+        title2: "مصـــر",
       ),
       OnBoardingPageViewItemEntity(
-        imagePath: Assets.assetsImagesOnboardingBeach,
-        title: "استمتع بأجمل شواطئ مصر	",
-        description:
-            "استرخي على الرمال الذهبية والمياه الصافية في أجمل سواحل مصر الخلابة.",
-      ),
+          imagePath: Assets.assetsImagesArtboard2,
+          title: "شواطئ",
+          title2: "مصـــــر"),
       OnBoardingPageViewItemEntity(
-        imagePath: Assets.assetsImagesOnboardingDessert,
-        title: "مغامرة وسط الصحراء",
-        description:
-            "عِش تجربة لا تُنسى وسط الرمال والصخور وجمال الليالي المليئة بالنجوم.",
-      ),
+          imagePath: Assets.assetsImagesArtboard1,
+          title2: "مصــــر",
+          title: "صحاري"),
     ];
   }
 }

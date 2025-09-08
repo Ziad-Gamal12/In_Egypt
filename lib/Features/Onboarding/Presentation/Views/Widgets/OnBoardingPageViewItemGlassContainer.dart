@@ -1,40 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:in_egypt/Features/Onboarding/Domain/Entities/OnBoardingPageViewItemEntity.dart';
 import 'package:in_egypt/core/utils/textStyles.dart';
-import 'package:liquid_glass/liquid_glass.dart';
 
 class OnBoardingGlassContainer extends StatelessWidget {
-  const OnBoardingGlassContainer({super.key, required this.entity});
+  const OnBoardingGlassContainer(
+      {super.key, required this.entity, required this.index});
 
   final OnBoardingPageViewItemEntity entity;
-
+  final int index;
   @override
   Widget build(BuildContext context) {
     AppTextStyles textStyles = AppTextStyles(context);
-    return LiquidGlass(
-      borderRadius: BorderRadius.circular(8),
-      blur: 15,
-      opacity: 0.1,
-      tint: Colors.transparent,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              entity.title,
-              style: textStyles.bold48.copyWith(color: Colors.white),
-            ).animate(delay: 500.ms).moveX(duration: 500.ms, begin: 100),
-            const SizedBox(height: 10),
-            Text(
-              entity.description,
-              textAlign: TextAlign.justify,
-              style: textStyles.regular14.copyWith(color: Colors.white),
-            ).animate(delay: 1000.ms).moveX(duration: 500.ms, begin: 100),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 100),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "أكتشــــف",
+            style: textStyles.regular30
+                .copyWith(color: index == 2 ? Colors.black : Colors.amber),
+          ),
+          const SizedBox(height: 2),
+          Stack(
+            alignment: AlignmentDirectional.topCenter,
+            children: [
+              Text(
+                entity.title,
+                textAlign: TextAlign.justify,
+                style: textStyles.extrabold70.copyWith(
+                    color: index == 2 ? Color(0xffB3826C) : Colors.white),
+              ),
+              Column(
+                children: [
+                  Text("",
+                      textAlign: TextAlign.justify, style: textStyles.bold63),
+                  Text(
+                    entity.title2,
+                    textAlign: TextAlign.justify,
+                    style: textStyles.extrabold70.copyWith(
+                        color: index == 2 ? Color(0xffB3826C) : Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

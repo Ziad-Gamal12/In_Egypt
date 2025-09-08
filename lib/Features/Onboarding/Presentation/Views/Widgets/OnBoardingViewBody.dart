@@ -35,6 +35,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             controller: onboardingPageController,
             itemCount: OnBoardingPageViewItemEntity.toList().length,
             itemBuilder: (context, index) => OnBoardingPageViewItem(
+              index: index,
               entity: OnBoardingPageViewItemEntity.toList()[index],
             ),
           ),
