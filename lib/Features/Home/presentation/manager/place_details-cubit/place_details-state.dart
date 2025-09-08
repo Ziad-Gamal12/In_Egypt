@@ -35,3 +35,9 @@ final class PlacesGetPlaceReviewsFailure extends PlaceDetailsState {
   final String errMessage;
   PlacesGetPlaceReviewsFailure({required this.errMessage});
 }
+
+final class PlaceDetailsToggleMapSize extends PlaceDetailsState {
+  final bool isExpanded;
+
+  PlaceDetailsToggleMapSize({required this.isExpanded});
+}

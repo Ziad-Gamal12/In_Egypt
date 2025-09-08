@@ -35,4 +35,8 @@ class PlaceDetailsCubit extends Cubit<PlaceDetailsState> {
             emit(PlacesGetPlaceReviewsFailure(errMessage: failure.message)),
         (resonse) => emit(PlacesGetPlaceReviewsSuccess(response: resonse)));
   }
+
+  void toggleMapSize({required bool isExpand}) {
+    emit(PlaceDetailsToggleMapSize(isExpanded: isExpand));
+  }
 }
