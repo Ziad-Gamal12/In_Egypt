@@ -1,22 +1,37 @@
 <div align="center">
-<img src="assets/icons/AppIcon.png" alt="In Egypt icon" width="70" />
-<br/>
+  <img src="assets/icons/AppIcon.png" alt="In Egypt icon" width="70" />
+  <br/>
   <img src="assets/images/AppLogo.svg" alt="In Egypt" width="150" />
 
-# In Egypt — Smart Tourism & Landmark Booking App
+  <h1>In Egypt — Smart Tourism & Landmark Booking App</h1>
 
-**A cross-platform Flutter tourism application for discovering Egypt's historical landmarks, resorts, and hidden gems—featuring interactive maps, multi-step trip booking, Fawaterak & BNPL payments (Valu / Souhoola), and QR digital tickets.**
+  <p>
+    <strong>
+      A cross-platform Flutter tourism application for discovering Egypt's historical landmarks, resorts, and hidden gems—featuring interactive maps, multi-step trip booking, Fawaterak & BNPL payments (Valu / Souhoola), and QR digital tickets.
+    </strong>
+  </p>
 
-[https://img.shields.io/badge/Flutter-Cross--Platform-02569B?logo=flutter&logoColor=white]
-[https://img.shields.io/badge/Dart-3.4%2B-0175C2?logo=dart&logoColor=white]
-[https://img.shields.io/badge/State-BLoC%20%2F%20Cubit-FFD22E?logoColor=black]
-[https://img.shields.io/badge/Architecture-Clean%20Architecture-2E7D32]
-[https://img.shields.io/badge/Firebase-Auth%20%7C%20Firestore%20%7C%20Storage-FFCA28?logo=firebase&logoColor=black]
-[https://img.shields.io/badge/Supabase-Edge%20Functions-3ECF8E?logo=supabase&logoColor=white]
-[https://img.shields.io/badge/Payments-Fawaterak%20%7C%20Valu%20%7C%20Souhoola-00A8E8]
+  <p>
+    <img src="https://img.shields.io/badge/Flutter-Cross--Platform-02569B?logo=flutter&logoColor=white" alt="Flutter" />
+    <img src="https://img.shields.io/badge/Dart-3.4%2B-0175C2?logo=dart&logoColor=white" alt="Dart" />
+    <img src="https://img.shields.io/badge/State-BLoC%20%2F%20Cubit-FFD22E?logoColor=black" alt="BLoC / Cubit" />
+    <img src="https://img.shields.io/badge/Architecture-Clean%20Architecture-2E7D32" alt="Clean Architecture" />
+    <br/>
+    <img src="https://img.shields.io/badge/Firebase-Auth%20%7C%20Firestore%20%7C%20Storage-FFCA28?logo=firebase&logoColor=black" alt="Firebase" />
+    <img src="https://img.shields.io/badge/Supabase-Edge%20Functions-3ECF8E?logo=supabase&logoColor=white" alt="Supabase" />
+    <br/>
+    <img src="https://img.shields.io/badge/Payments-Fawaterak%20%7C%20Valu%20%7C%20Souhoola-00A8E8" alt="Payments" />
+  </p>
 
-[**Companion Admin Panel Repo**](https://github.com/Ziad-Gamal12/In-Egypt-Admin-Panel) · [**Live Admin Dashboard**](https://inegyptadminpanel.vercel.app/)
-
+  <p>
+    <a href="https://github.com/Ziad-Gamal12/In-Egypt-Admin-Panel">
+      <strong>Companion Admin Panel Repo</strong>
+    </a>
+    ·
+    <a href="https://inegyptadminpanel.vercel.app/">
+      <strong>Live Admin Dashboard</strong>
+    </a>
+  </p>
 </div>
 
 ## 📖 Overview
