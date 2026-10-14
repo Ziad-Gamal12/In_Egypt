@@ -1,10 +1,7 @@
 <div align="center">
-<img src="assets/icons/AppIcon.png" alt="In Egypt icon" width="96" />
+<img src="assets/icons/AppIcon.png" alt="In Egypt icon" width="70" />
 <br/>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/images/AppLogo-light.svg">
-  <img src="assets/images/AppLogo.svg" alt="In Egypt" width="170" />
-</picture>>
+  <img src="assets/images/AppLogo.svg" alt="In Egypt" width="150" />
 
 # In Egypt — Smart Tourism & Landmark Booking App
 
